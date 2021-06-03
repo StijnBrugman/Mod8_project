@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="080cef48-0aa3-41e8-8c3c-a12305bd110f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/Mod8_project.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/dataTransfer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/dataTransfer.py" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="1tIXEArRLuek3Ikxk2FVNf14Whr" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+  </component>
+  <component name="RunManager">
+    <configuration name="dataTransfer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="Mod8_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/Datastorage" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Datastorage/dataTransfer.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="Python.dataTransfer" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="080cef48-0aa3-41e8-8c3c-a12305bd110f" name="Default Changelist" comment="" />
+      <created>1622457463392</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1622457463392</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="187" y="93" width="1256" height="678" key="DiffContextDialog" timestamp="1622458992085">
+      <screen x="94" y="0" width="1442" height="864" />
+    </state>
+    <state x="187" y="93" width="1256" height="678" key="DiffContextDialog/94.0.1442.864@94.0.1442.864" timestamp="1622458992085" />
+    <state width="1421" height="277" key="GridCell.Tab.0.bottom" timestamp="1622459259143">
+      <screen x="94" y="0" width="1442" height="864" />
+    </state>
+    <state width="1421" height="277" key="GridCell.Tab.0.bottom/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
+    <state width="1421" height="277" key="GridCell.Tab.0.center" timestamp="1622459259143">
+      <screen x="94" y="0" width="1442" height="864" />
+    </state>
+    <state width="1421" height="277" key="GridCell.Tab.0.center/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
+    <state width="1421" height="277" key="GridCell.Tab.0.left" timestamp="1622459259143">
+      <screen x="94" y="0" width="1442" height="864" />
+    </state>
+    <state width="1421" height="277" key="GridCell.Tab.0.left/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
+    <state width="1421" height="277" key="GridCell.Tab.0.right" timestamp="1622459259143">
+      <screen x="94" y="0" width="1442" height="864" />
+    </state>
+    <state width="1421" height="277" key="GridCell.Tab.0.right/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
+    <state width="1421" height="277" key="GridCell.Tab.1.bottom" timestamp="1622459259143">
+      <screen x="94" y="0" width="1442" height="864" />
+    </state>
+    <state width="1421" height="277" key="GridCell.Tab.1.bottom/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
+    <state width="1421" height="277" key="GridCell.Tab.1.center" timestamp="1622459259143">
+      <screen x="94" y="0" width="1442" height="864" />
+    </state>
+    <state width="1421" height="277" key="GridCell.Tab.1.center/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
+    <state width="1421" height="277" key="GridCell.Tab.1.left" timestamp="1622459259143">
+      <screen x="94" y="0" width="1442" height="864" />
+    </state>
+    <state width="1421" height="277" key="GridCell.Tab.1.left/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
+    <state width="1421" height="277" key="GridCell.Tab.1.right" timestamp="1622459259143">
+      <screen x="94" y="0" width="1442" height="864" />
+    </state>
+    <state width="1421" height="277" key="GridCell.Tab.1.right/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
+    <state x="633" y="346" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1622458915297">
+      <screen x="94" y="0" width="1442" height="864" />
+    </state>
+    <state x="633" y="346" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/94.0.1442.864@94.0.1442.864" timestamp="1622458915297" />
+  </component>
+</project>
