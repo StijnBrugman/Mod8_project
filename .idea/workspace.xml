@@ -20,14 +20,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="080cef48-0aa3-41e8-8c3c-a12305bd110f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/.gitignore" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/Mod8_project.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/profiles_settings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datastorage/dataTransfer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/dataTransfer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/CHECKLIST.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Arnhem/Temperature/t1920.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Arnhem/WaterHeight/w1012.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Arnhem/WaterHeight/w1315.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Arnhem/WaterHeight/w1618.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Arnhem/WaterHeight/w1920.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Maastricht/Temperature/t1920.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Maastricht/WaterHeight/w1920.csv" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -46,6 +51,18 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager">
     <configuration name="dataTransfer" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
@@ -75,7 +92,10 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="080cef48-0aa3-41e8-8c3c-a12305bd110f" name="Default Changelist" comment="" />
@@ -91,12 +111,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="WindowStateProjectService">
     <state x="187" y="93" width="1256" height="678" key="DiffContextDialog" timestamp="1622458992085">
