@@ -33,12 +33,12 @@ Receiving and sending data of the current water state, and the required water st
 - [ ] Input Flow Sensors
 - [ ] Data collection
 - [ ] processing
-- [ ] [Output Pumps]
-- [ ] [Output LED data]
+- [ ] Output Pumps
+- [ ] Output LED data]
 
 # Arduino | rotary encoder
 User input for data selection
-- [ ] [Input Rotary Encoder]
-- [ ] [Data collection]
-- [ ] [Connection water buffer]
-- [ ] [Export rotary encoder to Pi]
+- [ ] Input Rotary Encoder
+- [ ] Data collection
+- [ ] Connection water buffer
+- [ ] Export rotary encoder to Pi
