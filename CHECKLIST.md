@@ -29,7 +29,7 @@ Code that runs on the rasberry_pi
 
 # Arduino | Water Buffer
 Receiving and sending data of the current water state, and the required water state
-- [ ] [Input]
+- [ ] [Input (water cups)]
 - [ ] [Data collection]
 - [ ] [processing]
 - [ ] [Output]
