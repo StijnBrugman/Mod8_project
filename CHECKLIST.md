@@ -29,13 +29,16 @@ Code that runs on the rasberry_pi
 
 # Arduino | Water Buffer
 Receiving and sending data of the current water state, and the required water state
-- [ ] [Input (water cups)]
+- [ ] [Input Water Sensors]
+- [ ] [Input Flow Sensors]
 - [ ] [Data collection]
 - [ ] [processing]
-- [ ] [Output]
+- [ ] [Output Pumps]
+- [ ] [Output LED data]
 
 # Arduino | rotary encoder
 User input for data selection
-- [ ] [Input]
+- [ ] [Input Rotary Encoder]
 - [ ] [Data collection]
 - [ ] [Connection water buffer]
+- [ ] [Export rotary encoder to Pi]
