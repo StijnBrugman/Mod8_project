@@ -20,10 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="080cef48-0aa3-41e8-8c3c-a12305bd110f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Datastorage/storage.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bugs.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/dataTransfer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/dataTransfer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/storage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bugs.md" beforeDir="false" afterPath="$PROJECT_DIR$/bugs.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -131,6 +132,14 @@
       <option name="presentableId" value="Default" />
       <updated>1622457463392</updated>
     </task>
+    <task id="LOCAL-00001" summary="Storage strucutre &amp; bugs read file">
+      <created>1622933929691</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1622933929691</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -145,6 +154,10 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Storage strucutre &amp; bugs read file" />
+    <option name="LAST_COMMIT_MESSAGE" value="Storage strucutre &amp; bugs read file" />
   </component>
   <component name="WindowStateProjectService">
     <state x="187" y="93" width="1256" height="678" key="DiffContextDialog" timestamp="1622458992085">

@@ -101,10 +101,10 @@ for dict1 in os.listdir(base_path):
             data_frame = csv_to_dataframe(file_path)
 
             # Calc average
-            df = calc_average(data_frame)
+            data_frame = calc_average(data_frame)
 
             # Adding total-list
-            add_to_total_data_Frame(df)
+            add_to_total_data_Frame(data_frame)
 
             print('------------- File Completed ------------- \n')
 

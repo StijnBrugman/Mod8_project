@@ -6,5 +6,5 @@ if __name__ == '__main__':
     '''
 
     stg = Storage()
-    print(stg.get_temp("Borgharen dorp","01/01/2019"))
+    print(stg.get_temp("Borgharen dorp", "01/01/2019"))
     print(stg.get_water("Borgharen dorp", "01/01/2019"))
