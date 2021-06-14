@@ -6,7 +6,6 @@ class Storage:
 
     def __init__(self):
         self.data_frame = self.init_data_frame()
-        print(self.data_frame)
 
     def init_data_frame(self):
         '''

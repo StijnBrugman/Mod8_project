@@ -20,11 +20,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="080cef48-0aa3-41e8-8c3c-a12305bd110f" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/csv-plugin.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Datastorage/Processing.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Rasberry_Pi/Connect.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Rasberry_Pi/__intit__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/Mod8_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Mod8_project.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31_05_2021_12_44_[Default_Changelist]/shelved.patch" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31_05_2021_12_44__Default_Changelist_.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datastorage/dataTransfer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/dataTransfer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHECKLIST.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHECKLIST.md" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Datastorage/storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/storage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bugs.md" beforeDir="false" afterPath="$PROJECT_DIR$/bugs.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Rasberry Pi/__intit__.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -42,6 +51,16 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Main.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.gitignore" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Datastorage/dataTransfer.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Datastorage/storage.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/bugs.md" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Datastorage/__intit__.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/CHECKLIST.md" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Datastorage/Output/temp.csv" root0="FORCE_HIGHLIGHTING" />
+  </component>
   <component name="ProjectId" id="1tIXEArRLuek3Ikxk2FVNf14Whr" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -52,10 +71,17 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/Datastorage" />
+      <recent name="$PROJECT_DIR$" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -83,9 +109,32 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Main.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="PythonConfigurationType" factoryName="Python">
+      <module name="Mod8_project" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
       <option name="REDIRECT_INPUT" value="false" />
@@ -104,6 +153,7 @@
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/Datastorage/dataTransfer.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
@@ -120,7 +170,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" BundledDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -131,6 +181,8 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1622457463392</updated>
+      <workItem from="1623614807804" duration="1033000" />
+      <workItem from="1623618413592" duration="72000" />
     </task>
     <task id="LOCAL-00001" summary="Storage strucutre &amp; bugs read file">
       <created>1622933929691</created>
@@ -139,8 +191,18 @@
       <option name="project" value="LOCAL" />
       <updated>1622933929691</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Storage strucutre &amp; bugs read file V1.1 (update)">
+      <created>1622972127859</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1622972127859</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
     <option name="TAB_STATES">
@@ -157,48 +219,10 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Storage strucutre &amp; bugs read file" />
-    <option name="LAST_COMMIT_MESSAGE" value="Storage strucutre &amp; bugs read file" />
+    <MESSAGE value="Storage strucutre &amp; bugs read file V1.1 (update)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Storage strucutre &amp; bugs read file V1.1 (update)" />
   </component>
-  <component name="WindowStateProjectService">
-    <state x="187" y="93" width="1256" height="678" key="DiffContextDialog" timestamp="1622458992085">
-      <screen x="94" y="0" width="1442" height="864" />
-    </state>
-    <state x="187" y="93" width="1256" height="678" key="DiffContextDialog/94.0.1442.864@94.0.1442.864" timestamp="1622458992085" />
-    <state width="1421" height="277" key="GridCell.Tab.0.bottom" timestamp="1622459259143">
-      <screen x="94" y="0" width="1442" height="864" />
-    </state>
-    <state width="1421" height="277" key="GridCell.Tab.0.bottom/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
-    <state width="1421" height="277" key="GridCell.Tab.0.center" timestamp="1622459259143">
-      <screen x="94" y="0" width="1442" height="864" />
-    </state>
-    <state width="1421" height="277" key="GridCell.Tab.0.center/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
-    <state width="1421" height="277" key="GridCell.Tab.0.left" timestamp="1622459259143">
-      <screen x="94" y="0" width="1442" height="864" />
-    </state>
-    <state width="1421" height="277" key="GridCell.Tab.0.left/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
-    <state width="1421" height="277" key="GridCell.Tab.0.right" timestamp="1622459259143">
-      <screen x="94" y="0" width="1442" height="864" />
-    </state>
-    <state width="1421" height="277" key="GridCell.Tab.0.right/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
-    <state width="1421" height="277" key="GridCell.Tab.1.bottom" timestamp="1622459259143">
-      <screen x="94" y="0" width="1442" height="864" />
-    </state>
-    <state width="1421" height="277" key="GridCell.Tab.1.bottom/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
-    <state width="1421" height="277" key="GridCell.Tab.1.center" timestamp="1622459259143">
-      <screen x="94" y="0" width="1442" height="864" />
-    </state>
-    <state width="1421" height="277" key="GridCell.Tab.1.center/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
-    <state width="1421" height="277" key="GridCell.Tab.1.left" timestamp="1622459259143">
-      <screen x="94" y="0" width="1442" height="864" />
-    </state>
-    <state width="1421" height="277" key="GridCell.Tab.1.left/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
-    <state width="1421" height="277" key="GridCell.Tab.1.right" timestamp="1622459259143">
-      <screen x="94" y="0" width="1442" height="864" />
-    </state>
-    <state width="1421" height="277" key="GridCell.Tab.1.right/94.0.1442.864@94.0.1442.864" timestamp="1622459259143" />
-    <state x="633" y="346" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1622458915297">
-      <screen x="94" y="0" width="1442" height="864" />
-    </state>
-    <state x="633" y="346" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/94.0.1442.864@94.0.1442.864" timestamp="1622458915297" />
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/Mod8_project$Main.coverage" NAME="Main Coverage Results" MODIFIED="1623618349583" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

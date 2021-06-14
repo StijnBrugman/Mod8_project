@@ -1,10 +1,14 @@
-from Datastorage.storage import Storage
+
+from Rasberry_Pi.Connect import Connect
+from Settings import BT_PORT_NAME
+from Datastorage.Processing import Processing
 
 if __name__ == '__main__':
     '''
     Setup
     '''
+    prs = Processing()
+    prs.start()
 
-    stg = Storage()
-    print(stg.get_temp("Borgharen dorp", "01/01/2019"))
-    print(stg.get_water("Borgharen dorp", "01/01/2019"))
+    cnt = Connect(BT_PORT_NAME)
+    cnt.start()
