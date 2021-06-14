@@ -1,11 +1,16 @@
 import pandas as pd
 import numpy as np
+from Settings import ENCODER_DC
 
 
 class Storage:
 
     def __init__(self):
         self.data_frame = self.init_data_frame()
+        self.encoder_dc = ENCODER_DC
+        self.data_dc = {}
+
+
 
     def init_data_frame(self):
         '''
@@ -43,3 +48,12 @@ class Storage:
                 (self.data_frame['WAARNEMINGDATUM'] == date)
         )
         return conditions
+
+    def store_data(self, raw_data):
+        code, data = self.convert_raw_data(raw_data)
+        code_equivalent = self.encoder_dc[code]
+        self.data_dc[code_equivalent] = data
+        print(self.data_dc)
+
+    def convert_raw_data(self, raw_data):
+        return raw_data[0], raw_data[1:]
