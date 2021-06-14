@@ -1,2 +1,2 @@
 # Bluetooth Settings
-BT_PORT_NAME = '/dev/cu.usbmodem142401'
+BT_PORT_NAME = '/dev/ttyACM0'

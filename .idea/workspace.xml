@@ -19,13 +19,12 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="080cef48-0aa3-41e8-8c3c-a12305bd110f" name="Default Changelist" comment="">
+    <list default="true" id="080cef48-0aa3-41e8-8c3c-a12305bd110f" name="Default Changelist" comment="update">
       <change afterPath="$PROJECT_DIR$/.idea/csv-plugin.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Datastorage/Processing.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Rasberry_Pi/Connect.py" afterDir="false" />
       <change afterPath="$PROJECT_DIR$/Rasberry_Pi/__intit__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/Settings.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/Mod8_project.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Mod8_project.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31_05_2021_12_44_[Default_Changelist]/shelved.patch" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/shelf/Uncommitted_changes_before_Update_at_31_05_2021_12_44__Default_Changelist_.xml" beforeDir="false" />
@@ -34,8 +33,8 @@
       <change beforePath="$PROJECT_DIR$/Datastorage/storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/storage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rasberry Pi/__intit__.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Settings.py" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -183,6 +182,7 @@
       <updated>1622457463392</updated>
       <workItem from="1623614807804" duration="1033000" />
       <workItem from="1623618413592" duration="72000" />
+      <workItem from="1623659484920" duration="117000" />
     </task>
     <task id="LOCAL-00001" summary="Storage strucutre &amp; bugs read file">
       <created>1622933929691</created>
