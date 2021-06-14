@@ -8,6 +8,7 @@
 
 
 int pins[] = {A0, A1};
+int lastRead = 0;
 /*
     Pin A0 is the x-coordinate with the header 'X'
     Pin A1 is the y-coordinate with the header 'Y'
@@ -18,14 +19,15 @@ void setup () {
 
   Serial.begin(9600);
 
-  pinMode(pins[2], INPUT);
 }
 
 
 void loop() {
-
   for (int i = 0; i < 1; i++) {
-    Serial.print(headers[i]);
-    Serial.println(analogRead(pins[i]));
-  }
+    if (abs(analogRead(pins[i]) - lastRead) > 50) {
+        Serial.print(headers[i]);
+        Serial.println(analogRead(pins[i]));
+        lastRead = analogRead(pins[i]);
+      }
+    }
 }
