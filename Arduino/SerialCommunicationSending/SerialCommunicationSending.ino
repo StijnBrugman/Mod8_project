@@ -8,6 +8,18 @@
 // Communcation headers
 char header[] = {'A', 'B', 'C', 'D'};
 
+//TEST
+int dataRecieved = 3;
+int dataValues[] = {0, 0, 0};
+int currentValue;
+
+#define yellow_LED_Pin 10
+int yellow_LED = 0;
+#define red_LED_Pin 9
+int red_LED = 0;
+#define green_LED_Pin 8
+int green_LED = 0;
+
 
 //-----------------------------------------------------------------------------//
 
@@ -44,7 +56,49 @@ void setup() {
 void loop() {
   encoderReader();
   buttonDetection();
+
+  ledReadTest();
+
   delay(1);
+}
+
+
+void ledReadTest() {                                              // Read the data
+
+  // Find the original code here:
+  //https://gist.github.com/atduskgreg/1349176
+
+  int incomingValue = Serial.read();                           // Read the incoming data
+
+  dataValues[currentValue] = incomingValue;                    // Assign that spot in the array with the value from the data
+
+  currentValue++;                                              // Add to the current value
+  if (currentValue > dataRecieved - 1) {                       // If the counter is larger than the amount of variables being send
+    currentValue = 0;                                          // Set the counter to 0
+  }
+
+  yellow_LED = dataValues[0];
+  red_LED = dataValues[1];
+  green_LED = dataValues[2];
+
+  if (yellow_LED) {
+    digitalWrite(yellow_LED_Pin, HIGH);
+  } else if (!yellow_LED) {
+    digitalWrite(yellow_LED_Pin, LOW);
+  }
+
+  if (red_LED) {
+    digitalWrite(red_LED_Pin, HIGH);
+  } else if (!red_LED) {
+    digitalWrite(red_LED_Pin, LOW);
+  }
+
+  if (green_LED) {
+    digitalWrite(green_LED_Pin, HIGH);
+  } else if (!green_LED) {
+    digitalWrite(green_LED_Pin, LOW);
+  }
+
 }
 
 
@@ -64,7 +118,7 @@ void buttonDetection() {
     }
     // Remember last button press event
     lastButtonPress = millis();
-  } else{
+  } else {
     pressed = false;
   }
 }
