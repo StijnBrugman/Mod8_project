@@ -1,4 +1,18 @@
-//--------------------------------Rotary Encoder-------------------------------//
+/*
+  Communication for M8 Project
+
+  Bas van der Steenhoven
+  Stijn Brugman
+*/
+//----------------------------General_Communication----------------------------//
+// Communcation headers
+char header[] = {'A', 'B', 'C', 'D'};
+
+
+//-----------------------------------------------------------------------------//
+
+
+//--------------------------------Rotary_Encoder-------------------------------//
 // Rotary Encoder Inputs
 #define ROT_ENC_CLK 2
 #define ROT_ENC_DT 3
@@ -44,7 +58,7 @@ void buttonDetection() {
     //button has been pressed, released and pressed again
     if (millis() - lastButtonPress > 50 && !pressed) {
       buttonState++;
-      Serial.print("D");
+      Serial.print(header[3]);
       Serial.println(buttonState);
       pressed = true;
     }
@@ -70,11 +84,9 @@ void encoderReader() {
     } else { // Encoder is rotating CW so increment
       counter --;
     }
-    Serial.print("A");
+    Serial.print(header[0]);
     Serial.println(counter);
   }
   // Remember last CLK state
   lastStateCLK = currentStateCLK;
 }
-
-

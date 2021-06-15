@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from Settings import ENCODER_DC
+from Settings import ENCODER_DC, DATA_DC
 
 
 class Storage:
@@ -8,9 +8,10 @@ class Storage:
     def __init__(self):
         self.data_frame = self.init_data_frame()
         self.encoder_dc = ENCODER_DC
-        self.data_dc = {}
+        self.data_dc = DATA_DC
+        self.date_check = False
 
-
+        self.select_button = False
 
     def init_data_frame(self):
         '''
@@ -35,12 +36,20 @@ class Storage:
     def get_water(self, place, date):
         conditions = self.get_conditions(place, date)
         water_level = self.data_frame[conditions]['Average Waterhoogte'].iloc[0]
-        return water_level
+
+        if water_level.empty:
+            return None
+
+        return water_level.iloc[0]
 
     def get_temp(self, place, date):
         conditions = self.get_conditions(place, date)
-        temp_level = self.data_frame[conditions]['Average Temperatuur'].iloc[0]
-        return temp_level
+        temp_level = self.data_frame[conditions]['Average Temperatuur']
+
+        if temp_level.empty:
+            return None
+
+        return temp_level.iloc[0]
 
     def get_conditions(self, place, date):
         conditions = (
@@ -52,8 +61,32 @@ class Storage:
     def store_data(self, raw_data):
         code, data = self.convert_raw_data(raw_data)
         code_equivalent = self.encoder_dc[code]
-        self.data_dc[code_equivalent] = data
-        print(self.data_dc)
+
+        self.date_check = self.date_checker(code_equivalent)
+        self.select_button = self.button_check(code_equivalent)
+
+        self.data_dc[code_equivalent] = int(data)
+
+    def date_checker(self, code_equivalent):
+        if code_equivalent in ['encoder_year', 'encoder_month', 'encoder_day']:
+            return True
+        return False
+
+    def is_date(self):
+        return self.date_check
 
     def convert_raw_data(self, raw_data):
         return raw_data[0], raw_data[1:]
+
+    def get_raw_date(self):
+        correct_list = {'encoder_year', 'encoder_month', 'encoder_day'}
+        date_dic = {key: val for key, val in self.data_dc.items() if key in correct_list}
+        return date_dic
+
+    def button_check(self, code_equivalent):
+        if code_equivalent in ['encoder_button']:
+            return True
+        return False
+
+    def button_pressed(self):
+        return self.select_button
