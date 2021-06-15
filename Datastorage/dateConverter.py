@@ -7,7 +7,7 @@ class Converter():
     def __init__(self):
         self.old_raw_date = {'encoder_year': 0,'encoder_month': 0,'encoder_day': 0}
         self.date_boundary_ls = [datetime.datetime(1950, 1, 1), datetime.datetime(2020, 12, 31)]
-        self.date = datetime.datetime(1950, 1, 1)
+        self.date = datetime.datetime(2020, 3, 31)
 
     def update_date(self, data_dict):
         if self.old_raw_date == data_dict:
@@ -23,6 +23,7 @@ class Converter():
         if self.date_boundary() != 2:
             self.date = self.date_boundary_ls[self.date_boundary()]
 
+        print(self.date)
         return self.date
 
     def date_boundary(self):

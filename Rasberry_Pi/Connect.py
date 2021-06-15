@@ -27,6 +27,7 @@ class Connect(threading.Thread):
         try:
             self.arduino = serial.Serial(port_name, 9600, timeout=.1)
             print('Serial connection opened.')
+            self.arduino.flushInput()
         except SerialException:
             self.running = False
             print(
@@ -53,7 +54,9 @@ class Connect(threading.Thread):
         return True
 
     def write_data(self, data):
-        self.arduino.flushInput()
+        print(data)
+        self.arduino.write(data)
+
 
     def get_new_data(self):
         # return first value in the queue

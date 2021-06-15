@@ -1,9 +1,9 @@
 import sys
 from Rasberry_Pi.Connect import Connect
 from Settings import BT_PORT_NAME
-from Datastorage.Processing import Processing
 from Datastorage.storage import Storage
 from Datastorage.dateConverter import Converter
+from Rasberry_Pi.Sending import Sending
 
 if __name__ == '__main__':
     '''
@@ -13,6 +13,10 @@ if __name__ == '__main__':
 
     cnt = Connect(BT_PORT_NAME)
     cnt.start()
+
+    snd = Sending(cnt)
+    snd.start()
+
 
     date_cv = Converter()
 
@@ -26,8 +30,8 @@ if __name__ == '__main__':
                 date_cv.update_date(stg.get_raw_date())
 
             if stg.button_pressed():
-                print(stg.get_temp("Driel boven", date_cv.get_date()))
-
+                snd.update_date(date_cv.get_date())
+                print(stg.get_water("Driel boven", date_cv.get_date()))
 
 
     cnt.stop()

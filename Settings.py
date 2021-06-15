@@ -1,12 +1,12 @@
 # Connection_Settings
-BT_PORT_NAME = '/dev/cu.usbmodem1424401'
+BT_PORT_NAME = '/dev/cu.usbmodem1414401'
 # BT_PORT_NAME = '/dev/ttyACM0'
 
 # ENCODING DATA
 ENCODER_DC = {
     'B': 'encoder_year',
-    'C': 'encoder_month',
-    'A': 'encoder_day',
+    'A': 'encoder_month',
+    'C': 'encoder_day',
     'D': 'encoder_button'
 }
 

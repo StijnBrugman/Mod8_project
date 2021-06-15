@@ -35,9 +35,9 @@ class Storage:
 
     def get_water(self, place, date):
         conditions = self.get_conditions(place, date)
-        water_level = self.data_frame[conditions]['Average Waterhoogte'].iloc[0]
+        water_level = self.data_frame[conditions]['Average Waterhoogte']
 
-        if water_level.empty:
+        if water_level.size < 1:
             return None
 
         return water_level.iloc[0]
@@ -46,7 +46,7 @@ class Storage:
         conditions = self.get_conditions(place, date)
         temp_level = self.data_frame[conditions]['Average Temperatuur']
 
-        if temp_level.empty:
+        if temp_level.size < 1:
             return None
 
         return temp_level.iloc[0]
