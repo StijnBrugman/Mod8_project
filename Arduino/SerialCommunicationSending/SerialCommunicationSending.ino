@@ -11,33 +11,38 @@ char header[] = {'A', 'B', 'C', 'D'};
 
 //--------------------------------Water Valves---------------------------------//
 // Water valve Pins
-#define valvePin_1_Out 22
-#define valvePin_1_In 23
-#define valvePin_2_Out 24
-#define valvePin_2_In 25
-#define valvePin_3_Out 26
-#define valvePin_3_In 27
-#define valvePin_4_Out 28
-#define valvePin_4_In 29
-#define valvePin_5_Out 30
-#define valvePin_5_In 31
-#define valvePin_6_Out 32
-#define valvePin_6_In 33
+//#define valvePin_1_Out 22
+//#define valvePin_1_In 23
+//#define valvePin_2_Out 24
+//#define valvePin_2_In 25
+//#define valvePin_3_Out 26
+//#define valvePin_3_In 27
+//#define valvePin_4_Out 28
+//#define valvePin_4_In 29
+//#define valvePin_5_Out 30
+//#define valvePin_5_In 31
+//#define valvePin_6_Out 32
+//#define valvePin_6_In 33
 
 
 
 //--------------------------------Distance Sensor------------------------------//
 // Distance Sensor Pins
-#define trigPinA 44
-#define echoPinA 45
-#define trigPinB 46
-#define echoPinB 47
-#define trigPinC 48
-#define echoPinC 49
-#define trigPinD 50
-#define echoPinD 51
-#define trigPinE 52
-#define echoPinE 53
+//#define trigPinA 44
+//#define echoPinA 45
+//#define trigPinB 46
+//#define echoPinB 47
+//#define trigPinC 48
+//#define echoPinC 49
+//#define trigPinD 50
+//#define echoPinD 51
+//#define trigPinE 52
+//#define echoPinE 53
+
+#define trigPinA 5 // TEMP
+#define echoPinA 6 // TEMP
+#define trigPinB 7 // TEMP
+#define echoPinB 8 // TEMP
 
 int oldDistanceA;
 int oldDistanceB;
@@ -106,84 +111,84 @@ void ledReadTest() {                                              // Read the da
   recievedData.remove(0, 1);
   int data = recievedData.toInt();
 
-  switch (recieveHeader) {
-    case 'A':
-      if (data == 1) {
-        digitalWrite(valvePin_1_Out, HIGH);
-      } else {
-        digitalWrite(valvePin_1_Out, LOW);
-      }
-      break;
-    case 'B':
-      if (data == 1) {
-        digitalWrite(valvePin_1_In, HIGH);
-      } else {
-        digitalWrite(valvePin_1_In, LOW);
-      }      break;
-    case 'C':
-      if (data == 1) {
-        digitalWrite(valvePin_2_Out, HIGH);
-      } else {
-        digitalWrite(valvePin_2_Out, LOW);
-      }      break;
-    case 'D':
-      if (data == 1) {
-        digitalWrite(valvePin_2_In, HIGH);
-      } else {
-        digitalWrite(valvePin_2_In, LOW);
-      }
-      break;
-    case 'E':
-      if (data == 1) {
-        digitalWrite(valvePin_3_Out, HIGH);
-      } else {
-        digitalWrite(valvePin_3_Out, LOW);
-      }      break;
-    case 'F':
-      if (data == 1) {
-        digitalWrite(valvePin_3_In, HIGH);
-      } else {
-        digitalWrite(valvePin_3_In, LOW);
-      }      break;
-    case 'G':
-      if (data == 1) {
-        digitalWrite(valvePin_4_Out, HIGH);
-      } else {
-        digitalWrite(valvePin_4_Out, LOW);
-      }
-      break;
-    case 'H':
-      if (data == 1) {
-        digitalWrite(valvePin_4_In, HIGH);
-      } else {
-        digitalWrite(valvePin_4_In, LOW);
-      }      break;
-    case 'I':
-      if (data == 1) {
-        digitalWrite(valvePin_5_Out, HIGH);
-      } else {
-        digitalWrite(valvePin_5_Out, LOW);
-      }      break;
-    case 'J':
-      if (data == 1) {
-        digitalWrite(valvePin_5_In, HIGH);
-      } else {
-        digitalWrite(valvePin_5_In, LOW);
-      }
-      break;
-    case 'K':
-      if (data == 1) {
-        digitalWrite(valvePin_6_Out, HIGH);
-      } else {
-        digitalWrite(valvePin_6_Out, LOW);
-      }      break;
-    case 'L':
-      if (data == 1) {
-        digitalWrite(valvePin_6_In, HIGH);
-      } else {
-        digitalWrite(valvePin_6_In, LOW);
-      }      break;
-  }
+//  switch (recieveHeader) {
+//    case 'A':
+//      if (data == 1) {
+//        digitalWrite(valvePin_1_Out, HIGH);
+//      } else {
+//        digitalWrite(valvePin_1_Out, LOW);
+//      }
+//      break;
+//    case 'B':
+//      if (data == 1) {
+//        digitalWrite(valvePin_1_In, HIGH);
+//      } else {
+//        digitalWrite(valvePin_1_In, LOW);
+//      }      break;
+//    case 'C':
+//      if (data == 1) {
+//        digitalWrite(valvePin_2_Out, HIGH);
+//      } else {
+//        digitalWrite(valvePin_2_Out, LOW);
+//      }      break;
+//    case 'D':
+//      if (data == 1) {
+//        digitalWrite(valvePin_2_In, HIGH);
+//      } else {
+//        digitalWrite(valvePin_2_In, LOW);
+//      }
+//      break;
+//    case 'E':
+//      if (data == 1) {
+//        digitalWrite(valvePin_3_Out, HIGH);
+//      } else {
+//        digitalWrite(valvePin_3_Out, LOW);
+//      }      break;
+//    case 'F':
+//      if (data == 1) {
+//        digitalWrite(valvePin_3_In, HIGH);
+//      } else {
+//        digitalWrite(valvePin_3_In, LOW);
+//      }      break;
+//    case 'G':
+//      if (data == 1) {
+//        digitalWrite(valvePin_4_Out, HIGH);
+//      } else {
+//        digitalWrite(valvePin_4_Out, LOW);
+//      }
+//      break;
+//    case 'H':
+//      if (data == 1) {
+//        digitalWrite(valvePin_4_In, HIGH);
+//      } else {
+//        digitalWrite(valvePin_4_In, LOW);
+//      }      break;
+//    case 'I':
+//      if (data == 1) {
+//        digitalWrite(valvePin_5_Out, HIGH);
+//      } else {
+//        digitalWrite(valvePin_5_Out, LOW);
+//      }      break;
+//    case 'J':
+//      if (data == 1) {
+//        digitalWrite(valvePin_5_In, HIGH);
+//      } else {
+//        digitalWrite(valvePin_5_In, LOW);
+//      }
+//      break;
+//    case 'K':
+//      if (data == 1) {
+//        digitalWrite(valvePin_6_Out, HIGH);
+//      } else {
+//        digitalWrite(valvePin_6_Out, LOW);
+//      }      break;
+//    case 'L':
+//      if (data == 1) {
+//        digitalWrite(valvePin_6_In, HIGH);
+//      } else {
+//        digitalWrite(valvePin_6_In, LOW);
+//      }      break;
+//  }
 
 }
 
