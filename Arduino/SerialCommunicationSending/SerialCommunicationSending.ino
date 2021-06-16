@@ -9,17 +9,17 @@
 char header[] = {'A', 'B', 'C', 'D'};
 
 //TEST
-int dataRecieved = 3;
-int dataValues[] = {0, 0, 0};
-int currentValue;
-
-#define yellow_LED 10
-#define red_LED 9
-#define green_LED 8
+#define yellow_LED 12
+#define red_LED 13
+#define green_LED 14
 
 
-//-----------------------------------------------------------------------------//
-
+//--------------------------------Distance Sensor---------------------------------------------//
+// Distance Sensor Pins
+#define trigPinA 5
+#define echoPinA 6
+#define trigPinB 7
+#define echoPinB 8
 
 //--------------------------------Rotary_Encoder-------------------------------//
 // Rotary Encoder Inputs
@@ -43,6 +43,12 @@ void setup() {
   pinMode(ROT_ENC_DT, INPUT);
   pinMode(ROT_ENC_SW, INPUT_PULLUP);
 
+  // Set distancesensor pins to input and output
+  pinMode(trigPinA, OUTPUT);
+  pinMode(echoPinA, INPUT);
+  pinMode(trigPinB, OUTPUT);
+  pinMode(echoPinB, INPUT);
+
   // Setup Serial Monitor
   Serial.begin(9600);
 
@@ -53,6 +59,8 @@ void setup() {
 void loop() {
   encoderReader();
   buttonDetection();
+  distanceRead();
+  //Serial.println("Sukkel");
 
   if (Serial.available() > 0) {
     ledReadTest();
@@ -135,4 +143,23 @@ void encoderReader() {
   }
   // Remember last CLK state
   lastStateCLK = currentStateCLK;
+}
+
+
+void distanceRead() {
+  Serial.print("E");
+  Serial.println(distance(echoPinA, trigPinA));
+
+  Serial.print("F");
+  Serial.println(distance(echoPinB, trigPinB));
+}
+
+int distance(int echoPin, int trigPin) {
+  int duration, distance;
+  digitalWrite (trigPin, HIGH);
+  delayMicroseconds(10);
+  digitalWrite (trigPin, LOW);
+  duration = pulseIn (echoPin, HIGH);
+  distance =  (duration / 2) / 29.1;
+  return distance;
 }
