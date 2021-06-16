@@ -45,14 +45,13 @@ class Distance():
                 continue
             distance_percentage = (self.water_heights[key]-MIN_HEIGHT) / (MAX_HEIGHT-MIN_HEIGHT)
             distance = MAX_DISTANCE - (MAX_DISTANCE-MIN_DISTANCE) * distance_percentage
-            distance = min(distance, MAX_HEIGHT)
-            distance = max(distance, MIN_DISTANCE)
+            # distance = min(distance, MAX_HEIGHT)
+            # distance = max(distance, MIN_DISTANCE)
             self.distance[key] = distance
         return self.distance
 
     def check_levels(self, distance):
         message = b""
-
         for key in distance:
             if distance.get(key) is None or self.raw_distance.get(key) is None or abs(int(distance[key]) - self.raw_distance.get(key)) <= 2:
                 message_fragment = MESSAGES_DC[key][2]

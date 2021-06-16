@@ -47,6 +47,8 @@ if __name__ == '__main__':
                 distance_cv.set_water_heights(water_heights)
                 distance_cv.set_temp(temperature)
 
+
+
                 # print(stg.get_water("Driel boven", date_cv.get_date()))
         distance_cv.processing()
         # print(distance_cv.queue_is_empty())
