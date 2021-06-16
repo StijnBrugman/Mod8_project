@@ -13,12 +13,9 @@ int dataRecieved = 3;
 int dataValues[] = {0, 0, 0};
 int currentValue;
 
-#define yellow_LED_Pin 10
-int yellow_LED = 0;
-#define red_LED_Pin 9
-int red_LED = 0;
-#define green_LED_Pin 8
-int green_LED = 0;
+#define yellow_LED 10
+#define red_LED 9
+#define green_LED 8
 
 
 //-----------------------------------------------------------------------------//
@@ -57,46 +54,41 @@ void loop() {
   encoderReader();
   buttonDetection();
 
-  ledReadTest();
-
+  if (Serial.available() > 0) {
+    ledReadTest();
+  }
   delay(1);
 }
 
 
 void ledReadTest() {                                              // Read the data
+  String recievedData = Serial.readStringUntil('\n');
+  Serial.print("E");
+  Serial.println(recievedData);
+  char recieveHeader = recievedData.charAt(0);
+  recievedData.remove(0, 1);
+  int data = recievedData.toInt();
 
-  // Find the original code here:
-  //https://gist.github.com/atduskgreg/1349176
-
-  int incomingValue = Serial.read();                           // Read the incoming data
-
-  dataValues[currentValue] = incomingValue;                    // Assign that spot in the array with the value from the data
-
-  currentValue++;                                              // Add to the current value
-  if (currentValue > dataRecieved - 1) {                       // If the counter is larger than the amount of variables being send
-    currentValue = 0;                                          // Set the counter to 0
-  }
-
-  yellow_LED = dataValues[0];
-  red_LED = dataValues[1];
-  green_LED = dataValues[2];
-
-  if (yellow_LED) {
-    digitalWrite(yellow_LED_Pin, HIGH);
-  } else if (!yellow_LED) {
-    digitalWrite(yellow_LED_Pin, LOW);
-  }
-
-  if (red_LED) {
-    digitalWrite(red_LED_Pin, HIGH);
-  } else if (!red_LED) {
-    digitalWrite(red_LED_Pin, LOW);
-  }
-
-  if (green_LED) {
-    digitalWrite(green_LED_Pin, HIGH);
-  } else if (!green_LED) {
-    digitalWrite(green_LED_Pin, LOW);
+  switch (recieveHeader) {
+    case 'A':
+      if (data == 1) {
+        digitalWrite(yellow_LED, HIGH);
+      } else {
+        digitalWrite(yellow_LED, LOW);
+      }
+      break;
+    case 'B':
+      if (data == 1) {
+        digitalWrite(red_LED, HIGH);
+      } else {
+        digitalWrite(red_LED, LOW);
+      }      break;
+    case 'C':
+      if (data == 1) {
+        digitalWrite(green_LED, HIGH);
+      } else {
+        digitalWrite(green_LED, LOW);
+      }      break;
   }
 
 }
