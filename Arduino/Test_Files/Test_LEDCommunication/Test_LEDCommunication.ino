@@ -27,20 +27,20 @@ void readDataTesting() {
 
   switch (recieveHeader) {
     case 'A':
-      if (data = 1) {
+      if (data == 1) {
         digitalWrite(yellow_LED, HIGH);
       } else {
         digitalWrite(yellow_LED, LOW);
       }
       break;
     case 'B':
-      if (data = 1) {
+      if (data == 1) {
         digitalWrite(red_LED, HIGH);
       } else {
         digitalWrite(red_LED, LOW);
       }      break;
     case 'C':
-      if (data = 1) {
+      if (data == 1) {
         digitalWrite(green_LED, HIGH);
       } else {
         digitalWrite(green_LED, LOW);
