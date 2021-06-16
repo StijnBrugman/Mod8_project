@@ -14,7 +14,8 @@ The date can be selected by rotating the three respective cogwheels. One for the
 
 ### Hardware
 The installation is controlled by a Raspberry Pi together with an Arduino Mega 2560.
-The Pi stores the database, performs all calculations and presents the interface. The Arduino Mega only serves as a bridge between the Pi and all the sensors and actuators.
+The Pi stores the database, performs all calculations and presents the interface. The Arduino Mega only serves as a bridge between the Pi and all the sensors and actuators. They are connected using the USB port on the Arduino and a USB port on the Pi.
+The Pi is powered by the USB C connector and the Arduino is powered using a 12V barrel connector.
 #### Parts
 ##### Controllers
 - Raspberry Pi (Model 4B 2GB) 1x
