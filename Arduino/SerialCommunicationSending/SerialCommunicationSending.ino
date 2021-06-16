@@ -78,6 +78,27 @@ void setup() {
   pinMode(echoPin_A, INPUT);
   pinMode(trigPin_B, OUTPUT);
   pinMode(echoPin_B, INPUT);
+//  pinMode(trigPin_C, OUTPUT);
+//  pinMode(echoPin_C, INPUT);
+//  pinMode(trigPin_D, OUTPUT);
+//  pinMode(echoPin_D, INPUT);
+//  pinMode(trigPin_E, OUTPUT);
+//  pinMode(echoPin_E, INPUT);
+
+  // Set the valve pins to input
+//  pinMode(valvePin_1_Out, OUTPUT);
+//  pinMode(valvePin_1_In, OUTPUT);
+//  pinMode(valvePin_2_Out, OUTPUT);
+//  pinMode(valvePin_2_In, OUTPUT);
+//  pinMode(valvePin_3_Out, OUTPUT);
+//  pinMode(valvePin_3_In, OUTPUT);
+//  pinMode(valvePin_4_Out, OUTPUT);
+//  pinMode(valvePin_4_In, OUTPUT);
+//  pinMode(valvePin_5_Out, OUTPUT);
+//  pinMode(valvePin_5_In, OUTPUT);
+//  pinMode(valvePin_6_Out, OUTPUT);
+//  pinMode(valvePin_6_In, OUTPUT);
+
 
   // Setup Serial Monitor
   Serial.begin(9600);
@@ -98,28 +119,26 @@ void loop() {
   }
 
   if (Serial.available() > 0) {
-    ledReadTest();
+    readData();
   }
   delay(1);
 }
 
-// Communication Test
-void ledReadTest() {                                              // Read the data
-  String recievedData = Serial.readStringUntil('\n');
-  Serial.print("E");
-  Serial.println(recievedData);
-  char recieveHeader = recievedData.charAt(0);
-  recievedData.remove(0, 1);
-  int data = recievedData.toInt();
+// Read the data
+void readData() {                                              // Read the data
+  String recievedData = Serial.readStringUntil('\n');             // Save the string until the break
+  char recieveHeader = recievedData.charAt(0);                    // Check the header
+  recievedData.remove(0, 1);                                      // Remove the header
+  int data = recievedData.toInt();                                // Transate the remaining string to an int
 
-//  switch (recieveHeader) {
-//    case 'A':
-//      if (data == 1) {
-//        digitalWrite(valvePin_1_Out, HIGH);
-//      } else {
-//        digitalWrite(valvePin_1_Out, LOW);
+//  switch (recieveHeader) {                                      // Go into the switch with the header
+//    case 'A':                                                   // If the header matches the case
+//      if (data == 1) {                                          // And the int is 1
+//        digitalWrite(valvePin_1_Out, HIGH);                     // Write HIGH to the valve
+//      } else {                                                  // If other data was send
+//        digitalWrite(valvePin_1_Out, LOW);                      // Else write LOW
 //      }
-//      break;
+//      break;                                                    // Break out of the switch
 //    case 'B':
 //      if (data == 1) {
 //        digitalWrite(valvePin_1_In, HIGH);
@@ -243,12 +262,12 @@ void encoderReader() {
 // Reads the distance sensors and outputs their data to the Pi
 void distanceRead() {
 
-  int tempDistance = distance(echoPin_A, trigPin_A);
-  if (tempDistance != oldDistanceA) {
-    Serial.print("E");
-    Serial.println(tempDistance);
+  int tempDistance = distance(echoPin_A, trigPin_A);  // Calculate the distance from the distancesensor
+  if (tempDistance != oldDistanceA) {                 // Check if that distance has changed. If it has
+    Serial.print("E");                                // Print the header
+    Serial.println(tempDistance);                     // And the distance
   }
-  oldDistanceA = tempDistance;
+  oldDistanceA = tempDistance;                        // Save the new distance
 
   tempDistance = distance(echoPin_B, trigPin_B);
   if (tempDistance != oldDistanceB) {
@@ -262,9 +281,9 @@ void distanceRead() {
 int distance(int echoPin, int trigPin) {
   int duration, distance;
   digitalWrite (trigPin, HIGH);
-  delayMicroseconds(10);
+  delay(10);
   digitalWrite (trigPin, LOW);
   duration = pulseIn (echoPin, HIGH);
-  distance =  (duration / 2) / 29.1;
+  distance =  (duration / 2) / 2.91;
   return distance;
 }
