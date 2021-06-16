@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 from Settings import ENCODER_DC, DATA_DC
+import time
 
 
 class Storage:
@@ -60,14 +61,25 @@ class Storage:
 
     def store_data(self, raw_data):
         code, data = self.convert_raw_data(raw_data)
-        code_equivalent = self.encoder_dc[code]
+
+        try:
+            code_equivalent = self.encoder_dc[code]
+        except:
+            print("Invalid Code")
+            return
+
 
         self.date_check = self.date_checker(code_equivalent)
         self.select_button = self.button_check(code_equivalent)
+        # Serial read shouldn't be stored, is just used as a check-up
         if code_equivalent == 'serial_sent':
             print("RECEIVING DATA", data)
         else:
-            self.data_dc[code_equivalent] = int(data)
+            try:
+                self.data_dc[code_equivalent] = int(data)
+            except:
+                print(code_equivalent, " doesn't contain any values")
+                self.data_dc[code_equivalent] = 0
 
     def date_checker(self, code_equivalent):
         if code_equivalent in ['encoder_year', 'encoder_month', 'encoder_day']:
@@ -92,3 +104,8 @@ class Storage:
 
     def button_pressed(self):
         return self.select_button
+
+    def get_distance_data(self):
+        correct_list = {'distance_A', 'distance_B', 'distance_C', 'distance_D', 'distance_E'}
+        date_dic = {key: val for key, val in self.data_dc.items() if key in correct_list}
+        return date_dic

@@ -1,9 +1,10 @@
 import sys
 from Rasberry_Pi.Connect import Connect
-from Settings import BT_PORT_NAME
+from Settings import BT_PORT_NAME, LIST_CITIES
 from Datastorage.storage import Storage
 from Datastorage.dateConverter import Converter
 from Rasberry_Pi.Sending import Sending
+from Datastorage.Distance import Distance
 
 if __name__ == '__main__':
     '''
@@ -17,6 +18,7 @@ if __name__ == '__main__':
     snd = Sending(cnt)
     snd.start()
 
+    distance_cv = Distance()
 
     date_cv = Converter()
 
@@ -33,7 +35,12 @@ if __name__ == '__main__':
                 snd.update_date(date_cv.get_date())
                 # print(stg.get_water("Driel boven", date_cv.get_date()))
 
+            # Getting all the water_heights and temperatures for the correct date
+            water_heights = {}
+            # for place in ["Driel boven", ]
+
+            distance_cv.set_distance(stg.get_distance_data())
+        print(stg.get_water("Driel boven", date_cv.get_date()))
 
     cnt.stop()
     sys.exit()
-
