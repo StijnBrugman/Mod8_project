@@ -1,6 +1,6 @@
 
 # Project Module 8 | Hybrid worlds | University of Twente
-This repository will contain all software for our Module 8 project of Creative Technology at the University of Twente.
+This repository will contain all software and instructions for our Module 8 project of Creative Technology at the University of Twente.
 
 
 
@@ -12,11 +12,28 @@ LEDs in the river will show the water temperature on that day as well.
 Users select a city by pouring water into their respective cups.
 The date can be selected by rotating the three respective cogwheels. One for the year, one for the month, and one for the day.
 
-## Hardware
-The installation is controlled by a Raspberry Pi 4.
-The RPi checks the input from the user. Every city has their own CSV file with historical data. After selecting a city, the data will be extracted from the CSV file. The RPi will send all data to an Arduino, which controls the switches for all pumps. The pumps will be activated to add water to the river and the tubes.
-When water has to be drained, the Arduino will control the drainage valves.
-The RPi will control the LEDs that have to light up.
+### Hardware
+The installation is controlled by a Raspberry Pi together with an Arduino Mega 2560.
+The Pi stores the database, performs all calculations and presents the interface. The Arduino Mega only serves as a bridge between the Pi and all the sensors and actuators.
+#### Parts
+##### Controllers
+- Raspberry Pi (Model 4B 2GB) 1x
+- Arduino Mega 2560 1x
+##### Sensors
+ - Distance sensor (HC-SR04) 5x
+ - Water Flow sensor () 2x
+ - Rotary Encoders () 3x
+##### Actuators
+- Water valves () 12x
+- LED strips () 5x
+
+### Software
+The Pi runs Raspbian 5.10.
+[FILL WITH CODE EXPLANATION]
+
+### To do
+For a comprehensive to do list, finished functionality and current additions, see the [Trello workspace](https://trello.com/b/8ndzsZBY/software).
+
 
 ## Contact
 For more information about our project, you can contact Bas van der Steenhoven ([b.g.vandersteenhoven@student.utwente.nl](mailto:b.g.vandersteenhoven@student.utwente.nl)).
