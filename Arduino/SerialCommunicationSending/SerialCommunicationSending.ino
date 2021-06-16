@@ -3,6 +3,7 @@
 
   Bas van der Steenhoven
   Stijn Brugman
+  
 */
 //----------------------------General_Communication----------------------------//
 // Communcation headers
@@ -28,21 +29,21 @@ char header[] = {'A', 'B', 'C', 'D'};
 
 //--------------------------------Distance Sensor------------------------------//
 // Distance Sensor Pins
-//#define trigPinA 44
-//#define echoPinA 45
-//#define trigPinB 46
-//#define echoPinB 47
-//#define trigPinC 48
-//#define echoPinC 49
-//#define trigPinD 50
-//#define echoPinD 51
-//#define trigPinE 52
-//#define echoPinE 53
+//#define trigPin_A 44
+//#define echoPin_A 45
+//#define trigPin_B 46
+//#define echoPin_B 47
+//#define trigPin_C 48
+//#define echoPin_C 49
+//#define trigPin_D 50
+//#define echoPin_D 51
+//#define trigPin_E 52
+//#define echoPin_E 53
 
-#define trigPinA 5 // TEMP
-#define echoPinA 6 // TEMP
-#define trigPinB 7 // TEMP
-#define echoPinB 8 // TEMP
+#define trigPin_A 5 // TEMP
+#define echoPin_A 6 // TEMP
+#define trigPin_B 7 // TEMP
+#define echoPin_B 8 // TEMP
 
 int oldDistanceA;
 int oldDistanceB;
@@ -73,10 +74,10 @@ void setup() {
   pinMode(ROT_ENC_SW, INPUT_PULLUP);
 
   // Set distancesensor pins to input and output
-  pinMode(trigPinA, OUTPUT);
-  pinMode(echoPinA, INPUT);
-  pinMode(trigPinB, OUTPUT);
-  pinMode(echoPinB, INPUT);
+  pinMode(trigPin_A, OUTPUT);
+  pinMode(echoPin_A, INPUT);
+  pinMode(trigPin_B, OUTPUT);
+  pinMode(echoPin_B, INPUT);
 
   // Setup Serial Monitor
   Serial.begin(9600);
@@ -242,14 +243,14 @@ void encoderReader() {
 // Reads the distance sensors and outputs their data to the Pi
 void distanceRead() {
 
-  int tempDistance = distance(echoPinA, trigPinA);
+  int tempDistance = distance(echoPin_A, trigPin_A);
   if (tempDistance != oldDistanceA) {
     Serial.print("E");
     Serial.println(tempDistance);
   }
   oldDistanceA = tempDistance;
 
-  tempDistance = distance(echoPinB, trigPinB);
+  tempDistance = distance(echoPin_B, trigPin_B);
   if (tempDistance != oldDistanceB) {
     Serial.print("F");
     Serial.println(tempDistance);
