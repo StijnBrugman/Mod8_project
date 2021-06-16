@@ -54,7 +54,7 @@ class Connect(threading.Thread):
         return True
 
     def write_data(self, data):
-        print(data)
+        print("SENDING DATA", data)
         self.arduino.write(data)
 
 

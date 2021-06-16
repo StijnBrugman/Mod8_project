@@ -1,5 +1,5 @@
 # Connection_Settings
-BT_PORT_NAME = '/dev/cu.usbmodem1414401'
+BT_PORT_NAME = '/dev/cu.usbmodem141401'
 # BT_PORT_NAME = '/dev/ttyACM0'
 
 # ENCODING DATA

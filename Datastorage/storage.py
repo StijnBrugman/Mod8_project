@@ -65,7 +65,7 @@ class Storage:
         self.date_check = self.date_checker(code_equivalent)
         self.select_button = self.button_check(code_equivalent)
         if code_equivalent == 'serial_sent':
-            print(data)
+            print("RECEIVING DATA", data)
         else:
             self.data_dc[code_equivalent] = int(data)
 
