@@ -48,7 +48,7 @@ def remove_wrong_data(data_frame):
     new_df['NUMERIEKEWAARDE'] = new_df['NUMERIEKEWAARDE'].apply(pd.to_numeric)
 
     # Delete to high values
-    new_df = new_df[new_df.NUMERIEKEWAARDE <= 10000]
+    new_df = new_df[abs(new_df.NUMERIEKEWAARDE) <= 10000]
     return new_df
 
 # Calculating average value per year and location

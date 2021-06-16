@@ -14,6 +14,8 @@ class Storage:
 
         self.select_button = False
 
+        self.distance = False
+
     def init_data_frame(self):
         '''
         Merge the Water & Temperature data_frame
@@ -71,6 +73,8 @@ class Storage:
 
         self.date_check = self.date_checker(code_equivalent)
         self.select_button = self.button_check(code_equivalent)
+        self.distance = self.distance_checker(code_equivalent)
+
         # Serial read shouldn't be stored, is just used as a check-up
         if code_equivalent == 'serial_sent':
             print("RECEIVING DATA", data)
@@ -88,6 +92,14 @@ class Storage:
 
     def is_date(self):
         return self.date_check
+
+    def distance_checker(self, code_equivalent):
+        if code_equivalent in ['distance_A', 'distance_B', 'distance_C', 'distance_D', 'distance_E']:
+            return True
+        return False
+
+    def is_distance(self):
+        return self.distance
 
     def convert_raw_data(self, raw_data):
         return raw_data[0], raw_data[1:]

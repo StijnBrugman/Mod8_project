@@ -14,7 +14,7 @@ class Sending(threading.Thread):
 
     def run(self):
         while self.running:
-            self.new_message = self.get_message()
+            # self.new_message = self.get_message()
             if self.different_message():
                 self.cnt.write_data(self.new_message)
 
@@ -39,5 +39,9 @@ class Sending(threading.Thread):
         if date > datetime.datetime(1975, 1, 1):
             return TURN_OFF_LED_2
         return TURN_OFF_LED_3
+
+    def set_message(self, message):
+        self.new_message = message
+        return self.new_message
 
 
