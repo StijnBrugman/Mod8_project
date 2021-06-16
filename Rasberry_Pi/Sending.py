@@ -1,5 +1,6 @@
 import threading
 import datetime
+from Settings import TURN_OFF_LED_1, TURN_OFF_LED_2, TURN_OFF_LED_3
 
 class Sending(threading.Thread):
     def __init__(self, connection):
@@ -9,7 +10,7 @@ class Sending(threading.Thread):
         self.queue = []
         self.new_message = None
         self.old_message = None
-        self.date = datetime.datetime(1950, 1, 1)
+        self.date = datetime.datetime(1950, 1, 1).strftime("%Y-%m-%d")
 
     def run(self):
         while self.running:
@@ -21,6 +22,7 @@ class Sending(threading.Thread):
         self.running = False
 
     def update_date(self, date):
+        print(date)
         self.date = date
         return self.date
 
@@ -31,10 +33,11 @@ class Sending(threading.Thread):
         return True
 
     def get_message(self):
-        if self.date > datetime.datetime(2000, 1, 1):
-            return [0,0,1]
-        if self.date > datetime.datetime(1975, 1, 1):
-            return [0,1,0]
-        return [1,0, 0]
+        date = datetime.datetime.strptime(self.date, "%Y-%m-%d")
+        if date > datetime.datetime(2000,1 ,1):
+            return TURN_OFF_LED_1
+        if date > datetime.datetime(1975, 1, 1):
+            return TURN_OFF_LED_2
+        return TURN_OFF_LED_3
 
 

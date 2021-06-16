@@ -31,7 +31,7 @@ if __name__ == '__main__':
 
             if stg.button_pressed():
                 snd.update_date(date_cv.get_date())
-                print(stg.get_water("Driel boven", date_cv.get_date()))
+                # print(stg.get_water("Driel boven", date_cv.get_date()))
 
 
     cnt.stop()

@@ -64,8 +64,10 @@ class Storage:
 
         self.date_check = self.date_checker(code_equivalent)
         self.select_button = self.button_check(code_equivalent)
-
-        self.data_dc[code_equivalent] = int(data)
+        if code_equivalent == 'serial_sent':
+            print(data)
+        else:
+            self.data_dc[code_equivalent] = int(data)
 
     def date_checker(self, code_equivalent):
         if code_equivalent in ['encoder_year', 'encoder_month', 'encoder_day']:

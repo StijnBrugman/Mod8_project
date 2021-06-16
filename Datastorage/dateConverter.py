@@ -23,7 +23,6 @@ class Converter():
         if self.date_boundary() != 2:
             self.date = self.date_boundary_ls[self.date_boundary()]
 
-        print(self.date)
         return self.date
 
     def date_boundary(self):
@@ -46,4 +45,5 @@ class Converter():
 
     def get_date(self):
         return copy.deepcopy(self.date.strftime("%Y-%m-%d"))
+
 
