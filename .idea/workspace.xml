@@ -21,11 +21,6 @@
   <component name="ChangeListManager">
     <list default="true" id="080cef48-0aa3-41e8-8c3c-a12305bd110f" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datastorage/Distance.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Distance.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datastorage/storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/storage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rasberry_Pi/Sending.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rasberry_Pi/Sending.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Settings.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -235,7 +230,14 @@
       <option name="project" value="LOCAL" />
       <updated>1623855608843</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="New sensors attached (flow sensor &amp; water sensors)">
+      <created>1623938858305</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1623938858305</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -263,10 +265,11 @@
     <MESSAGE value="INIT distance analysis" />
     <MESSAGE value="Distance processing" />
     <MESSAGE value="WORKING DISTANCE SENSOR + VALVUE" />
-    <option name="LAST_COMMIT_MESSAGE" value="WORKING DISTANCE SENSOR + VALVUE" />
+    <MESSAGE value="New sensors attached (flow sensor &amp; water sensors)" />
+    <option name="LAST_COMMIT_MESSAGE" value="New sensors attached (flow sensor &amp; water sensors)" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Mod8_project$dataTransfer.coverage" NAME="dataTransfer Coverage Results" MODIFIED="1623856495301" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Datastorage" />
-    <SUITE FILE_PATH="coverage/Mod8_project$Main.coverage" NAME="Main Coverage Results" MODIFIED="1623933967250" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/Mod8_project$Main.coverage" NAME="Main Coverage Results" MODIFIED="1623939710425" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
   </component>
 </project>

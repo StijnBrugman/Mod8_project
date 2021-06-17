@@ -173,12 +173,13 @@ void setup() {
 void loop() {
   encoderReader();                                                // Run the rotary encoder
   buttonDetection();                                              // Check if the button is pressed
+  flowSendData();
 
   if (millis() > distanceTimer + 333) {                           // 1/3th of a second after the timer
     distanceRead();                                               // Read the distance
     distanceTimer = millis();                                     // Reset the timer
-    Serial.print('Z');
-    Serial.println("ukkel");
+    //Serial.print('Z');
+    //Serial.println("Sukkel");
   }
 
   if (Serial.available() > 0) {                                   // If serial data is available for reading
@@ -287,7 +288,7 @@ void buttonDetection() {
     //button has been pressed, released and pressed again
     if (millis() - lastButtonPress > 50 && !pressed) {
       buttonState++;
-      Serial.print(header[3]);
+      Serial.print(rotaryHeaders[3]);
       Serial.println(buttonState);
       pressed = true;
     }
@@ -314,7 +315,7 @@ void encoderReader() {
     } else { // Encoder is rotating CW so increment
       counter --;
     }
-    Serial.print(header[0]);
+    Serial.print(rotaryHeaders[0]);
     Serial.println(counter);
   }
   // Remember last CLK state
@@ -372,8 +373,8 @@ void flow () {                                                 // Interrupt func
 }
 
 
-void flowSendData ()
-{
+void flowSendData () {
+
   currentTime = millis();
   // Every second, calculate and print millilitres/hour
   if (currentTime >= (cloopTime + 50))
