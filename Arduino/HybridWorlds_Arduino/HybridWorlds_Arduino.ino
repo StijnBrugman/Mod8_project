@@ -7,7 +7,7 @@
   The Arduino controls water valves that work together with pumps to fill several tubes with water.
 
   For a complete overview of the project and all code, you can check our repository on GitHub.
-  https://github.com/StijnBrugman/Mod8_project 
+  https://github.com/StijnBrugman/Mod8_project
 
   Bas van der Steenhoven
   Stijn Brugman
@@ -18,7 +18,7 @@
 */
 //----------------------------General_Communication----------------------------//
 // Communcation headers
-char rotaryHeaders[] = {'A', 'B', 'C', 'D'}; // @Stijn which are Used? Only A and D?
+char rotaryHeaders[] = {'A', 'B', 'C', 'D'};          // Headers for the rotary encoders and the button
 char distanceHeaders[5] = {'E', 'F', 'G', 'H', 'I'};  // Headers for the distance sensors
 char flowHeaders[] = {'J', 'K'};                      // Headers for the flow sensors
 
@@ -86,20 +86,46 @@ int buttonState = 0;
 boolean pressed = false;
 
 
-//--------------------------------Water_Valves---------------------------------//
-// Water Sensor Pins
-//#define sensorPin_Out 22
-//#define sensorPin_In 23
+//--------------------------------Water_Level_Sensors--------------------------//
+// Water Level Sensor Pins
+//#define sensorPin_A A0
+//#define sensorPin_B A1
+//#define sensorPin_C A2
+//#define sensorPin_D A3
+//#define sensorPin_E A4
+
+// Water Level Sensor Power Pins
+//#define sensorPowerPin_A 8
+//#define sensorPowerPin_B 9
+//#define sensorPowerPin_C 10
+//#define sensorPowerPin_D 11
+//#define sensorPowerPin_E 12
 
 
-//----------------------------------------------------------------------------//
+//--------------------------------Water_Level_Sensors--------------------------//
+#define flowsensor 2 // Sensor Input
+#define flowSensorPin_A 6
+#define flowSensorPin_B 7
+
+volatile float flow_frequency; // Measures flow sensor pulsesunsigned
+
+float l_second; // Calculated litres/hour
+unsigned long currentTime;
+unsigned long cloopTime;
+
+unsigned long volume_A = 0;
+
+
+//-----------------------------------------------------------------------------//
 
 void setup() {
 
-  // Set encoder pins as inputs
+  // Set encoder pins as inputs and calibrate the last state
   pinMode(ROT_ENC_CLK, INPUT);
   pinMode(ROT_ENC_DT, INPUT);
   pinMode(ROT_ENC_SW, INPUT_PULLUP);
+
+  lastStateCLK = digitalRead(ROT_ENC_CLK);
 
   // Set distance sensor pins to input and output
   pinMode(trigPin_A, OUTPUT);
@@ -127,12 +153,21 @@ void setup() {
   //  pinMode(valvePin_6_Out, OUTPUT);
   //  pinMode(valvePin_6_In, OUTPUT);
 
+  // Set the flow sensor pins to input and calibrate the timer
+  pinMode(flowsensor, INPUT);
+  sei(); // Enable interrupts
+
+  digitalWrite(flowsensor, HIGH); // Optional Internal Pull-Up
+  attachInterrupt(0, flow, RISING); // Setup Interrupt
+  currentTime = millis();
+  cloopTime = currentTime;
 
   // Setup Serial Monitor
   Serial.begin(9600);
 
   // Read the initial state of CLK
   lastStateCLK = digitalRead(ROT_ENC_CLK);
+
 }
 
 void loop() {
@@ -142,8 +177,8 @@ void loop() {
   if (millis() > distanceTimer + 333) {                           // 1/3th of a second after the timer
     distanceRead();                                               // Read the distance
     distanceTimer = millis();                                     // Reset the timer
-    //Serial.print('Z');
-    //Serial.println("ukkel");
+    Serial.print('Z');
+    Serial.println("ukkel");
   }
 
   if (Serial.available() > 0) {                                   // If serial data is available for reading
@@ -292,7 +327,7 @@ void distanceRead() {
 
   int tempDistance = distance(echoPin_A, trigPin_A);  // Calculate the distance from the distancesensor
   if (tempDistance != oldDistanceA) {                 // Check if that distance has changed. If it has
-    Serial.print(distanceHeaders[0]);                                // Print the header
+    Serial.print(distanceHeaders[0]);                 // Print the header
     Serial.println(tempDistance);                     // And the distance
   }
   oldDistanceA = tempDistance;                        // Save the new distance
@@ -323,9 +358,35 @@ void distanceRead() {
 int distance(int echoPin, int trigPin) {                       // Take the echo pin and trigger pin of the distance sensor
   int duration, distance;                                      // Declare duration and distance
   digitalWrite (trigPin, HIGH);                                // Set the trigger pin to HIGH
-  delay(10);                                                   // Wait for 10 milliseconds --> Try microseconds
+  delayMicroseconds(10);                                       // Wait for 10 microseconds
   digitalWrite (trigPin, LOW);                                 // Set it back to low
   duration = pulseIn (echoPin, HIGH);                          // Wait for the pulse to arrive and measure that time
   distance =  (duration / 2) / 2.91;                           // Calculate the distance based on time travelled and the speed of light
   return distance;                                             // Return the distance
+}
+
+
+void flow () {                                                 // Interrupt function
+
+  flow_frequency++;
+}
+
+
+void flowSendData ()
+{
+  currentTime = millis();
+  // Every second, calculate and print millilitres/hour
+  if (currentTime >= (cloopTime + 50))
+  {
+    unsigned long dt = currentTime - cloopTime;
+    cloopTime = currentTime; // Updates cloopTime
+    // Pulse frequency (Hz) = 7.5Q, Q is flow rate in L/min.
+    l_second = 1000.0 * (flow_frequency / 4380.0); // (Pulse frequency x 60 min) / 7.5Q = flowrate in mL/second
+    volume_A += 1.34 * dt * l_second / 1000.0; //ml
+    flow_frequency = 0; // Reset Counter
+    //      Serial.print(l_second); // Print millilitres/second
+    //      Serial.println(" mL/second");
+    Serial.print(flowHeaders[0]);
+    Serial.println(volume_A);
+  }
 }
