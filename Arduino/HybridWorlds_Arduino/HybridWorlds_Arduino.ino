@@ -102,7 +102,7 @@ boolean pressed = false;
 //#define sensorPowerPin_E 12
 
 
-//--------------------------------Water_Level_Sensors--------------------------//
+//--------------------------------Flow_Sensors---------------------------------//
 #define flowsensor 2 // Sensor Input
 #define flowSensorPin_A 6
 #define flowSensorPin_B 7
@@ -113,7 +113,8 @@ float l_second; // Calculated litres/hour
 unsigned long currentTime;
 unsigned long cloopTime;
 
-unsigned long volume_A = 0;
+unsigned long volume_Old_A = 0;
+unsigned long volume_New_A = 0;
 
 
 //-----------------------------------------------------------------------------//
@@ -377,17 +378,20 @@ void flowSendData () {
 
   currentTime = millis();
   // Every second, calculate and print millilitres/hour
-  if (currentTime >= (cloopTime + 50))
+  if (currentTime >= (cloopTime + 10))
   {
     unsigned long dt = currentTime - cloopTime;
     cloopTime = currentTime; // Updates cloopTime
     // Pulse frequency (Hz) = 7.5Q, Q is flow rate in L/min.
     l_second = 1000.0 * (flow_frequency / 4380.0); // (Pulse frequency x 60 min) / 7.5Q = flowrate in mL/second
-    volume_A += 1.34 * dt * l_second / 1000.0; //ml
+    volume_New_A += 1.34 * dt * l_second / 1000.0; //ml
     flow_frequency = 0; // Reset Counter
     //      Serial.print(l_second); // Print millilitres/second
     //      Serial.println(" mL/second");
-    Serial.print(flowHeaders[0]);
-    Serial.println(volume_A);
+    if (volume_New_A != volume_Old_A) {
+      Serial.print(flowHeaders[0]);
+      Serial.println(volume_New_A);
+      volume_Old_A = volume_New_A;
+    }
   }
 }
