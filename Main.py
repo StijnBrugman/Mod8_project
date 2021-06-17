@@ -34,6 +34,14 @@ if __name__ == '__main__':
             if stg.is_distance():
                 distance_cv.set_distance(stg.get_distance_data())
 
+            if stg.is_city():
+                print(stg.get_city())
+
+            if stg.is_flow():
+                print(stg.get_flow())
+
+
+
             if stg.button_pressed():
                 snd.update_date(date_cv.get_date())
 
@@ -46,6 +54,11 @@ if __name__ == '__main__':
 
                 distance_cv.set_water_heights(water_heights)
                 distance_cv.set_temp(temperature)
+                print("------------- Button is Pressed -------------")
+                print("Measured distance ", distance_cv.raw_distance)
+                print("Required distance ", distance_cv.distance)
+                print("Actual distance ", distance_cv.water_heights)
+
 
 
 

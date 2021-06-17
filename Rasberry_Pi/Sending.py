@@ -32,6 +32,7 @@ class Sending(threading.Thread):
         self.old_message = self.new_message
         return True
 
+    '''
     def get_message(self):
         date = datetime.datetime.strptime(self.date, "%Y-%m-%d")
         if date > datetime.datetime(2000,1 ,1):
@@ -39,6 +40,7 @@ class Sending(threading.Thread):
         if date > datetime.datetime(1975, 1, 1):
             return TURN_OFF_LED_2
         return TURN_OFF_LED_3
+    '''
 
     def set_message(self, message):
         self.new_message = message

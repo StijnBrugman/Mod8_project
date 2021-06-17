@@ -15,6 +15,9 @@ class Distance():
         # print(self.raw_distance)
         return self.raw_distance
 
+    def set_city(self, city):
+        pass
+
     def set_water_heights(self, water_heights):
         # print(water_heights)
         self.water_heights = water_heights
@@ -36,17 +39,16 @@ class Distance():
     def add_to_queue(self, addition):
         if addition != b'':
             self.queue.append(addition)
-            print(self.queue)
         return self.queue
 
     def convert_height_to_distance(self):
         for key in self.water_heights:
             if self.water_heights.get(key) is None:
                 continue
-            distance_percentage = (self.water_heights[key]-MIN_HEIGHT) / (MAX_HEIGHT-MIN_HEIGHT)
+            distance_percentage = (self.water_heights[key]-MIN_HEIGHT[key]) / (MAX_HEIGHT[key]-MIN_HEIGHT[key])
             distance = MAX_DISTANCE - (MAX_DISTANCE-MIN_DISTANCE) * distance_percentage
-            # distance = min(distance, MAX_HEIGHT)
-            # distance = max(distance, MIN_DISTANCE)
+            distance = min(distance, MAX_DISTANCE)
+            distance = max(distance, MIN_DISTANCE)
             self.distance[key] = distance
         return self.distance
 

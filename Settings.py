@@ -1,11 +1,11 @@
 # Connection_Settings
-BT_PORT_NAME = '/dev/cu.usbmodem142401'
+BT_PORT_NAME = '/dev/cu.usbmodem142301'
 # BT_PORT_NAME = '/dev/ttyACM0'
 
 # ENCODING DATA
 ENCODER_DC = {
-    'B': 'encoder_year',
-    'A': 'encoder_month',
+    'A': 'encoder_year',
+    'B': 'encoder_month',
     'C': 'encoder_day',
     'D': 'encoder_button',
     'E': 'distance_A',
@@ -13,6 +13,9 @@ ENCODER_DC = {
     'G': 'distance_C',
     'H': 'distance_D',
     'I': 'distance_E',
+    'J': 'flow_In',
+    'K': 'flow_Out',
+    'L': 'Water_Sensor',
     'Z': 'serial_sent'
 }
 
@@ -27,7 +30,10 @@ DATA_DC = {
     'distance_B':       None,
     'distance_C':       None,
     'distance_D':       None,
-    'distance_E':       None
+    'distance_E':       None,
+    'flow_In':          0,
+    'flow_Out':         0,
+    'Water_Sensor':     0
 }
 
 LIST_CITIES = ["Rotterdam", "Driel boven", "IJmuiden Noordersluis", "Maastricht", "Utrecht"]
@@ -71,8 +77,21 @@ MESSAGES_DC = {
 MAX_DISTANCE = 300
 MIN_DISTANCE = 20
 
-MAX_HEIGHT = 4000
-MIN_HEIGHT = -100
+MAX_HEIGHT = {
+    LIST_CITIES[0]: 4000,
+    LIST_CITIES[1]: 4000,
+    LIST_CITIES[2]: 4000,
+    LIST_CITIES[3]: 4000,
+    LIST_CITIES[4]: 4000
+}
+
+MIN_HEIGHT = {
+    LIST_CITIES[0]: -100,
+    LIST_CITIES[1]: -100,
+    LIST_CITIES[2]: -100,
+    LIST_CITIES[3]: -100,
+    LIST_CITIES[4]: -100
+}
 
 # Sending message
 TURN_OFF_LED_1 = b"A1\nB0\nC0\n"
