@@ -441,7 +441,7 @@ void distanceRead() {
 }
 
 // Calculates the distance for the distance sensors
-int distance(int echoPin, int trigPin) {                       // Take the echo pin and trigger pin of the distance sensor
+int distance(int trigPin, int echoPin) {                       // Take the echo pin and trigger pin of the distance sensor
   int duration, distance;                                      // Declare duration and distance
   digitalWrite (trigPin, HIGH);                                // Set the trigger pin to HIGH
   delayMicroseconds(10);                                       // Wait for 10 microseconds
