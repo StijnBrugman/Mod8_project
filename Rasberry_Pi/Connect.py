@@ -18,6 +18,9 @@ class Connect(threading.Thread):
         self.running = True
         self.try_connection(port_name)
         self.queue = []
+        self.sent_queue = []
+
+
 
     def print_ports(self):
         for port in list_ports.comports():
@@ -36,6 +39,12 @@ class Connect(threading.Thread):
     def run(self):
         while self.running:
             self.new_data = self.read_data()
+
+            if self.is_queue_available():
+                data = self.sent_queue.pop(0)
+                print("SENDING DATA: ", data)
+                self.arduino.write(data)
+
             if self.new_data_available():
                 self.queue.append(self.new_data)
 
@@ -47,6 +56,11 @@ class Connect(threading.Thread):
             return None
         return self.arduino.readline().decode("utf-8").rstrip("\r\n")
 
+    def is_queue_available(self):
+        if not self.sent_queue:
+            return False
+        return True
+
     def new_data_available(self):
         # Check if there is new data to be analyzed, so no None object get added
         if self.new_data is None:
@@ -54,8 +68,9 @@ class Connect(threading.Thread):
         return True
 
     def write_data(self, data):
-        print("SENDING DATA", data)
-        self.arduino.write(data)
+        # self.arduino.write(data)
+        self.sent_queue.append(data)
+        self.arduino.flushOutput()
 
 
     def get_new_data(self):

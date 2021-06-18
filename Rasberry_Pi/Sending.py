@@ -1,6 +1,5 @@
 import threading
 import datetime
-from Settings import TURN_OFF_LED_1, TURN_OFF_LED_2, TURN_OFF_LED_3
 
 class Sending(threading.Thread):
     def __init__(self, connection):
@@ -32,16 +31,6 @@ class Sending(threading.Thread):
             return False
         self.old_message = self.new_message
         return True
-
-    '''
-    def get_message(self):
-        date = datetime.datetime.strptime(self.date, "%Y-%m-%d")
-        if date > datetime.datetime(2000,1 ,1):
-            return TURN_OFF_LED_1
-        if date > datetime.datetime(1975, 1, 1):
-            return TURN_OFF_LED_2
-        return TURN_OFF_LED_3
-    '''
 
     def set_message(self, message):
         self.new_message = message
