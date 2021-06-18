@@ -73,13 +73,31 @@ unsigned long distanceTimer;
 
 //--------------------------------Rotary_Encoder-------------------------------//
 // Rotary Encoder Pins
-#define ROT_ENC_CLK 2
-#define ROT_ENC_DT 3
-#define ROT_ENC_SW 4
+#define ROT_ENC_CLK_D 2
+#define ROT_ENC_DT_D 3
+#define ROT_ENC_SW_D 4
 
-int counter = 0;
-int currentStateCLK;
-int lastStateCLK;
+int counter_D = 0;
+int currentStateCLK_D;
+int lastStateCLK_D;
+
+#define ROT_ENC_CLK_M 14
+#define ROT_ENC_DT_M 15
+#define ROT_ENC_SW_M 16
+
+int counter_M = 0;
+int currentStateCLK_M;
+int lastStateCLK_M;
+
+#define ROT_ENC_CLK_Y 19
+#define ROT_ENC_DT_Y 20
+#define ROT_ENC_SW_Y 21
+
+int counter_Y = 0;
+int currentStateCLK_Y;
+int lastStateCLK_Y;
+
+
 unsigned long lastButtonPress = 0;
 
 int buttonState = 0;
@@ -102,30 +120,45 @@ boolean pressed = false;
 //#define sensorPowerPin_E 12
 
 
-//--------------------------------Water_Level_Sensors--------------------------//
-#define flowsensor 2 // Sensor Input
+//--------------------------------Flow_Sensors---------------------------------//
 #define flowSensorPin_A 6
 #define flowSensorPin_B 7
 
-volatile float flow_frequency; // Measures flow sensor pulsesunsigned
+volatile float flow_frequency_A; // Measures flow sensor pulsesunsigned
+volatile float flow_frequency_B; // Measures flow sensor pulsesunsigned
 
-float l_second; // Calculated litres/hour
+float l_second_A; // Calculated litres/hour
+float l_second_B; // Calculated litres/hour
 unsigned long currentTime;
 unsigned long cloopTime;
 
-unsigned long volume_A = 0;
-
+unsigned long volume_Old_A = 0;
+unsigned long volume_New_A = 0;
+unsigned long volume_Old_B = 0;
+unsigned long volume_New_B = 0;
 
 //-----------------------------------------------------------------------------//
 
 void setup() {
 
   // Set encoder pins as inputs and calibrate the last state
-  pinMode(ROT_ENC_CLK, INPUT);
-  pinMode(ROT_ENC_DT, INPUT);
-  pinMode(ROT_ENC_SW, INPUT_PULLUP);
+  pinMode(ROT_ENC_CLK_D, INPUT);
+  pinMode(ROT_ENC_DT_D, INPUT);
+  pinMode(ROT_ENC_SW_D, INPUT_PULLUP);
 
-  lastStateCLK = digitalRead(ROT_ENC_CLK);
+  lastStateCLK_D = digitalRead(ROT_ENC_CLK_D);
+
+  pinMode(ROT_ENC_CLK_M, INPUT);
+  pinMode(ROT_ENC_DT_M, INPUT);
+  pinMode(ROT_ENC_SW_M, INPUT_PULLUP);
+
+  lastStateCLK_M = digitalRead(ROT_ENC_CLK_M);
+
+  pinMode(ROT_ENC_CLK_Y, INPUT);
+  pinMode(ROT_ENC_DT_Y, INPUT);
+  pinMode(ROT_ENC_SW_Y, INPUT_PULLUP);
+
+  lastStateCLK_M = digitalRead(ROT_ENC_CLK_Y);
 
   // Set distance sensor pins to input and output
   pinMode(trigPin_A, OUTPUT);
@@ -154,11 +187,15 @@ void setup() {
   //  pinMode(valvePin_6_In, OUTPUT);
 
   // Set the flow sensor pins to input and calibrate the timer
-  pinMode(flowsensor, INPUT);
+  pinMode(flowSensorPin_A, INPUT);
+  pinMode(flowSensorPin_B, INPUT);
   sei(); // Enable interrupts
 
-  digitalWrite(flowsensor, HIGH); // Optional Internal Pull-Up
-  attachInterrupt(0, flow, RISING); // Setup Interrupt
+  digitalWrite(flowSensorPin_A, HIGH); // Optional Internal Pull-Up
+  attachInterrupt(0, flow_A, RISING); // Setup Interrupt
+  digitalWrite(flowSensorPin_B, HIGH); // Optional Internal Pull-Up
+  attachInterrupt(0, flow_B, RISING); // Setup Interrupt
+
   currentTime = millis();
   cloopTime = currentTime;
 
@@ -166,12 +203,16 @@ void setup() {
   Serial.begin(9600);
 
   // Read the initial state of CLK
-  lastStateCLK = digitalRead(ROT_ENC_CLK);
+  lastStateCLK_D = digitalRead(ROT_ENC_CLK_D);
+  lastStateCLK_M = digitalRead(ROT_ENC_CLK_M);
+  lastStateCLK_Y = digitalRead(ROT_ENC_CLK_Y);
 
 }
 
 void loop() {
-  encoderReader();                                                // Run the rotary encoder
+  encoderReaderDay();                                             // Run the rotary encoder for the day selector
+  encoderReaderMonth();                                           // Run the rotary encoder for the month selector
+  encoderReaderYear();                                            // Run the rotary encoder for the year selector
   buttonDetection();                                              // Check if the button is pressed
   flowSendData();
 
@@ -280,7 +321,7 @@ void readData() {                                                 // Read the da
 // Detects the button of the rotary encoder
 void buttonDetection() {
   // Read the button state
-  int btnState = digitalRead(ROT_ENC_SW);
+  int btnState = digitalRead(ROT_ENC_SW_D);
 
   //If we detect LOW signal, button is pressed
   if (btnState == LOW) {
@@ -301,25 +342,69 @@ void buttonDetection() {
 
 
 // Reads the encoder and outputs that value to the Pi
-void encoderReader() {
+void encoderReaderDay() {
   // Read the current state of CLK
-  currentStateCLK = digitalRead(ROT_ENC_CLK);
+  currentStateCLK_D = digitalRead(ROT_ENC_CLK_D);
 
   // If last and current state of CLK are different, then pulse occurred
   // React to only 1 state change to avoid double count
-  if (currentStateCLK != lastStateCLK  && currentStateCLK == 1) {
+  if (currentStateCLK_D != lastStateCLK_D  && currentStateCLK_D == 1) {
     // If the DT state is different than the CLK state then
     // the encoder is rotating CCW so decrement
-    if (digitalRead(ROT_ENC_DT) != currentStateCLK) {
-      counter ++;
+    if (digitalRead(ROT_ENC_DT_D) != currentStateCLK_D) {
+      counter_D ++;
     } else { // Encoder is rotating CW so increment
-      counter --;
+      counter_D --;
     }
     Serial.print(rotaryHeaders[0]);
-    Serial.println(counter);
+    Serial.println(counter_D);
   }
   // Remember last CLK state
-  lastStateCLK = currentStateCLK;
+  lastStateCLK_D = currentStateCLK_D;
+}
+
+
+void encoderReaderMonth() {
+  // Read the current state of CLK
+  currentStateCLK_M = digitalRead(ROT_ENC_CLK_M);
+
+  // If last and current state of CLK are different, then pulse occurred
+  // React to only 1 state change to avoid double count
+  if (currentStateCLK_M != lastStateCLK_M  && currentStateCLK_M == 1) {
+    // If the DT state is different than the CLK state then
+    // the encoder is rotating CCW so decrement
+    if (digitalRead(ROT_ENC_DT_M) != currentStateCLK_M) {
+      counter_M ++;
+    } else { // Encoder is rotating CW so increment
+      counter_M --;
+    }
+    Serial.print(rotaryHeaders[1]);
+    Serial.println(counter_M);
+  }
+  // Remember last CLK state
+  lastStateCLK_M = currentStateCLK_M;
+}
+
+
+void encoderReaderYear() {
+  // Read the current state of CLK
+  currentStateCLK_Y = digitalRead(ROT_ENC_CLK_Y);
+
+  // If last and current state of CLK are different, then pulse occurred
+  // React to only 1 state change to avoid double count
+  if (currentStateCLK_Y != lastStateCLK_Y  && currentStateCLK_Y == 1) {
+    // If the DT state is different than the CLK state then
+    // the encoder is rotating CCW so decrement
+    if (digitalRead(ROT_ENC_DT_Y) != currentStateCLK_Y) {
+      counter_Y ++;
+    } else { // Encoder is rotating CW so increment
+      counter_Y --;
+    }
+    Serial.print(rotaryHeaders[2]);
+    Serial.println(counter_Y);
+  }
+  // Remember last CLK state
+  lastStateCLK_Y = currentStateCLK_Y;
 }
 
 
@@ -367,27 +452,42 @@ int distance(int echoPin, int trigPin) {                       // Take the echo 
 }
 
 
-void flow () {                                                 // Interrupt function
+void flow_A () {                                               // Interrupt function
 
-  flow_frequency++;
+  flow_frequency_A++;
 }
+void flow_B () {                                               // Interrupt function
 
+  flow_frequency_B++;
+}
 
 void flowSendData () {
 
   currentTime = millis();
   // Every second, calculate and print millilitres/hour
-  if (currentTime >= (cloopTime + 50))
+  if (currentTime >= (cloopTime + 10))
   {
     unsigned long dt = currentTime - cloopTime;
     cloopTime = currentTime; // Updates cloopTime
+
     // Pulse frequency (Hz) = 7.5Q, Q is flow rate in L/min.
-    l_second = 1000.0 * (flow_frequency / 4380.0); // (Pulse frequency x 60 min) / 7.5Q = flowrate in mL/second
-    volume_A += 1.34 * dt * l_second / 1000.0; //ml
-    flow_frequency = 0; // Reset Counter
-    //      Serial.print(l_second); // Print millilitres/second
-    //      Serial.println(" mL/second");
-    Serial.print(flowHeaders[0]);
-    Serial.println(volume_A);
+    l_second_A = 1000.0 * (flow_frequency_A / 4380.0); // (Pulse frequency x 60 min) / 7.5Q = flowrate in mL/second
+    volume_New_A += 1.34 * dt * l_second_A / 1000.0; //ml
+    flow_frequency_A = 0; // Reset Counter
+
+    l_second_B = 1000.0 * (flow_frequency_B / 4380.0); // (Pulse frequency x 60 min) / 7.5Q = flowrate in mL/second
+    volume_New_B += 1.34 * dt * l_second_B / 1000.0; //ml
+    flow_frequency_B = 0; // Reset Counter
+
+    if (volume_New_A != volume_Old_A) {
+      Serial.print(flowHeaders[0]);
+      Serial.println(volume_New_A);
+      volume_Old_A = volume_New_A;
+    }
+    if (volume_New_B != volume_Old_B) {
+      Serial.print(flowHeaders[1]);
+      Serial.println(volume_New_B);
+      volume_Old_B = volume_New_B;
+    }
   }
 }
