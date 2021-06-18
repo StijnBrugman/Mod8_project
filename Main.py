@@ -30,17 +30,55 @@ if __name__ == '__main__':
 
             if stg.is_date():
                 date_cv.update_date(stg.get_raw_date())
+                print(date_cv.get_date())
+
+            if stg.is_distance():
+                distance_cv.set_distance(stg.get_distance_data())
+                print(stg.get_distance_data())
+
+            if stg.is_city():
+                print(stg.get_city())
+
+            if stg.is_flow():
+                print(stg.get_flow())
+
+
 
             if stg.button_pressed():
                 snd.update_date(date_cv.get_date())
+
+                water_heights = {}
+                temperature = {}
+
+                for city in LIST_CITIES:
+                    water_heights[city] = stg.get_water(city, date_cv.get_date())
+                    temperature[city] = stg.get_temp(city, date_cv.get_date())
+
+                distance_cv.set_water_heights(water_heights)
+                distance_cv.set_temp(temperature)
+                print("------------- Button is Pressed -------------")
+                print("Measured distance ", distance_cv.raw_distance)
+                print("Required distance ", distance_cv.distance)
+                print("Actual distance ", distance_cv.water_heights)
+
+
+
+
                 # print(stg.get_water("Driel boven", date_cv.get_date()))
+        distance_cv.processing()
+        # print(distance_cv.queue_is_empty())
+        if not distance_cv.queue_is_empty():
+            snd.set_message(distance_cv.get_next_queue_message())
 
-            # Getting all the water_heights and temperatures for the correct date
-            water_heights = {}
-            # for place in ["Driel boven", ]
+        # Getting all the water_heights and temperatures for the correct date
 
-            distance_cv.set_distance(stg.get_distance_data())
-        print(stg.get_water("Driel boven", date_cv.get_date()))
+
+
+
+
+
+
+
 
     cnt.stop()
     sys.exit()

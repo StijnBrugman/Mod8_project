@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from Settings import ENCODER_DC, DATA_DC
+from Settings import ENCODER_DC, DATA_DC, LIST_CITIES
 import time
 
 
@@ -10,9 +10,12 @@ class Storage:
         self.data_frame = self.init_data_frame()
         self.encoder_dc = ENCODER_DC
         self.data_dc = DATA_DC
-        self.date_check = False
 
+        self.date_check = False
         self.select_button = False
+        self.distance = False
+        self.country_selector = False
+        self.flow = False
 
     def init_data_frame(self):
         '''
@@ -68,9 +71,12 @@ class Storage:
             print("Invalid Code")
             return
 
-
         self.date_check = self.date_checker(code_equivalent)
         self.select_button = self.button_check(code_equivalent)
+        self.distance = self.distance_checker(code_equivalent)
+        self.country_selector = self.city_checker(code_equivalent)
+        self.flow = self.flow_checker(code_equivalent)
+
         # Serial read shouldn't be stored, is just used as a check-up
         if code_equivalent == 'serial_sent':
             print("RECEIVING DATA", data)
@@ -88,6 +94,26 @@ class Storage:
 
     def is_date(self):
         return self.date_check
+
+    def city_checker(self, code_equivalent):
+        if code_equivalent in ['Water_Sensor']:
+            return True
+        return False
+
+    def is_city(self):
+        return self.country_selector
+
+    def get_city(self):
+        index = self.data_dc['Water_Sensor']
+        return LIST_CITIES[index]
+
+    def distance_checker(self, code_equivalent):
+        if code_equivalent in ['distance_A', 'distance_B', 'distance_C', 'distance_D', 'distance_E']:
+            return True
+        return False
+
+    def is_distance(self):
+        return self.distance
 
     def convert_raw_data(self, raw_data):
         return raw_data[0], raw_data[1:]
@@ -107,5 +133,18 @@ class Storage:
 
     def get_distance_data(self):
         correct_list = {'distance_A', 'distance_B', 'distance_C', 'distance_D', 'distance_E'}
+        date_dic = {key: val for key, val in self.data_dc.items() if key in correct_list}
+        return date_dic
+
+    def flow_checker(self, code_equivalent):
+        if code_equivalent in ['flow_In', 'flow_Out']:
+            return True
+        return False
+
+    def is_flow(self):
+        return self.flow
+
+    def get_flow(self):
+        correct_list = {'flow_In', 'flow_Out'}
         date_dic = {key: val for key, val in self.data_dc.items() if key in correct_list}
         return date_dic
