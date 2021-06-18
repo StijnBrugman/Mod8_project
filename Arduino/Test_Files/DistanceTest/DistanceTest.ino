@@ -15,6 +15,9 @@
 int oldDistanceA;
 int oldDistanceB; 
 
+int newDistanceA;
+int newDistanceB; 
+
 unsigned long distanceTimer;
 
 char distanceHeaders[5] = {'E', 'F', 'G', 'H', 'I'};
@@ -41,19 +44,32 @@ void loop() {
   //}
 }
 void distanceRead() {
-  int j;
-  for (int i = 0; i < 10; i += 2) {
+//  int j;
+//  for (int i = 0; i < 10; i += 2) {
+//
+//    newDistance[j] = distance(i + trigPin_A, i + echoPin_A);
+//
+//    //if (newDistance[j] != oldDistance[j]) {
+//      Serial.print(distanceHeaders[j]);
+//      Serial.println(newDistance[j]);
+//      //Serial.println(oldDistance[j]);
+//    //}
+//    newDistance[j] = oldDistance[j];
+//    j++;
 
-    newDistance[j] = distance(i + trigPin_A, i + echoPin_A);
+  newDistanceA = distance(trigPin_A, echoPin_A);
 
-    //if (newDistance[j] != oldDistance[j]) {
-      Serial.print(distanceHeaders[j]);
-      Serial.println(newDistance[j]);
-      //Serial.println(oldDistance[j]);
-    //}
-    newDistance[j] = oldDistance[j];
-    j++;
-  }
+  Serial.print('E');
+  Serial.println(newDistanceA);
+  
+  newDistanceB = distance(trigPin_B, echoPin_B);
+
+//  Serial.print('E');
+//  Serial.println(newDistanceA);
+  Serial.print('F');
+  Serial.println(newDistanceB);
+
+//  }
 }
 
 
