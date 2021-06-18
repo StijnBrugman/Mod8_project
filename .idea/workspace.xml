@@ -19,13 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="080cef48-0aa3-41e8-8c3c-a12305bd110f" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/Datastorage/Distance.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Datastorage/storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/storage.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Settings.py" afterDir="false" />
-    </list>
+    <list default="true" id="080cef48-0aa3-41e8-8c3c-a12305bd110f" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -42,13 +36,13 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/bugs.md" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Datastorage/dataTransfer.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Main.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Datastorage/storage.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/bugs.md" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Datastorage/__intit__.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Datastorage/Output/temp.csv" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Datastorage/dataTransfer.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/CHECKLIST.md" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Datastorage/storage.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Datastorage/Output/temp.csv" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/.gitignore" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1tIXEArRLuek3Ikxk2FVNf14Whr" />
@@ -62,8 +56,10 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="Errors" />
@@ -164,6 +160,7 @@
       <workItem from="1623659484920" duration="117000" />
       <workItem from="1623662447583" duration="267000" />
       <workItem from="1623671115788" duration="23233000" />
+      <workItem from="1623848752683" duration="641000" />
     </task>
     <task id="LOCAL-00001" summary="Storage strucutre &amp; bugs read file">
       <created>1622933929691</created>
