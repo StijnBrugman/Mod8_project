@@ -15,12 +15,35 @@
 
   2021
 
+
+  The following pins are used:
+    Pins A0 to A4 are for the Water Level Sensors
+    Pins 2, 3, 4, 14, 15, 16, 19, 20, 21 are for Rotary Encoders
+    Pins 6 and 7 are for the Flow Sensors
+    Pins 8 to 12 are for the Water Level Sensors
+    Pins 22 to 33 are for the Valves
+    Pins 36 to 41 are for the Screen
+    Pins 44 to 53 are for the Distance Sensors
+
+  For sending data, the following headers are used:
+    A to C for the Rotary Encoders
+    D for the Button
+    E to I for the Distance Sensors
+    J and K for th Flow Sensors
+    L for the city selector with the Water Level Sensors
+
+  For recieving data, the following headers are used:
+    A to L for the Water Valves. K and L are for the river, the rest is for the tubes in pairs of 2
+    M for the City that the display should show
+    N for the Date that the display should show
+
 */
 //----------------------------General_Communication----------------------------//
 // Communcation headers
 char rotaryHeaders[] = {'A', 'B', 'C', 'D'};          // Headers for the rotary encoders and the button
 char distanceHeaders[5] = {'E', 'F', 'G', 'H', 'I'};  // Headers for the distance sensors
 char flowHeaders[] = {'J', 'K'};                      // Headers for the flow sensors
+char cityHeader = 'L';                                // Header for the city selector
 
 
 //--------------------------------Water_Valves---------------------------------//
@@ -38,8 +61,8 @@ char flowHeaders[] = {'J', 'K'};                      // Headers for the flow se
 //#define valvePin_6_Out 32
 //#define valvePin_6_In 33
 
-#define valvePin_1_Out 22 // TEMP
-#define valvePin_1_In 23  // TEMP
+#define valvePin_6_Out 22 // TEMP
+#define valvePin_6_In 23  // TEMP
 #define valvePin_2_Out 24 // TEMP
 #define valvePin_2_In 25  // TEMP
 
@@ -173,8 +196,8 @@ void setup() {
   //  pinMode(echoPin_E, INPUT);
 
   // Set the valve pins to output
-  pinMode(valvePin_1_Out, OUTPUT);
-  pinMode(valvePin_1_In, OUTPUT);
+  //pinMode(valvePin_1_Out, OUTPUT);
+  //pinMode(valvePin_1_In, OUTPUT);
   pinMode(valvePin_2_Out, OUTPUT);
   pinMode(valvePin_2_In, OUTPUT);
   //  pinMode(valvePin_3_Out, OUTPUT);
@@ -183,8 +206,8 @@ void setup() {
   //  pinMode(valvePin_4_In, OUTPUT);
   //  pinMode(valvePin_5_Out, OUTPUT);
   //  pinMode(valvePin_5_In, OUTPUT);
-  //  pinMode(valvePin_6_Out, OUTPUT);
-  //  pinMode(valvePin_6_In, OUTPUT);
+    pinMode(valvePin_6_Out, OUTPUT);
+    pinMode(valvePin_6_In, OUTPUT);
 
   // Set the flow sensor pins to input and calibrate the timer
   pinMode(flowSensorPin_A, INPUT);
@@ -236,14 +259,14 @@ void readData() {                                                 // Read the da
   recievedData.remove(0, 1);                                      // Remove the header
   int data = recievedData.toInt();                                // Transate the remaining string to an int
 
-  //  switch (recieveHeader) {                                      // Go into the switch with the header
-  //    case 'A':                                                   // If the header matches the case
-  //      if (data == 1) {                                          // And the int is 1
-  //        digitalWrite(valvePin_1_Out, HIGH);                     // Write HIGH to the valve
-  //      } else {                                                  // If other data was send
-  //        digitalWrite(valvePin_1_Out, LOW);                      // Else write LOW
-  //      }
-  //      break;                                                    // Break out of the switch
+    switch (recieveHeader) {                                      // Go into the switch with the header
+//      case 'A':                                                   // If the header matches the case
+//        if (data == 1) {                                          // And the int is 1
+//          digitalWrite(valvePin_1_Out, HIGH);                     // Write HIGH to the valve
+//        } else {                                                  // If other data was send
+//          digitalWrite(valvePin_1_Out, LOW);                      // Else write LOW
+//        }
+//        break;                                                    // Break out of the switch
   //    case 'B':
   //      if (data == 1) {
   //        digitalWrite(valvePin_1_In, HIGH);
@@ -307,13 +330,13 @@ void readData() {                                                 // Read the da
   //      } else {
   //        digitalWrite(valvePin_6_Out, LOW);
   //      }      break;
-  //    case 'L':
-  //      if (data == 1) {
-  //        digitalWrite(valvePin_6_In, HIGH);
-  //      } else {
-  //        digitalWrite(valvePin_6_In, LOW);
-  //      }      break;
-  //  }
+      case 'L':
+        if (data == 1) {
+          digitalWrite(valvePin_6_In, HIGH);
+        } else {
+          digitalWrite(valvePin_6_In, LOW);
+        }      break;
+    }
 
 }
 
@@ -441,7 +464,7 @@ void distanceRead() {
 }
 
 // Calculates the distance for the distance sensors
-int distance(int echoPin, int trigPin) {                       // Take the echo pin and trigger pin of the distance sensor
+int distance(int trigPin, int echoPin) {                       // Take the echo pin and trigger pin of the distance sensor
   int duration, distance;                                      // Declare duration and distance
   digitalWrite (trigPin, HIGH);                                // Set the trigger pin to HIGH
   delayMicroseconds(10);                                       // Wait for 10 microseconds
