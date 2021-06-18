@@ -30,9 +30,11 @@ if __name__ == '__main__':
 
             if stg.is_date():
                 date_cv.update_date(stg.get_raw_date())
+                print(date_cv.get_date())
 
             if stg.is_distance():
                 distance_cv.set_distance(stg.get_distance_data())
+                print(stg.get_distance_data())
 
             if stg.is_city():
                 print(stg.get_city())

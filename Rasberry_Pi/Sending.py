@@ -21,6 +21,7 @@ class Sending(threading.Thread):
     def stop(self):
         self.running = False
 
+
     def update_date(self, date):
         print(date)
         self.date = date
