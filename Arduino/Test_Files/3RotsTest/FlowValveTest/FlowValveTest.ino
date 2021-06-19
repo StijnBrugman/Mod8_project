@@ -4,6 +4,8 @@
 #define ROT_ENC_DT_D 3
 #define ROT_ENC_SW_D 4
 
+bool flow = false;
+
 int counter_D = 0;
 int currentStateCLK_D;
 int lastStateCLK_D;
@@ -27,14 +29,22 @@ unsigned long volume_New_A = 0;
 char rotaryHeaders[] = {'A', 'B', 'C', 'D'};          // Headers for the rotary encoders and the button
 char flowHeaders[] = {'J', 'K'};                      // Headers for the flow sensors
 
+unsigned long loopTimer;
+unsigned long loopTimer2;
+
+void flow_A () {                                               // Interrupt function
+
+  flow_frequency_A++;
+}
 
 void setup() {
   // put your setup code here, to run once:
 
   pinMode(8, OUTPUT);
-  digitalWrite(8, HIGH);
+  digitalWrite(8, LOW);
 
   pinMode(valvePin_6_In, OUTPUT);
+  digitalWrite(valvePin_6_In, HIGH);
 
   // Set encoder pins as inputs and calibrate the last state
   pinMode(ROT_ENC_CLK_D, INPUT);
@@ -61,6 +71,7 @@ void setup() {
   // Read the initial state of CLK
   lastStateCLK_D = digitalRead(ROT_ENC_CLK_D);
 
+  loopTimer = millis();
 }
 
 void loop() {
@@ -80,14 +91,26 @@ void readData() {                                                 // Read the da
   char recieveHeader = recievedData.charAt(0);                    // Check the header
   recievedData.remove(0, 1);                                      // Remove the header
   int data = recievedData.toInt();                                // Transate the remaining string to an int
-
+  Serial.print('Z');
+  Serial.println(recieveHeader + String(data));
+  //Serial.println("Header Onbekend");
   switch (recieveHeader) {
     case 'L':
+    Serial.print('Z');
+    Serial.println(data);
       if (data == 1) {
         digitalWrite(valvePin_6_In, HIGH);
-      } else {
+        digitalWrite(8, LOW);
+        flow = true;
+      } 
+      if (data == 0) {
         digitalWrite(valvePin_6_In, LOW);
-      }      break;
+        digitalWrite(8, HIGH);
+        flow = false;
+        Serial.print('Z');
+        Serial.println("wut");
+      }
+      break;
   }
 }
 
@@ -133,28 +156,15 @@ void encoderReaderDay() {
   lastStateCLK_D = currentStateCLK_D;
 }
 
-void flow_A () {                                               // Interrupt function
-
-  flow_frequency_A++;
-}
 
 void flowSendData () {
 
-  currentTime = millis();
-  // Every second, calculate and print millilitres/hour
-  if (currentTime >= (cloopTime + 10))
-  {
-    unsigned long dt = currentTime - cloopTime;
-    cloopTime = currentTime; // Updates cloopTime
-
-    // Pulse frequency (Hz) = 7.5Q, Q is flow rate in L/min.
-    l_second_A = 1000.0 * (flow_frequency_A / 4380.0); // (Pulse frequency x 60 min) / 7.5Q = flowrate in mL/second
-    volume_New_A += 1.34 * dt * l_second_A / 1000.0; //ml
-    flow_frequency_A = 0; // Reset Counter
-    if (volume_New_A != volume_Old_A) {
-      Serial.print(flowHeaders[0]);
-      Serial.println(volume_New_A);
-      volume_Old_A = volume_New_A;
+  if (flow == true) {
+    volume_Old_A++;
+    if (loopTimer + 100 < millis()) {
+      Serial.print('J');
+      Serial.println(volume_Old_A);
+      loopTimer = millis();
     }
   }
 }

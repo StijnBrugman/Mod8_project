@@ -1,44 +1,143 @@
-#define flowsensor 2 // Sensor Input
+#define valvePin_6_In 6  // TEMP
 
-volatile float flow_frequency; // Measures flow sensor pulsesunsigned 
+#define ROT_ENC_CLK_D 2
+#define ROT_ENC_DT_D 3
+#define ROT_ENC_SW_D 4
 
-float l_second; // Calculated litres/hour
-unsigned long currentTime;
-unsigned long cloopTime;
+bool flow = false;
 
-unsigned long volume = 0;
+int counter_D = 0;
+int currentStateCLK_D;
+int lastStateCLK_D;
 
-void flow () // Interrupt function
+unsigned long lastButtonPress = 0;
 
+int buttonState = 0;
+boolean pressed = false;
+
+char rotaryHeaders[] = {'A', 'B', 'C', 'D'};          // Headers for the rotary encoders and the button
+char flowHeaders[] = {'J', 'K'};                      // Headers for the flow sensors
+
+unsigned long volume_Old_A = 0;
+
+unsigned long loopTimer;
+unsigned long loopTimer2;
+
+void setup()
 {
-   flow_frequency++;
+  pinMode(valvePin_6_In, OUTPUT);
+  digitalWrite(valvePin_6_In, LOW);
+
+  // Set encoder pins as inputs and calibrate the last state
+  pinMode(ROT_ENC_CLK_D, INPUT);
+  pinMode(ROT_ENC_DT_D, INPUT);
+  pinMode(ROT_ENC_SW_D, INPUT_PULLUP);
+
+  lastStateCLK_D = digitalRead(ROT_ENC_CLK_D);
+
+  // Setup Serial Monitor
+  Serial.begin(9600);
+
+  // Read the initial state of CLK
+  lastStateCLK_D = digitalRead(ROT_ENC_CLK_D);
+
+  loopTimer = millis();
+  loopTimer2 = millis();
 }
 
-   void setup()
- {
-   pinMode(flowsensor, INPUT);
-   digitalWrite(flowsensor, HIGH); // Optional Internal Pull-Up
-   Serial.begin(9600);
-   attachInterrupt(0, flow, RISING); // Setup Interrupt
-   sei(); // Enable interrupts
-   currentTime = millis();
-   cloopTime = currentTime;
+void loop ()
+{
+  encoderReaderDay();                                             // Run the rotary encoder for the day selector
+  buttonDetection();                                              // Check if the button is pressed
+  flowSendData();
+
+  if (Serial.available() > 0) {                                   // If serial data is available for reading
+    String recievedData = Serial.readStringUntil('\n');             // Save the string until the break
+    readData(recievedData);                                                   // Execute the method to read the data
+  }
+  delay(1);
 }
 
-   void loop ()
-{
-   currentTime = millis();
-   // Every second, calculate and print millilitres/hour
-   if(currentTime >= (cloopTime + 1000))
-   {
-      unsigned long dt = currentTime - cloopTime;
-      cloopTime = currentTime; // Updates cloopTime
-      // Pulse frequency (Hz) = 7.5Q, Q is flow rate in L/min.
-      l_second = 1000.0*(flow_frequency / 4380.0); // (Pulse frequency x 60 min) / 7.5Q = flowrate in mL/second
-      volume += 1.34 * dt * l_second / 1000.0; //ml
-      flow_frequency = 0; // Reset Counter
-//      Serial.print(l_second); // Print millilitres/second
-//      Serial.println(" mL/second");
-      Serial.println(volume);
-   }
+void readData(String passedData) {                                                 // Read the data
+  String recievedData = passedData;             // Save the string until the break
+  char recieveHeader = recievedData.charAt(0);                    // Check the header
+  recievedData.remove(0, 1);                                      // Remove the header
+  int data = recievedData.toInt();                                // Transate the remaining string to an int
+  //Serial.println("Header Onbekend");
+  switch (recieveHeader) {
+    case 'L':
+      Serial.print('Z');
+      Serial.println(data);
+      if (data == 1) {
+        digitalWrite(valvePin_6_In, HIGH);
+        digitalWrite(8, LOW);
+        flow = true;
+      }
+      if (data == 0) {
+        digitalWrite(valvePin_6_In, LOW);
+        digitalWrite(8, HIGH);
+        flow = false;
+        Serial.print('Z');
+        Serial.println("wut");
+      }
+      break;
+  }
+}
+
+void buttonDetection() {
+  // Read the button state
+  int btnState = digitalRead(ROT_ENC_SW_D);
+
+  //If we detect LOW signal, button is pressed
+  if (btnState == LOW) {
+    //if 50ms have passed since last LOW pulse, it means that the
+    //button has been pressed, released and pressed again
+    if (millis() - lastButtonPress > 50 && !pressed) {
+      buttonState++;
+      Serial.print(rotaryHeaders[3]);
+      Serial.println(buttonState);
+      pressed = true;
+    }
+    // Remember last button press event
+    lastButtonPress = millis();
+  } else {
+    pressed = false;
+  }
+}
+
+void encoderReaderDay() {
+  // Read the current state of CLK
+  currentStateCLK_D = digitalRead(ROT_ENC_CLK_D);
+
+  // If last and current state of CLK are different, then pulse occurred
+  // React to only 1 state change to avoid double count
+  if (currentStateCLK_D != lastStateCLK_D  && currentStateCLK_D == 1) {
+    // If the DT state is different than the CLK state then
+    // the encoder is rotating CCW so decrement
+    if (digitalRead(ROT_ENC_DT_D) != currentStateCLK_D) {
+      counter_D ++;
+    } else { // Encoder is rotating CW so increment
+      counter_D --;
+    }
+    Serial.print(rotaryHeaders[0]);
+    Serial.println(counter_D);
+  }
+  // Remember last CLK state
+  lastStateCLK_D = currentStateCLK_D;
+}
+
+
+void flowSendData () {
+
+  if (flow == true) {
+    if (loopTimer2 + 10 < millis()) {
+      volume_Old_A++;
+      loopTimer2 = millis();
+    }
+    if (loopTimer + 200 < millis()) {
+      Serial.print('J');
+      Serial.println(volume_Old_A);
+      loopTimer = millis();
+    }
+  }
 }

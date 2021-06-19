@@ -38,58 +38,47 @@
     N for the Date that the display should show
 
 */
+
+
 //----------------------------General_Communication----------------------------//
 // Communcation headers
-char rotaryHeaders[] = {'A', 'B', 'C', 'D'};          // Headers for the rotary encoders and the button
-char distanceHeaders[5] = {'E', 'F', 'G', 'H', 'I'};  // Headers for the distance sensors
-char flowHeaders[] = {'J', 'K'};                      // Headers for the flow sensors
-char cityHeader = 'L';                                // Header for the city selector
+char rotaryHeaders[] = {'A', 'B', 'C', 'D'};                                   // Headers for the rotary encoders and the button
+char distanceHeaders[5] = {'E', 'F', 'G', 'H', 'I'};                           // Headers for the distance sensors
+char flowHeaders[] = {'J', 'K'};                                               // Headers for the flow sensors
+char cityHeader = 'L';                                                         // Header for the city selector
 
 
 //--------------------------------Water_Valves---------------------------------//
 // Water Valve Pins
-//#define valvePin_1_Out 22
-//#define valvePin_1_In 23
-//#define valvePin_2_Out 24
-//#define valvePin_2_In 25
-//#define valvePin_3_Out 26
-//#define valvePin_3_In 27
-//#define valvePin_4_Out 28
-//#define valvePin_4_In 29
-//#define valvePin_5_Out 30
-//#define valvePin_5_In 31
-//#define valvePin_6_Out 32
-//#define valvePin_6_In 33
-
-#define valvePin_6_Out 22 // TEMP
-#define valvePin_6_In 23  // TEMP
-#define valvePin_2_Out 24 // TEMP
-#define valvePin_2_In 25  // TEMP
+#define valvePin_1_Out 22
+#define valvePin_1_In 23
+#define valvePin_2_Out 24
+#define valvePin_2_In 25
+#define valvePin_3_Out 26
+#define valvePin_3_In 27
+#define valvePin_4_Out 28
+#define valvePin_4_In 29
+#define valvePin_5_Out 30
+#define valvePin_5_In 31
+#define valvePin_6_Out 32
+#define valvePin_6_In 33
 
 
 //--------------------------------Distance_Sensor------------------------------//
 // Distance Sensor Pins
-//#define trigPin_A 44
-//#define echoPin_A 45
-//#define trigPin_B 46
-//#define echoPin_B 47
-//#define trigPin_C 48
-//#define echoPin_C 49
-//#define trigPin_D 50
-//#define echoPin_D 51
-//#define trigPin_E 52
-//#define echoPin_E 53
+#define trigPin_A 44
+#define echoPin_A 45
+#define trigPin_B 46
+#define echoPin_B 47
+#define trigPin_C 48
+#define echoPin_C 49
+#define trigPin_D 50
+#define echoPin_D 51
+#define trigPin_E 52
+#define echoPin_E 53
 
-#define trigPin_A 5 // TEMP
-#define echoPin_A 6 // TEMP
-#define trigPin_B 7 // TEMP
-#define echoPin_B 8 // TEMP
-
-int oldDistanceA;
-int oldDistanceB;
-
-//int newDistance[5];
-//int oldDistance[5];
+int newDistance[5];
+int oldDistance[5];
 
 unsigned long distanceTimer;
 
@@ -120,7 +109,6 @@ int counter_Y = 0;
 int currentStateCLK_Y;
 int lastStateCLK_Y;
 
-
 unsigned long lastButtonPress = 0;
 
 int buttonState = 0;
@@ -129,29 +117,29 @@ boolean pressed = false;
 
 //--------------------------------Water_Level_Sensors--------------------------//
 // Water Level Sensor Pins
-//#define sensorPin_A A0
-//#define sensorPin_B A1
-//#define sensorPin_C A2
-//#define sensorPin_D A3
-//#define sensorPin_E A4
+#define sensorPin_A A0
+#define sensorPin_B A1
+#define sensorPin_C A2
+#define sensorPin_D A3
+#define sensorPin_E A4
 
 // Water Level Sensor Power Pins
-//#define sensorPowerPin_A 8
-//#define sensorPowerPin_B 9
-//#define sensorPowerPin_C 10
-//#define sensorPowerPin_D 11
-//#define sensorPowerPin_E 12
+#define sensorPowerPin_A 8
+#define sensorPowerPin_B 9
+#define sensorPowerPin_C 10
+#define sensorPowerPin_D 11
+#define sensorPowerPin_E 12
 
 
 //--------------------------------Flow_Sensors---------------------------------//
 #define flowSensorPin_A 6
 #define flowSensorPin_B 7
 
-volatile float flow_frequency_A; // Measures flow sensor pulsesunsigned
-volatile float flow_frequency_B; // Measures flow sensor pulsesunsigned
+volatile float flow_frequency_A;                                               // Measures flow sensor pulsesunsigned
+volatile float flow_frequency_B;                                               // Measures flow sensor pulsesunsigned
 
-float l_second_A; // Calculated litres/hour
-float l_second_B; // Calculated litres/hour
+float l_second_A;                                                              // Calculated litres/hour
+float l_second_B;                                                              // Calculated litres/hour
 unsigned long currentTime;
 unsigned long cloopTime;
 
@@ -188,26 +176,26 @@ void setup() {
   pinMode(echoPin_A, INPUT);
   pinMode(trigPin_B, OUTPUT);
   pinMode(echoPin_B, INPUT);
-  //  pinMode(trigPin_C, OUTPUT);
-  //  pinMode(echoPin_C, INPUT);
-  //  pinMode(trigPin_D, OUTPUT);
-  //  pinMode(echoPin_D, INPUT);
-  //  pinMode(trigPin_E, OUTPUT);
-  //  pinMode(echoPin_E, INPUT);
+  pinMode(trigPin_C, OUTPUT);
+  pinMode(echoPin_C, INPUT);
+  pinMode(trigPin_D, OUTPUT);
+  pinMode(echoPin_D, INPUT);
+  pinMode(trigPin_E, OUTPUT);
+  pinMode(echoPin_E, INPUT);
 
   // Set the valve pins to output
-  //pinMode(valvePin_1_Out, OUTPUT);
-  //pinMode(valvePin_1_In, OUTPUT);
+  pinMode(valvePin_1_Out, OUTPUT);
+  pinMode(valvePin_1_In, OUTPUT);
   pinMode(valvePin_2_Out, OUTPUT);
   pinMode(valvePin_2_In, OUTPUT);
-  //  pinMode(valvePin_3_Out, OUTPUT);
-  //  pinMode(valvePin_3_In, OUTPUT);
-  //  pinMode(valvePin_4_Out, OUTPUT);
-  //  pinMode(valvePin_4_In, OUTPUT);
-  //  pinMode(valvePin_5_Out, OUTPUT);
-  //  pinMode(valvePin_5_In, OUTPUT);
-    pinMode(valvePin_6_Out, OUTPUT);
-    pinMode(valvePin_6_In, OUTPUT);
+  pinMode(valvePin_3_Out, OUTPUT);
+  pinMode(valvePin_3_In, OUTPUT);
+  pinMode(valvePin_4_Out, OUTPUT);
+  pinMode(valvePin_4_In, OUTPUT);
+  pinMode(valvePin_5_Out, OUTPUT);
+  pinMode(valvePin_5_In, OUTPUT);
+  pinMode(valvePin_6_Out, OUTPUT);
+  pinMode(valvePin_6_In, OUTPUT);
 
   // Set the flow sensor pins to input and calibrate the timer
   pinMode(flowSensorPin_A, INPUT);
@@ -239,7 +227,7 @@ void loop() {
   buttonDetection();                                              // Check if the button is pressed
   flowSendData();
 
-  if (millis() > distanceTimer + 333) {                           // 1/3th of a second after the timer
+  if (millis() > distanceTimer + 20) {                           // 1/3th of a second after the timer
     distanceRead();                                               // Read the distance
     distanceTimer = millis();                                     // Reset the timer
     //Serial.print('Z');
@@ -259,84 +247,84 @@ void readData() {                                                 // Read the da
   recievedData.remove(0, 1);                                      // Remove the header
   int data = recievedData.toInt();                                // Transate the remaining string to an int
 
-    switch (recieveHeader) {                                      // Go into the switch with the header
-//      case 'A':                                                   // If the header matches the case
-//        if (data == 1) {                                          // And the int is 1
-//          digitalWrite(valvePin_1_Out, HIGH);                     // Write HIGH to the valve
-//        } else {                                                  // If other data was send
-//          digitalWrite(valvePin_1_Out, LOW);                      // Else write LOW
-//        }
-//        break;                                                    // Break out of the switch
-  //    case 'B':
-  //      if (data == 1) {
-  //        digitalWrite(valvePin_1_In, HIGH);
-  //      } else {
-  //        digitalWrite(valvePin_1_In, LOW);
-  //      }      break;
-  //    case 'C':
-  //      if (data == 1) {
-  //        digitalWrite(valvePin_2_Out, HIGH);
-  //      } else {
-  //        digitalWrite(valvePin_2_Out, LOW);
-  //      }      break;
-  //    case 'D':
-  //      if (data == 1) {
-  //        digitalWrite(valvePin_2_In, HIGH);
-  //      } else {
-  //        digitalWrite(valvePin_2_In, LOW);
-  //      }
-  //      break;
-  //    case 'E':
-  //      if (data == 1) {
-  //        digitalWrite(valvePin_3_Out, HIGH);
-  //      } else {
-  //        digitalWrite(valvePin_3_Out, LOW);
-  //      }      break;
-  //    case 'F':
-  //      if (data == 1) {
-  //        digitalWrite(valvePin_3_In, HIGH);
-  //      } else {
-  //        digitalWrite(valvePin_3_In, LOW);
-  //      }      break;
-  //    case 'G':
-  //      if (data == 1) {
-  //        digitalWrite(valvePin_4_Out, HIGH);
-  //      } else {
-  //        digitalWrite(valvePin_4_Out, LOW);
-  //      }
-  //      break;
-  //    case 'H':
-  //      if (data == 1) {
-  //        digitalWrite(valvePin_4_In, HIGH);
-  //      } else {
-  //        digitalWrite(valvePin_4_In, LOW);
-  //      }      break;
-  //    case 'I':
-  //      if (data == 1) {
-  //        digitalWrite(valvePin_5_Out, HIGH);
-  //      } else {
-  //        digitalWrite(valvePin_5_Out, LOW);
-  //      }      break;
-  //    case 'J':
-  //      if (data == 1) {
-  //        digitalWrite(valvePin_5_In, HIGH);
-  //      } else {
-  //        digitalWrite(valvePin_5_In, LOW);
-  //      }
-  //      break;
-  //    case 'K':
-  //      if (data == 1) {
-  //        digitalWrite(valvePin_6_Out, HIGH);
-  //      } else {
-  //        digitalWrite(valvePin_6_Out, LOW);
-  //      }      break;
-      case 'L':
-        if (data == 1) {
-          digitalWrite(valvePin_6_In, HIGH);
-        } else {
-          digitalWrite(valvePin_6_In, LOW);
-        }      break;
-    }
+  switch (recieveHeader) {                                        // Go into the switch with the header
+    case 'A':                                                     // If the header matches the case
+      if (data == 1) {                                            // And the int is 1
+        digitalWrite(valvePin_1_Out, HIGH);                       // Write HIGH to the valve
+      } else {                                                    // If other data was send
+        digitalWrite(valvePin_1_Out, LOW);                        // Else write LOW
+      }
+      break;                                                      // Break out of the switch
+    case 'B':
+      if (data == 1) {
+        digitalWrite(valvePin_1_In, HIGH);
+      } else {
+        digitalWrite(valvePin_1_In, LOW);
+      }      break;
+    case 'C':
+      if (data == 1) {
+        digitalWrite(valvePin_2_Out, HIGH);
+      } else {
+        digitalWrite(valvePin_2_Out, LOW);
+      }      break;
+    case 'D':
+      if (data == 1) {
+        digitalWrite(valvePin_2_In, HIGH);
+      } else {
+        digitalWrite(valvePin_2_In, LOW);
+      }
+      break;
+    case 'E':
+      if (data == 1) {
+        digitalWrite(valvePin_3_Out, HIGH);
+      } else {
+        digitalWrite(valvePin_3_Out, LOW);
+      }      break;
+    case 'F':
+      if (data == 1) {
+        digitalWrite(valvePin_3_In, HIGH);
+      } else {
+        digitalWrite(valvePin_3_In, LOW);
+      }      break;
+    case 'G':
+      if (data == 1) {
+        digitalWrite(valvePin_4_Out, HIGH);
+      } else {
+        digitalWrite(valvePin_4_Out, LOW);
+      }
+      break;
+    case 'H':
+      if (data == 1) {
+        digitalWrite(valvePin_4_In, HIGH);
+      } else {
+        digitalWrite(valvePin_4_In, LOW);
+      }      break;
+    case 'I':
+      if (data == 1) {
+        digitalWrite(valvePin_5_Out, HIGH);
+      } else {
+        digitalWrite(valvePin_5_Out, LOW);
+      }      break;
+    case 'J':
+      if (data == 1) {
+        digitalWrite(valvePin_5_In, HIGH);
+      } else {
+        digitalWrite(valvePin_5_In, LOW);
+      }
+      break;
+    case 'K':
+      if (data == 1) {
+        digitalWrite(valvePin_6_Out, HIGH);
+      } else {
+        digitalWrite(valvePin_6_Out, LOW);
+      }      break;
+    case 'L':
+      if (data == 1) {
+        digitalWrite(valvePin_6_In, HIGH);
+      } else {
+        digitalWrite(valvePin_6_In, LOW);
+      }      break;
+  }
 
 }
 
@@ -434,33 +422,19 @@ void encoderReaderYear() {
 // Reads the distance sensors and outputs their data to the Pi
 void distanceRead() {
 
-  int tempDistance = distance(echoPin_A, trigPin_A);  // Calculate the distance from the distancesensor
-  if (tempDistance != oldDistanceA) {                 // Check if that distance has changed. If it has
-    Serial.print(distanceHeaders[0]);                 // Print the header
-    Serial.println(tempDistance);                     // And the distance
-  }
-  oldDistanceA = tempDistance;                        // Save the new distance
-
-  tempDistance = distance(echoPin_B, trigPin_B);
-  if (tempDistance != oldDistanceB) {
-    Serial.print(distanceHeaders[1]);
-    Serial.println(tempDistance);
-  }
-  oldDistanceB = tempDistance;
-
   // For loop for use with 5 sensors
-  //  int j;                                                     // Declare int 'j'
-  //  for (int i = 0; i < 10; i += 2) {                          // For all 5 sensors
-  //  // It goes from 0 to 10 and increases by 2. This makes sure that i + pinnumber is correct.
-  //    newDistance[j] = distance(i + trigPinA, i + echoPinA);   // newDistance is the measured distance from the sensor
-  //
-  //    if (newDistance[j] != oldDistance[j]) {                  // If the new distance is different
-  //      Serial.print(distanceHeaders[i]);                      // Print the according header
-  //      Serial.println(newDistance[j]);                        // And the measured value
-  //      newDistance[j] = oldDistance[j];                       // Save the measured value
-  //    }
-  //    j++;                                                     // Increment J
-  //  }
+  int j;                                                     // Declare int 'j'
+  for (int i = 0; i < 10; i += 2) {                          // For all 5 sensors
+    // It goes from 0 to 10 and increases by 2. This makes sure that i + pinnumber is correct.
+    newDistance[j] = distance(i + trigPin_A, i + echoPin_A);   // newDistance is the measured distance from the sensor
+
+    if (newDistance[j] != oldDistance[j]) {                  // If the new distance is different
+      Serial.print(distanceHeaders[i]);                      // Print the according header
+      Serial.println(newDistance[j]);                        // And the measured value
+      newDistance[j] = oldDistance[j];                       // Save the measured value
+    }
+    j++;                                                     // Increment J
+  }
 }
 
 // Calculates the distance for the distance sensors
