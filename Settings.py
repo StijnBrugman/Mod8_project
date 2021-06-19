@@ -1,5 +1,5 @@
 # Connection_Settings
-BT_PORT_NAME = '/dev/cu.usbmodem141401'
+BT_PORT_NAME = '/dev/cu.usbmodem142401'
 # BT_PORT_NAME = '/dev/ttyACM0'
 
 # ENCODING DATA
@@ -19,21 +19,19 @@ ENCODER_DC = {
     'Z': 'serial_sent'
 }
 
-
-
 DATA_DC = {
-    'encoder_year':     0,
-    'encoder_month':    0,
-    'encoder_day':      0,
-    'encoder_button':   0,
-    'distance_A':       None,
-    'distance_B':       None,
-    'distance_C':       None,
-    'distance_D':       None,
-    'distance_E':       None,
-    'flow_In':          0,
-    'flow_Out':         0,
-    'Water_Sensor':     0
+    'encoder_year': 0,
+    'encoder_month': 0,
+    'encoder_day': 0,
+    'encoder_button': 0,
+    'distance_A': None,
+    'distance_B': None,
+    'distance_C': None,
+    'distance_D': None,
+    'distance_E': None,
+    'flow_In': 0,
+    'flow_Out': 0,
+    'Water_Sensor': 0
 }
 
 LIST_CITIES = ["Rotterdam", "Driel boven", "IJmuiden Noordersluis", "Maastricht", "Utrecht"]
@@ -52,7 +50,7 @@ MESSAGES_DC = {
         b"A0\nB1\n",
         b"A0\nB0\n"
     ],
-    LIST_CITIES[1] : [
+    LIST_CITIES[1]: [
         b"C1\nD0\n",
         b"C0\nD1\n",
         b"C0\nD0\n"
@@ -76,6 +74,7 @@ MESSAGES_DC = {
 
 MAX_DISTANCE = 300
 MIN_DISTANCE = 20
+DISTANCE_INTERVAL = 2
 
 MAX_HEIGHT = {
     LIST_CITIES[0]: 4000,
@@ -93,9 +92,13 @@ MIN_HEIGHT = {
     LIST_CITIES[4]: -100
 }
 
-# Sending message
-TURN_OFF_LED_1 = b"A1\nB0\nC0\n"
-TURN_OFF_LED_2 = b"A0\nB1\nC0\n"
-TURN_OFF_LED_3 = b"A0\nB0\nC1\n"
-WATERVALVE_A_1 = b"A0\nB0\nC1\n"
+# -------------------------MAIN RIVER CONSTANTS-------------------------
+INIT_WATER_HEIGHT = 0
+WATER_INTERVAL = 30
+WATER_HEIGHT_CONSTANT = 1
 
+FLOW_MESSAGE = {
+    'out':      b"K1\nL0\n",
+    'in':       b"K0\nL1\n",
+    'steady':    b"K0\nL0\n"
+}
