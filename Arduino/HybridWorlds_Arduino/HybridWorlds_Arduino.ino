@@ -47,6 +47,12 @@ char distanceHeaders[5] = {'E', 'F', 'G', 'H', 'I'};                           /
 char flowHeaders[] = {'J', 'K'};                                               // Headers for the flow sensors
 char cityHeader = 'L';                                                         // Header for the city selector
 
+char recievedCityHeader = 'M';
+char recievedDateHeader = 'N';
+
+String recievedCity = "";
+String recievedDate = "";
+
 
 //--------------------------------Water_Valves---------------------------------//
 // Water Valve Pins
@@ -148,6 +154,17 @@ unsigned long volume_New_A = 0;
 unsigned long volume_Old_B = 0;
 unsigned long volume_New_B = 0;
 
+
+//--------------------------------Screen---------------------------------------//
+// include the library code:
+#include <LiquidCrystal.h>
+// initialize the library by associating any needed LCD interface pin
+// with the arduino pin number it is connected to
+const int rs = 41, en = 40, d4 = 39, d5 = 38, d6 = 37, d7 = 36;
+LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+
+
 //-----------------------------------------------------------------------------//
 
 void setup() {
@@ -210,13 +227,12 @@ void setup() {
   currentTime = millis();
   cloopTime = currentTime;
 
+  // set up the LCD's number of columns and rows:
+  lcd.begin(16, 2);
+
   // Setup Serial Monitor
   Serial.begin(9600);
 
-  // Read the initial state of CLK
-  lastStateCLK_D = digitalRead(ROT_ENC_CLK_D);
-  lastStateCLK_M = digitalRead(ROT_ENC_CLK_M);
-  lastStateCLK_Y = digitalRead(ROT_ENC_CLK_Y);
 
 }
 
@@ -245,89 +261,102 @@ void readData() {                                                 // Read the da
   String recievedData = Serial.readStringUntil('\n');             // Save the string until the break
   char recieveHeader = recievedData.charAt(0);                    // Check the header
   recievedData.remove(0, 1);                                      // Remove the header
-  int data = recievedData.toInt();                                // Transate the remaining string to an int
 
-  switch (recieveHeader) {                                        // Go into the switch with the header
-    case 'A':                                                     // If the header matches the case
-      if (data == 1) {                                            // And the int is 1
-        digitalWrite(valvePin_1_Out, HIGH);                       // Write HIGH to the valve
-      } else {                                                    // If other data was send
-        digitalWrite(valvePin_1_Out, LOW);                        // Else write LOW
-      }
-      break;                                                      // Break out of the switch
-    case 'B':
-      if (data == 1) {
-        digitalWrite(valvePin_1_In, HIGH);
-      } else {
-        digitalWrite(valvePin_1_In, LOW);
-      }      break;
-    case 'C':
-      if (data == 1) {
-        digitalWrite(valvePin_2_Out, HIGH);
-      } else {
-        digitalWrite(valvePin_2_Out, LOW);
-      }      break;
-    case 'D':
-      if (data == 1) {
-        digitalWrite(valvePin_2_In, HIGH);
-      } else {
-        digitalWrite(valvePin_2_In, LOW);
-      }
-      break;
-    case 'E':
-      if (data == 1) {
-        digitalWrite(valvePin_3_Out, HIGH);
-      } else {
-        digitalWrite(valvePin_3_Out, LOW);
-      }      break;
-    case 'F':
-      if (data == 1) {
-        digitalWrite(valvePin_3_In, HIGH);
-      } else {
-        digitalWrite(valvePin_3_In, LOW);
-      }      break;
-    case 'G':
-      if (data == 1) {
-        digitalWrite(valvePin_4_Out, HIGH);
-      } else {
-        digitalWrite(valvePin_4_Out, LOW);
-      }
-      break;
-    case 'H':
-      if (data == 1) {
-        digitalWrite(valvePin_4_In, HIGH);
-      } else {
-        digitalWrite(valvePin_4_In, LOW);
-      }      break;
-    case 'I':
-      if (data == 1) {
-        digitalWrite(valvePin_5_Out, HIGH);
-      } else {
-        digitalWrite(valvePin_5_Out, LOW);
-      }      break;
-    case 'J':
-      if (data == 1) {
-        digitalWrite(valvePin_5_In, HIGH);
-      } else {
-        digitalWrite(valvePin_5_In, LOW);
-      }
-      break;
-    case 'K':
-      if (data == 1) {
-        digitalWrite(valvePin_6_Out, HIGH);
-      } else {
-        digitalWrite(valvePin_6_Out, LOW);
-      }      break;
-    case 'L':
-      if (data == 1) {
-        digitalWrite(valvePin_6_In, HIGH);
-      } else {
-        digitalWrite(valvePin_6_In, LOW);
-      }      break;
+  if (recieveHeader == 'M') {
+    recievedCity = recievedData;
+    lcd.setCursor(0, 0);
+    lcd.print("                ");
+    lcd.setCursor(0, 0);
+    lcd.print(recievedCity);
+  } else if (recieveHeader == 'N') {
+    recievedDate = recievedData;
+    lcd.setCursor(0, 1);
+    lcd.print(recievedDate);
+  } else {
+
+    int data = recievedData.toInt();                                // Transate the remaining string to an int
+
+    switch (recieveHeader) {                                        // Go into the switch with the header
+      case 'A':                                                     // If the header matches the case
+        if (data == 1) {                                            // And the int is 1
+          digitalWrite(valvePin_1_Out, HIGH);                       // Write HIGH to the valve
+        } else {                                                    // If other data was send
+          digitalWrite(valvePin_1_Out, LOW);                        // Else write LOW
+        }
+        break;                                                      // Break out of the switch
+      case 'B':
+        if (data == 1) {
+          digitalWrite(valvePin_1_In, HIGH);
+        } else {
+          digitalWrite(valvePin_1_In, LOW);
+        }      break;
+      case 'C':
+        if (data == 1) {
+          digitalWrite(valvePin_2_Out, HIGH);
+        } else {
+          digitalWrite(valvePin_2_Out, LOW);
+        }      break;
+      case 'D':
+        if (data == 1) {
+          digitalWrite(valvePin_2_In, HIGH);
+        } else {
+          digitalWrite(valvePin_2_In, LOW);
+        }
+        break;
+      case 'E':
+        if (data == 1) {
+          digitalWrite(valvePin_3_Out, HIGH);
+        } else {
+          digitalWrite(valvePin_3_Out, LOW);
+        }      break;
+      case 'F':
+        if (data == 1) {
+          digitalWrite(valvePin_3_In, HIGH);
+        } else {
+          digitalWrite(valvePin_3_In, LOW);
+        }      break;
+      case 'G':
+        if (data == 1) {
+          digitalWrite(valvePin_4_Out, HIGH);
+        } else {
+          digitalWrite(valvePin_4_Out, LOW);
+        }
+        break;
+      case 'H':
+        if (data == 1) {
+          digitalWrite(valvePin_4_In, HIGH);
+        } else {
+          digitalWrite(valvePin_4_In, LOW);
+        }      break;
+      case 'I':
+        if (data == 1) {
+          digitalWrite(valvePin_5_Out, HIGH);
+        } else {
+          digitalWrite(valvePin_5_Out, LOW);
+        }      break;
+      case 'J':
+        if (data == 1) {
+          digitalWrite(valvePin_5_In, HIGH);
+        } else {
+          digitalWrite(valvePin_5_In, LOW);
+        }
+        break;
+      case 'K':
+        if (data == 1) {
+          digitalWrite(valvePin_6_Out, HIGH);
+        } else {
+          digitalWrite(valvePin_6_Out, LOW);
+        }      break;
+      case 'L':
+        if (data == 1) {
+          digitalWrite(valvePin_6_In, HIGH);
+        } else {
+          digitalWrite(valvePin_6_In, LOW);
+        }      break;
+    }
+
   }
-
 }
-
 
 // Detects the button of the rotary encoder
 void buttonDetection() {
