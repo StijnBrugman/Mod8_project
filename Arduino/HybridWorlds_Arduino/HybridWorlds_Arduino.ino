@@ -167,25 +167,25 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 
 //--------------------------------LEDs-----------------------------------------//
-#define greenLED_1 1    // ALL TEMP
-#define redLED_1 2
-#define blueLED_1 3
+#define greenLED_1 2    // ALL TEMP
+#define redLED_1 3
+#define blueLED_1 4
 
-#define greenLED_2 4
-#define redLED_2 5
-#define blueLED_2 6
+#define greenLED_2 5
+#define redLED_2 6
+#define blueLED_2 7
 
-#define greenLED_3 7
-#define redLED_3 8
-#define blueLED_3 9
+#define greenLED_3 8
+#define redLED_3 9
+#define blueLED_3 10
 
-#define greenLED_4 10
-#define redLED_4 11
-#define blueLED_4 12
+#define greenLED_4 11
+#define redLED_4 12
+#define blueLED_4 13
 
-#define greenLED_5 13
-#define redLED_5 14
-#define blueLED_5 15
+#define greenLED_5 44
+#define redLED_5 45
+#define blueLED_5 46
 
 
 
@@ -308,101 +308,109 @@ void readData() {                                                 // Read the da
   char recieveHeader = recievedData.charAt(0);                    // Check the header
   recievedData.remove(0, 1);                                      // Remove the header
 
-  if (recieveHeader == 'M') {
-    recievedCity = recievedData;
-    lcd.setCursor(0, 0);
-    lcd.print("                ");
-    lcd.setCursor(0, 0);
-    lcd.print(recievedCity);
-  } else if (recieveHeader == 'N') {
-    recievedDate = recievedData;
-    lcd.setCursor(0, 1);
-    lcd.print(recievedDate);
-  } else {
+  switch (recieveHeader) {                                        // Go into the switch with the header
 
-    int data = recievedData.toInt();                                // Transate the remaining string to an int
-
-    switch (recieveHeader) {                                        // Go into the switch with the header
-      case 'A':                                                     // If the header matches the case
-        if (data == 1) {                                            // And the int is 1
-          digitalWrite(valvePin_1_Out, HIGH);                       // Write HIGH to the valve
-        } else {                                                    // If other data was send
-          digitalWrite(valvePin_1_Out, LOW);                        // Else write LOW
-        }
-        break;                                                      // Break out of the switch
-      case 'B':
-        if (data == 1) {
-          digitalWrite(valvePin_1_In, HIGH);
-        } else {
-          digitalWrite(valvePin_1_In, LOW);
-        }      break;
-      case 'C':
-        if (data == 1) {
-          digitalWrite(valvePin_2_Out, HIGH);
-        } else {
-          digitalWrite(valvePin_2_Out, LOW);
-        }      break;
-      case 'D':
-        if (data == 1) {
-          digitalWrite(valvePin_2_In, HIGH);
-        } else {
-          digitalWrite(valvePin_2_In, LOW);
-        }
-        break;
-      case 'E':
-        if (data == 1) {
-          digitalWrite(valvePin_3_Out, HIGH);
-        } else {
-          digitalWrite(valvePin_3_Out, LOW);
-        }      break;
-      case 'F':
-        if (data == 1) {
-          digitalWrite(valvePin_3_In, HIGH);
-        } else {
-          digitalWrite(valvePin_3_In, LOW);
-        }      break;
-      case 'G':
-        if (data == 1) {
-          digitalWrite(valvePin_4_Out, HIGH);
-        } else {
-          digitalWrite(valvePin_4_Out, LOW);
-        }
-        break;
-      case 'H':
-        if (data == 1) {
-          digitalWrite(valvePin_4_In, HIGH);
-        } else {
-          digitalWrite(valvePin_4_In, LOW);
-        }      break;
-      case 'I':
-        if (data == 1) {
-          digitalWrite(valvePin_5_Out, HIGH);
-        } else {
-          digitalWrite(valvePin_5_Out, LOW);
-        }      break;
-      case 'J':
-        if (data == 1) {
-          digitalWrite(valvePin_5_In, HIGH);
-        } else {
-          digitalWrite(valvePin_5_In, LOW);
-        }
-        break;
-        //      case 'K':
-        //        if (data == 1) {
-        //          digitalWrite(valvePin_6_Out, HIGH);
-        //        } else {
-        //          digitalWrite(valvePin_6_Out, LOW);
-        //        }      break;
-        //      case 'L':
-        //        if (data == 1) {
-        //          digitalWrite(valvePin_6_In, HIGH);
-        //        } else {
-        //          digitalWrite(valvePin_6_In, LOW);
-        //        }      break;
-    }
-
+    case 'A':                                                     // If the header matches the case
+      int data = recievedData.toInt();                            // Transate the remaining string to an int
+      if (data == 1) {                                            // And the int is 1
+        digitalWrite(valvePin_1_Out, HIGH);                       // Write HIGH to the valve
+      } else {                                                    // If other data was send
+        digitalWrite(valvePin_1_Out, LOW);                        // Else write LOW
+      }
+      break;                                                      // Break out of the switch
+    case 'B':
+      int data = recievedData.toInt();                            // Transate the remaining string to an int
+      if (data == 1) {
+        digitalWrite(valvePin_1_In, HIGH);
+      } else {
+        digitalWrite(valvePin_1_In, LOW);
+      }      break;
+    case 'C':
+      if (data == 1) {
+        digitalWrite(valvePin_2_Out, HIGH);
+      } else {
+        digitalWrite(valvePin_2_Out, LOW);
+      }      break;
+    case 'D':
+      int data = recievedData.toInt();                                // Transate the remaining string to an int
+      if (data == 1) {
+        digitalWrite(valvePin_2_In, HIGH);
+      } else {
+        digitalWrite(valvePin_2_In, LOW);
+      }
+      break;
+    case 'E':
+      int data = recievedData.toInt();                                // Transate the remaining string to an int
+      if (data == 1) {
+        digitalWrite(valvePin_3_Out, HIGH);
+      } else {
+        digitalWrite(valvePin_3_Out, LOW);
+      }      break;
+    case 'F':
+      int data = recievedData.toInt();                                // Transate the remaining string to an int
+      if (data == 1) {
+        digitalWrite(valvePin_3_In, HIGH);
+      } else {
+        digitalWrite(valvePin_3_In, LOW);
+      }      break;
+    case 'G':
+      int data = recievedData.toInt();                                // Transate the remaining string to an int
+      if (data == 1) {
+        digitalWrite(valvePin_4_Out, HIGH);
+      } else {
+        digitalWrite(valvePin_4_Out, LOW);
+      }
+      break;
+    case 'H':
+      int data = recievedData.toInt();                                // Transate the remaining string to an int
+      if (data == 1) {
+        digitalWrite(valvePin_4_In, HIGH);
+      } else {
+        digitalWrite(valvePin_4_In, LOW);
+      }      break;
+    case 'I':
+      int data = recievedData.toInt();                                // Transate the remaining string to an int
+      if (data == 1) {
+        digitalWrite(valvePin_5_Out, HIGH);
+      } else {
+        digitalWrite(valvePin_5_Out, LOW);
+      }      break;
+    case 'J':
+      int data = recievedData.toInt();                                // Transate the remaining string to an int
+      if (data == 1) {
+        digitalWrite(valvePin_5_In, HIGH);
+      } else {
+        digitalWrite(valvePin_5_In, LOW);
+      }
+      break;
+    //      case 'K':
+    //        if (data == 1) {
+    //        int data = recievedData.toInt();                                // Transate the remaining string to an int
+    //          digitalWrite(valvePin_6_Out, HIGH);
+    //        } else {
+    //          digitalWrite(valvePin_6_Out, LOW);
+    //        }      break;
+    //      case 'L':
+    //        int data = recievedData.toInt();                                // Transate the remaining string to an int
+    //        if (data == 1) {
+    //          digitalWrite(valvePin_6_In, HIGH);
+    //        } else {
+    //          digitalWrite(valvePin_6_In, LOW);
+    //        }      break;
+    case 'M':
+      recievedCity = recievedData;
+      lcd.setCursor(0, 0);
+      lcd.print("                ");
+      lcd.setCursor(0, 0);
+      lcd.print(recievedCity);
+    case 'N':
+      recievedDate = recievedData;
+      lcd.setCursor(0, 1);
+      lcd.print(recievedDate);
   }
+
 }
+
 
 // Detects the button of the rotary encoder
 void buttonDetection() {
