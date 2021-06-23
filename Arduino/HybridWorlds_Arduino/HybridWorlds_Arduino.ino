@@ -47,13 +47,19 @@ char rotaryHeaders[] = {'A', 'B', 'C', 'D'};                                   /
 char distanceHeaders[5] = {'E', 'F', 'G', 'H', 'I'};                           // Headers for the distance sensors
 char flowHeaders[] = {'J', 'K'};                                               // Headers for the flow sensors
 char cityHeader = 'L';                                                         // Header for the city selector
+char failedHeader = 'Z';
+
+
+char valveHeaders[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};    // Headers for the valves
 char LEDHeaders[5] = {'O', 'P', 'Q', 'R', 'S'};                                // Headers for the LED strips
 
-char recievedCityHeader = 'M';
-char recievedDateHeader = 'N';
+char receivedCityHeader = 'M';
+char receivedDateHeader = 'N';
 
-String recievedCity = "";
-String recievedDate = "";
+String receivedCity = "";
+String receivedDate = "";
+
+int data = 0;
 
 
 //--------------------------------Water_Valves---------------------------------//
@@ -68,8 +74,6 @@ String recievedDate = "";
 #define valvePin_4_In 29
 #define valvePin_5_Out 30
 #define valvePin_5_In 31
-//#define valvePin_6_Out 32
-//#define valvePin_6_In 33
 
 
 //--------------------------------Distance_Sensor------------------------------//
@@ -143,11 +147,11 @@ boolean pressed = false;
 //#define flowSensorPin_A 6
 //#define flowSensorPin_B 7
 //
-//volatile float flow_frequency_A;                                               // Measures flow sensor pulsesunsigned
-//volatile float flow_frequency_B;                                               // Measures flow sensor pulsesunsigned
+//volatile float flow_frequency_A;                                               // Measures flow sensor pulses
+//volatile float flow_frequency_B;                                               // Measures flow sensor pulses
 //
-//float l_second_A;                                                              // Calculated litres/hour
-//float l_second_B;                                                              // Calculated litres/hour
+//unsigned float l_second_A;                                                     // Calculated litres/hour
+//unsigned float l_second_B;                                                     // Calculated litres/hour
 //unsigned long currentTime;
 //unsigned long cloopTime;
 //
@@ -167,7 +171,7 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 
 //--------------------------------LEDs-----------------------------------------//
-#define greenLED_1 2    // ALL TEMP
+#define greenLED_1 2
 #define redLED_1 3
 #define blueLED_1 4
 
@@ -304,109 +308,130 @@ void loop() {
 
 // Read the data
 void readData() {                                                 // Read the data
-  String recievedData = Serial.readStringUntil('\n');             // Save the string until the break
-  char recieveHeader = recievedData.charAt(0);                    // Check the header
-  recievedData.remove(0, 1);                                      // Remove the header
+  String receivedData = Serial.readStringUntil('\n');             // Save the string until the break
+  char receiveHeader = receivedData.charAt(0);                    // Check the header
+  receivedData.remove(0, 1);                                      // Remove the header
 
-  switch (recieveHeader) {                                        // Go into the switch with the header
+  switch (receiveHeader) {                                        // Go into the switch with the header
 
-    case 'A':                                                     // If the header matches the case
-      int data = recievedData.toInt();                            // Transate the remaining string to an int
+    //case valveHeaders[0]:                                         // If the header matches the case
+    case 'A':
+      data = receivedData.toInt();                            // Transate the remaining string to an int
       if (data == 1) {                                            // And the int is 1
         digitalWrite(valvePin_1_Out, HIGH);                       // Write HIGH to the valve
       } else {                                                    // If other data was send
         digitalWrite(valvePin_1_Out, LOW);                        // Else write LOW
       }
       break;                                                      // Break out of the switch
+    //case valveHeaders[1]:
     case 'B':
-      int data = recievedData.toInt();                            // Transate the remaining string to an int
+      data = receivedData.toInt();                            // Transate the remaining string to an int
       if (data == 1) {
         digitalWrite(valvePin_1_In, HIGH);
       } else {
         digitalWrite(valvePin_1_In, LOW);
       }      break;
+    //case valveHeaders[2]:
     case 'C':
       if (data == 1) {
         digitalWrite(valvePin_2_Out, HIGH);
       } else {
         digitalWrite(valvePin_2_Out, LOW);
       }      break;
+    //case valveHeaders[3]:
     case 'D':
-      int data = recievedData.toInt();                                // Transate the remaining string to an int
+      data = receivedData.toInt();                                // Transate the remaining string to an int
       if (data == 1) {
         digitalWrite(valvePin_2_In, HIGH);
       } else {
         digitalWrite(valvePin_2_In, LOW);
       }
       break;
+    //case valveHeaders[4]:
     case 'E':
-      int data = recievedData.toInt();                                // Transate the remaining string to an int
+      data = receivedData.toInt();                                // Transate the remaining string to an int
       if (data == 1) {
         digitalWrite(valvePin_3_Out, HIGH);
       } else {
         digitalWrite(valvePin_3_Out, LOW);
       }      break;
+    //case valveHeaders[5]:
     case 'F':
-      int data = recievedData.toInt();                                // Transate the remaining string to an int
+      data = receivedData.toInt();                                // Transate the remaining string to an int
       if (data == 1) {
         digitalWrite(valvePin_3_In, HIGH);
       } else {
         digitalWrite(valvePin_3_In, LOW);
       }      break;
+    //case valveHeaders[6]:
     case 'G':
-      int data = recievedData.toInt();                                // Transate the remaining string to an int
+      data = receivedData.toInt();                                // Transate the remaining string to an int
       if (data == 1) {
         digitalWrite(valvePin_4_Out, HIGH);
       } else {
         digitalWrite(valvePin_4_Out, LOW);
       }
       break;
+    //case valveHeaders[7]:
     case 'H':
-      int data = recievedData.toInt();                                // Transate the remaining string to an int
+      data = receivedData.toInt();                                // Transate the remaining string to an int
       if (data == 1) {
         digitalWrite(valvePin_4_In, HIGH);
       } else {
         digitalWrite(valvePin_4_In, LOW);
       }      break;
+    //case valveHeaders[8]:
     case 'I':
-      int data = recievedData.toInt();                                // Transate the remaining string to an int
+      data = receivedData.toInt();                                // Transate the remaining string to an int
       if (data == 1) {
         digitalWrite(valvePin_5_Out, HIGH);
       } else {
         digitalWrite(valvePin_5_Out, LOW);
       }      break;
+    //case valveHeaders[9]:
     case 'J':
-      int data = recievedData.toInt();                                // Transate the remaining string to an int
+      data = receivedData.toInt();                                // Transate the remaining string to an int
       if (data == 1) {
         digitalWrite(valvePin_5_In, HIGH);
       } else {
         digitalWrite(valvePin_5_In, LOW);
       }
       break;
-    //      case 'K':
-    //        if (data == 1) {
-    //        int data = recievedData.toInt();                                // Transate the remaining string to an int
-    //          digitalWrite(valvePin_6_Out, HIGH);
-    //        } else {
-    //          digitalWrite(valvePin_6_Out, LOW);
-    //        }      break;
-    //      case 'L':
-    //        int data = recievedData.toInt();                                // Transate the remaining string to an int
-    //        if (data == 1) {
-    //          digitalWrite(valvePin_6_In, HIGH);
-    //        } else {
-    //          digitalWrite(valvePin_6_In, LOW);
-    //        }      break;
+    //    case 'K':
+    //      data = receivedData.toInt();                                // Transate the remaining string to an int
+    //      if (data == 1) {
+    //        digitalWrite(valvePin_6_Out, HIGH);
+    //      } else {
+    //        digitalWrite(valvePin_6_Out, LOW);
+    //      }      break;
+    //    case 'L':
+    //      data = receivedData.toInt();                                // Transate the remaining string to an int
+    //      if (data == 1) {
+    //        digitalWrite(valvePin_6_In, HIGH);
+    //      } else {
+    //        digitalWrite(valvePin_6_In, LOW);
+    //      }      break;
+    //case receivedCityHeader:
     case 'M':
-      recievedCity = recievedData;
+      receivedCity = receivedData;
       lcd.setCursor(0, 0);
       lcd.print("                ");
       lcd.setCursor(0, 0);
-      lcd.print(recievedCity);
+      lcd.print(receivedCity);
+      break;
+    //case receivedDateHeader:
     case 'N':
-      recievedDate = recievedData;
+      receivedDate = receivedData;
       lcd.setCursor(0, 1);
-      lcd.print(recievedDate);
+      lcd.print(receivedDate);
+      break;
+    default:
+      Serial.print(failedHeader);
+      Serial.print("  Letter was not recognised");
+      Serial.print("  I received: ");
+      Serial.print(receiveHeader);
+      Serial.print("  ");
+      Serial.println(receivedData);
   }
 
 }
