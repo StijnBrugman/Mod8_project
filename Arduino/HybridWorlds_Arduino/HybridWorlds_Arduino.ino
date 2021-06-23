@@ -18,12 +18,11 @@
 
   The following pins are used:
     Pins A0 to A4 are for the Water Level Sensors
-    Pins 2, 3, 4, 14, 15, 16, 19, 20, 21 are for Rotary Encoders
-    Pins 6 and 7 are for the Flow Sensors
-    Pins 8 to 12 are for the Water Level Sensors
-    Pins 22 to 33 are for the Valves
-    Pins 36 to 41 are for the Screen
-    Pins 44 to 53 are for the Distance Sensors
+    Pins 2 to 13 and 44 to 46 are for LED strips
+    Pins 14 and 19 are for the Screen
+    Pins 22 to 31 are for the Valves
+    Pins 32 to 41 are for the Distance Sensors
+    Pins 42, 43 and 47 to 53 are for Rotary Encoders
 
   For sending data, the following headers are used:
     A to C for the Rotary Encoders
@@ -36,6 +35,8 @@
     A to L for the Water Valves. K and L are for the river, the rest is for the tubes in pairs of 2
     M for the City that the display should show
     N for the Date that the display should show
+    O to P for the LED strips that display temperature
+
 
 */
 
@@ -46,6 +47,7 @@ char rotaryHeaders[] = {'A', 'B', 'C', 'D'};                                   /
 char distanceHeaders[5] = {'E', 'F', 'G', 'H', 'I'};                           // Headers for the distance sensors
 char flowHeaders[] = {'J', 'K'};                                               // Headers for the flow sensors
 char cityHeader = 'L';                                                         // Header for the city selector
+char LEDHeaders[5] = {'O', 'P', 'Q', 'R', 'S'};                                // Headers for the LED strips
 
 char recievedCityHeader = 'M';
 char recievedDateHeader = 'N';
@@ -66,22 +68,22 @@ String recievedDate = "";
 #define valvePin_4_In 29
 #define valvePin_5_Out 30
 #define valvePin_5_In 31
-#define valvePin_6_Out 32
-#define valvePin_6_In 33
+//#define valvePin_6_Out 32
+//#define valvePin_6_In 33
 
 
 //--------------------------------Distance_Sensor------------------------------//
 // Distance Sensor Pins
-#define trigPin_A 44
-#define echoPin_A 45
-#define trigPin_B 46
-#define echoPin_B 47
-#define trigPin_C 48
-#define echoPin_C 49
-#define trigPin_D 50
-#define echoPin_D 51
-#define trigPin_E 52
-#define echoPin_E 53
+#define trigPin_A 32
+#define echoPin_A 33
+#define trigPin_B 34
+#define echoPin_B 35
+#define trigPin_C 36
+#define echoPin_C 37
+#define trigPin_D 38
+#define echoPin_D 39
+#define trigPin_E 40
+#define echoPin_E 41
 
 int newDistance[5];
 int oldDistance[5];
@@ -91,25 +93,25 @@ unsigned long distanceTimer;
 
 //--------------------------------Rotary_Encoder-------------------------------//
 // Rotary Encoder Pins
-#define ROT_ENC_CLK_D 2
-#define ROT_ENC_DT_D 3
-#define ROT_ENC_SW_D 4
+#define ROT_ENC_CLK_D 42
+#define ROT_ENC_DT_D 43
+#define ROT_ENC_SW_D 47
 
 int counter_D = 0;
 int currentStateCLK_D;
 int lastStateCLK_D;
 
-#define ROT_ENC_CLK_M 14
-#define ROT_ENC_DT_M 15
-#define ROT_ENC_SW_M 16
+#define ROT_ENC_CLK_M 48
+#define ROT_ENC_DT_M 49
+#define ROT_ENC_SW_M 50
 
 int counter_M = 0;
 int currentStateCLK_M;
 int lastStateCLK_M;
 
-#define ROT_ENC_CLK_Y 19
-#define ROT_ENC_DT_Y 20
-#define ROT_ENC_SW_Y 21
+#define ROT_ENC_CLK_Y 51
+#define ROT_ENC_DT_Y 52
+#define ROT_ENC_SW_Y 53
 
 int counter_Y = 0;
 int currentStateCLK_Y;
@@ -130,29 +132,29 @@ boolean pressed = false;
 #define sensorPin_E A4
 
 // Water Level Sensor Power Pins
-#define sensorPowerPin_A 8
-#define sensorPowerPin_B 9
-#define sensorPowerPin_C 10
-#define sensorPowerPin_D 11
-#define sensorPowerPin_E 12
+//#define sensorPowerPin_A 8
+//#define sensorPowerPin_B 9
+//#define sensorPowerPin_C 10
+//#define sensorPowerPin_D 11
+//#define sensorPowerPin_E 12
 
 
 //--------------------------------Flow_Sensors---------------------------------//
-#define flowSensorPin_A 6
-#define flowSensorPin_B 7
-
-volatile float flow_frequency_A;                                               // Measures flow sensor pulsesunsigned
-volatile float flow_frequency_B;                                               // Measures flow sensor pulsesunsigned
-
-float l_second_A;                                                              // Calculated litres/hour
-float l_second_B;                                                              // Calculated litres/hour
-unsigned long currentTime;
-unsigned long cloopTime;
-
-unsigned long volume_Old_A = 0;
-unsigned long volume_New_A = 0;
-unsigned long volume_Old_B = 0;
-unsigned long volume_New_B = 0;
+//#define flowSensorPin_A 6
+//#define flowSensorPin_B 7
+//
+//volatile float flow_frequency_A;                                               // Measures flow sensor pulsesunsigned
+//volatile float flow_frequency_B;                                               // Measures flow sensor pulsesunsigned
+//
+//float l_second_A;                                                              // Calculated litres/hour
+//float l_second_B;                                                              // Calculated litres/hour
+//unsigned long currentTime;
+//unsigned long cloopTime;
+//
+//unsigned long volume_Old_A = 0;
+//unsigned long volume_New_A = 0;
+//unsigned long volume_Old_B = 0;
+//unsigned long volume_New_B = 0;
 
 
 //--------------------------------Screen---------------------------------------//
@@ -160,8 +162,31 @@ unsigned long volume_New_B = 0;
 #include <LiquidCrystal.h>
 // initialize the library by associating any needed LCD interface pin
 // with the arduino pin number it is connected to
-const int rs = 41, en = 40, d4 = 39, d5 = 38, d6 = 37, d7 = 36;
+const int rs = 19, en = 18, d4 = 17, d5 = 16, d6 = 15, d7 = 14;
 LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
+
+
+//--------------------------------LEDs-----------------------------------------//
+#define greenLED_1 1    // ALL TEMP
+#define redLED_1 2
+#define blueLED_1 3
+
+#define greenLED_2 4
+#define redLED_2 5
+#define blueLED_2 6
+
+#define greenLED_3 7
+#define redLED_3 8
+#define blueLED_3 9
+
+#define greenLED_4 10
+#define redLED_4 11
+#define blueLED_4 12
+
+#define greenLED_5 13
+#define redLED_5 14
+#define blueLED_5 15
+
 
 
 
@@ -211,24 +236,45 @@ void setup() {
   pinMode(valvePin_4_In, OUTPUT);
   pinMode(valvePin_5_Out, OUTPUT);
   pinMode(valvePin_5_In, OUTPUT);
-  pinMode(valvePin_6_Out, OUTPUT);
-  pinMode(valvePin_6_In, OUTPUT);
+  //  pinMode(valvePin_6_Out, OUTPUT);
+  //  pinMode(valvePin_6_In, OUTPUT);
 
-  // Set the flow sensor pins to input and calibrate the timer
-  pinMode(flowSensorPin_A, INPUT);
-  pinMode(flowSensorPin_B, INPUT);
-  sei(); // Enable interrupts
+  //  // Set the flow sensor pins to input and calibrate the timer
+  //  pinMode(flowSensorPin_A, INPUT);
+  //  pinMode(flowSensorPin_B, INPUT);
+  //  sei(); // Enable interrupts
+  //
+  //  digitalWrite(flowSensorPin_A, HIGH); // Optional Internal Pull-Up
+  //  attachInterrupt(0, flow_A, RISING); // Setup Interrupt
+  //  digitalWrite(flowSensorPin_B, HIGH); // Optional Internal Pull-Up
+  //  attachInterrupt(0, flow_B, RISING); // Setup Interrupt
+  //
+  //  currentTime = millis();
+  //  cloopTime = currentTime;
 
-  digitalWrite(flowSensorPin_A, HIGH); // Optional Internal Pull-Up
-  attachInterrupt(0, flow_A, RISING); // Setup Interrupt
-  digitalWrite(flowSensorPin_B, HIGH); // Optional Internal Pull-Up
-  attachInterrupt(0, flow_B, RISING); // Setup Interrupt
-
-  currentTime = millis();
-  cloopTime = currentTime;
-
-  // set up the LCD's number of columns and rows:
+  // Set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
+
+  // Set the pinModes for the LED strips
+  //  pinMode(greenLED_1, OUTPUT);
+  //  pinMode(redLED_1, OUTPUT);
+  //  pinMode(blueLED_1, OUTPUT);
+  //
+  //  pinMode(greenLED_2, OUTPUT);
+  //  pinMode(redLED_2, OUTPUT);
+  //  pinMode(blueLED_2, OUTPUT);
+  //
+  //  pinMode(greenLED_3, OUTPUT);
+  //  pinMode(redLED_3, OUTPUT);
+  //  pinMode(blueLED_3, OUTPUT);
+  //
+  //  pinMode(greenLED_4, OUTPUT);
+  //  pinMode(redLED_4, OUTPUT);
+  //  pinMode(blueLED_4, OUTPUT);
+  //
+  //  pinMode(greenLED_5, OUTPUT);
+  //  pinMode(redLED_5, OUTPUT);
+  //  pinMode(blueLED_5, OUTPUT);
 
   // Setup Serial Monitor
   Serial.begin(9600);
@@ -241,9 +287,9 @@ void loop() {
   encoderReaderMonth();                                           // Run the rotary encoder for the month selector
   encoderReaderYear();                                            // Run the rotary encoder for the year selector
   buttonDetection();                                              // Check if the button is pressed
-  flowSendData();
+  //flowSendData();                                                 // Send data from the flow sensors
 
-  if (millis() > distanceTimer + 20) {                           // 1/3th of a second after the timer
+  if (millis() > distanceTimer + 20) {                            // 1/3th of a second after the timer
     distanceRead();                                               // Read the distance
     distanceTimer = millis();                                     // Reset the timer
     //Serial.print('Z');
@@ -341,18 +387,18 @@ void readData() {                                                 // Read the da
           digitalWrite(valvePin_5_In, LOW);
         }
         break;
-      case 'K':
-        if (data == 1) {
-          digitalWrite(valvePin_6_Out, HIGH);
-        } else {
-          digitalWrite(valvePin_6_Out, LOW);
-        }      break;
-      case 'L':
-        if (data == 1) {
-          digitalWrite(valvePin_6_In, HIGH);
-        } else {
-          digitalWrite(valvePin_6_In, LOW);
-        }      break;
+        //      case 'K':
+        //        if (data == 1) {
+        //          digitalWrite(valvePin_6_Out, HIGH);
+        //        } else {
+        //          digitalWrite(valvePin_6_Out, LOW);
+        //        }      break;
+        //      case 'L':
+        //        if (data == 1) {
+        //          digitalWrite(valvePin_6_In, HIGH);
+        //        } else {
+        //          digitalWrite(valvePin_6_In, LOW);
+        //        }      break;
     }
 
   }
@@ -478,42 +524,42 @@ int distance(int trigPin, int echoPin) {                       // Take the echo 
 }
 
 
-void flow_A () {                                               // Interrupt function
-
-  flow_frequency_A++;
-}
-void flow_B () {                                               // Interrupt function
-
-  flow_frequency_B++;
-}
-
-void flowSendData () {
-
-  currentTime = millis();
-  // Every second, calculate and print millilitres/hour
-  if (currentTime >= (cloopTime + 10))
-  {
-    unsigned long dt = currentTime - cloopTime;
-    cloopTime = currentTime; // Updates cloopTime
-
-    // Pulse frequency (Hz) = 7.5Q, Q is flow rate in L/min.
-    l_second_A = 1000.0 * (flow_frequency_A / 4380.0); // (Pulse frequency x 60 min) / 7.5Q = flowrate in mL/second
-    volume_New_A += 1.34 * dt * l_second_A / 1000.0; //ml
-    flow_frequency_A = 0; // Reset Counter
-
-    l_second_B = 1000.0 * (flow_frequency_B / 4380.0); // (Pulse frequency x 60 min) / 7.5Q = flowrate in mL/second
-    volume_New_B += 1.34 * dt * l_second_B / 1000.0; //ml
-    flow_frequency_B = 0; // Reset Counter
-
-    if (volume_New_A != volume_Old_A) {
-      Serial.print(flowHeaders[0]);
-      Serial.println(volume_New_A);
-      volume_Old_A = volume_New_A;
-    }
-    if (volume_New_B != volume_Old_B) {
-      Serial.print(flowHeaders[1]);
-      Serial.println(volume_New_B);
-      volume_Old_B = volume_New_B;
-    }
-  }
-}
+//void flow_A () {                                               // Interrupt function
+//
+//  flow_frequency_A++;
+//}
+//void flow_B () {                                               // Interrupt function
+//
+//  flow_frequency_B++;
+//}
+//
+//void flowSendData () {
+//
+//  currentTime = millis();
+//  // Every second, calculate and print millilitres/hour
+//  if (currentTime >= (cloopTime + 10))
+//  {
+//    unsigned long dt = currentTime - cloopTime;
+//    cloopTime = currentTime; // Updates cloopTime
+//
+//    // Pulse frequency (Hz) = 7.5Q, Q is flow rate in L/min.
+//    l_second_A = 1000.0 * (flow_frequency_A / 4380.0); // (Pulse frequency x 60 min) / 7.5Q = flowrate in mL/second
+//    volume_New_A += 1.34 * dt * l_second_A / 1000.0; //ml
+//    flow_frequency_A = 0; // Reset Counter
+//
+//    l_second_B = 1000.0 * (flow_frequency_B / 4380.0); // (Pulse frequency x 60 min) / 7.5Q = flowrate in mL/second
+//    volume_New_B += 1.34 * dt * l_second_B / 1000.0; //ml
+//    flow_frequency_B = 0; // Reset Counter
+//
+//    if (volume_New_A != volume_Old_A) {
+//      Serial.print(flowHeaders[0]);
+//      Serial.println(volume_New_A);
+//      volume_Old_A = volume_New_A;
+//    }
+//    if (volume_New_B != volume_Old_B) {
+//      Serial.print(flowHeaders[1]);
+//      Serial.println(volume_New_B);
+//      volume_Old_B = volume_New_B;
+//    }
+//  }
+//}
