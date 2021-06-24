@@ -19,14 +19,69 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="080cef48-0aa3-41e8-8c3c-a12305bd110f" name="Default Changelist" comment="">
+    <list default="true" id="080cef48-0aa3-41e8-8c3c-a12305bd110f" name="Default Changelist" comment="check">
+      <change afterPath="$PROJECT_DIR$/Datastorage/LCDSender.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Arduino/Test_Files/Test_LEDs/Test_LEDs.ino" beforeDir="false" afterPath="$PROJECT_DIR$/Arduino/Test_Files/Test_LEDs/Test_LEDs.ino" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_029.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_029.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_031.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_031.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_033.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_033.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_034.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_034.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_035.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_035.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_036.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_036.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_038.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_038.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_039.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_039.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_040.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_040.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_041.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_041.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_042.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_042.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_043.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_043.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_045.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_045.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_046.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_046.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_047.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_047.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_048.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_048.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_049.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_049.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_051.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_051.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_052.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_052.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_056.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_056.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_061.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_061.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_062.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_062.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_064.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_064.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_065.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_065.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_066.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_066.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_068.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_068.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_069.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_069.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_071.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_071.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_072.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_072.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_073.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_073.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_074.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_074.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_075.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_075.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_077.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_077.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_078.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_078.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_079.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_079.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_080.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_080.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_081.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_081.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_084.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_084.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_086.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_086.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_099.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_099.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_100.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_100.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_103.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_103.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_104.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_104.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_107.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_107.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_110.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_110.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_111.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_111.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_112.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_112.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_115.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_115.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Data/Dump map/20210615_117.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature/20210615_117.csv" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Datastorage/Distance.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Distance.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Output/temp.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Output/temp.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/Output/water.csv" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/Output/water.csv" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/dataTransfer.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/dataTransfer.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Datastorage/storage.py" beforeDir="false" afterPath="$PROJECT_DIR$/Datastorage/storage.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Main.py" beforeDir="false" afterPath="$PROJECT_DIR$/Main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Rasberry_Pi/Connect.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rasberry_Pi/Connect.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Rasberry_Pi/Sending.py" beforeDir="false" afterPath="$PROJECT_DIR$/Rasberry_Pi/Sending.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/Settings.py" afterDir="false" />
     </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -52,13 +107,11 @@
   </component>
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/Main.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/.gitignore" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Datastorage/dataTransfer.py" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Datastorage/storage.py" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/bugs.md" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Datastorage/__intit__.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Datastorage/dataTransfer.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/CHECKLIST.md" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Datastorage/storage.py" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/Datastorage/Output/temp.csv" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/.gitignore" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="ProjectId" id="1tIXEArRLuek3Ikxk2FVNf14Whr" />
   <component name="ProjectViewState">
@@ -81,9 +134,23 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/Datastorage/Data/Amsterdam/Temperature" />
+      <recent name="$PROJECT_DIR$/Datastorage/Data" />
       <recent name="$PROJECT_DIR$/Datastorage" />
       <recent name="$PROJECT_DIR$" />
     </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
   </component>
   <component name="RunManager" selected="Python.Main">
     <configuration name="Main" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -159,7 +226,7 @@
       </list>
     </recent_temporary>
   </component>
-  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="SpellCheckerSettings" BundledDictionaries="0" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" Dictionaries="0" CorrectionsLimit="5" DefaultDictionary="application-level" UseSingleDictionary="true" />
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -279,12 +346,13 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
-    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Storage strucutre &amp; bugs read file" />
@@ -299,7 +367,20 @@
     <MESSAGE value="New sensors attached (flow sensor &amp; water sensors)" />
     <MESSAGE value="Arduino updated" />
     <MESSAGE value="final" />
-    <option name="LAST_COMMIT_MESSAGE" value="final" />
+    <MESSAGE value="FINAL" />
+    <MESSAGE value="check" />
+    <option name="LAST_COMMIT_MESSAGE" value="check" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/Main.py</url>
+          <line>89</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/Mod8_project$dataTransfer.coverage" NAME="dataTransfer Coverage Results" MODIFIED="1623856495301" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/Datastorage" />

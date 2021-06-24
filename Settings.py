@@ -4,9 +4,9 @@ BT_PORT_NAME = '/dev/cu.usbmodem142401'
 
 # ENCODING DATA
 ENCODER_DC = {
-    'A': 'encoder_year',
-    'B': 'encoder_month',
-    'C': 'encoder_day',
+    'A': 'encoder_day',
+    'B': 'encoder_year',
+    'C': 'encoder_month',
     'D': 'encoder_button',
     'E': 'distance_A',
     'F': 'distance_B',
@@ -34,7 +34,8 @@ DATA_DC = {
     'Water_Sensor': 0
 }
 
-LIST_CITIES = ["Rotterdam", "Driel boven", "IJmuiden Noordersluis", "Maastricht", "Utrecht"]
+LIST_CITIES = ["Rotterdam", "Arnhem", "Amsterdam", "Maastricht", "Utrecht"]
+# LIST_CITIES = ["Rotterdam", "Driel boven", "IJmuiden Noordersluis", "Maastricht", "Utrecht"]
 
 CONVERT_TO_CITY_DC = {
     'distance_A': LIST_CITIES[0],
@@ -44,6 +45,7 @@ CONVERT_TO_CITY_DC = {
     'distance_E': LIST_CITIES[4]
 }
 
+# Headers used [A, B, C, D, E, F, G, H, I, J, K, L, M, N]
 MESSAGES_DC = {
     LIST_CITIES[0]: [
         b"A1\nB0\n",
@@ -72,15 +74,23 @@ MESSAGES_DC = {
     ]
 }
 
+MESSAGES_LCD = {
+    "City": b"M",
+    "Date": b"N"
+}
+
 MAX_DISTANCE = 300
 MIN_DISTANCE = 20
+
+LED_AMOUNT = 8
+
 DISTANCE_INTERVAL = 2
 
 MAX_HEIGHT = {
     LIST_CITIES[0]: 4000,
     LIST_CITIES[1]: 4000,
     LIST_CITIES[2]: 4000,
-    LIST_CITIES[3]: 4000,
+    LIST_CITIES[3]: 4700,
     LIST_CITIES[4]: 4000
 }
 
@@ -88,7 +98,7 @@ MIN_HEIGHT = {
     LIST_CITIES[0]: -100,
     LIST_CITIES[1]: -100,
     LIST_CITIES[2]: -100,
-    LIST_CITIES[3]: -100,
+    LIST_CITIES[3]: 3700,
     LIST_CITIES[4]: -100
 }
 
@@ -102,3 +112,76 @@ FLOW_MESSAGE = {
     'in':       b"K0\nL1\n",
     'steady':    b"K0\nL0\n"
 }
+
+LED_HEADERS = {
+    LIST_CITIES[0]: b"O",
+    LIST_CITIES[1]: b"P",
+    LIST_CITIES[2]: b"Q",
+    LIST_CITIES[3]: b"R",
+    LIST_CITIES[4]: b"S"
+}
+
+colors = [
+    b'255,0,16',
+    b'255,0,0',
+    b'255,10,0',
+    b'255,20,0',
+    b'255,30,0',
+    b'255,40,0',
+    b'255,50,0',
+    b'255,60,0',
+    b'255,70,0',
+    b'255,80,0',
+    b'255,90,0',
+    b'255,100,0',
+    b'255,110,0',
+    b'255,120,0',
+    b'255,130,0',
+    b'255,140,0',
+    b'255,150,0',
+    b'255,160,0',
+    b'255,170,0',
+    b'255,180,0',
+    b'255,190,0',
+    b'255,200,0',
+    b'255,210,0',
+    b'255,220,0',
+    b'255,230,0',
+    b'255,240,0',
+    b'255,250,0',
+    b'253,255,0',
+    b'215,255,0',
+    b'176,255,0',
+    b'138,255,0',
+    b'101,255,0',
+    b'62,255,0',
+    b'23,255,0',
+    b'0,255,16',
+    b'0,255,54',
+    b'0,255,92',
+    b'0,255,131',
+    b'0,255,168',
+    b'0,255,208',
+    b'0,255,244',
+    b'0,228,255',
+    b'0,212,255',
+    b'0,196,255',
+    b'0,180,255',
+    b'0,164,255',
+    b'0,148,255',
+    b'0,132,255',
+    b'0,116,255',
+    b'0,100,255',
+    b'0,84,255',
+    b'0,68,255',
+    b'0,50,255',
+    b'0,34,255',
+    b'0,18,255',
+    b'0,2,255',
+    b'0,0,255',
+    b'1,0,255',
+    b'2,0,255',
+    b'3,0,255',
+    b'4,0,255',
+    b'5,0,255',
+]

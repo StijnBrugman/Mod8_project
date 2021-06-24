@@ -7,7 +7,9 @@ import time
 class Storage:
 
     def __init__(self):
-        self.data_frame = self.init_data_frame()
+        # self.data_frame = self.init_data_frame()
+        self.data_frame = pd.read_csv('Datastorage/Output/total.csv')
+        print(self.data_frame['Average Waterhoogte'])
         self.encoder_dc = ENCODER_DC
         self.data_dc = DATA_DC
 
@@ -33,6 +35,7 @@ class Storage:
         merged_data_frame['WAARNEMINGDATUM'] = pd.to_datetime(merged_data_frame['WAARNEMINGDATUM'])
         merged_data_frame = merged_data_frame.sort_values(['MEETPUNT_IDENTIFICATIE', 'WAARNEMINGDATUM'],
                                                           ascending=(True, True))
+        print(merged_data_frame)
         merged_data_frame.to_csv('Datastorage/Output/total.csv', index=False)
 
         return merged_data_frame

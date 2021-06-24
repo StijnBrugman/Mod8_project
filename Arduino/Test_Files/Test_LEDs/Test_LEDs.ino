@@ -89,7 +89,6 @@ void readData() {
     redLEDColourString = recievedColourArray.substring(0, ind1);   //captures first data String
     ind2 = recievedColourArray.indexOf(',', ind1 + 1 ); //finds location of second ,
     greenLEDColourString = recievedColourArray.substring(ind1 + 1, ind2 + 1); //captures second data String
-    ind3 = recievedColourArray.indexOf(',', ind2 + 1 );
     blueLEDColourString = recievedColourArray.substring(ind2 + 1); //captures remain part of data after last ,
 
     redLEDColour = redLEDColourString.toInt();

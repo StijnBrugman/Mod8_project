@@ -15,7 +15,10 @@ class Sending(threading.Thread):
         while self.running:
             # self.new_message = self.get_message()
             if self.different_message():
-                self.cnt.write_data(self.new_message)
+                try:
+                    self.cnt.write_data(self.new_message)
+                except:
+                    print("ERROR")
 
     def stop(self):
         self.running = False

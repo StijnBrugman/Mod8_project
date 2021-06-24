@@ -70,7 +70,7 @@ def add_to_total_data_Frame(final_df):
 
     # Reference to global total-lists
     global total_water, total_temp
-
+    print(final_df)
     # Checking which total-list it should go to
     if final_df.columns[-1] == 'Average Waterhoogte':
         total_water = total_water.append(final_df)
@@ -91,14 +91,21 @@ for dict1 in os.listdir(base_path):
 
     for dict2 in os.listdir(new_base_path):
         last_base_path = new_base_path + dict2 + "/"
+
+
+        if dict2 == '.DS_Store':
+            continue
+
         for file in os.listdir(last_base_path):
             print('------------- Start new file -------------')
 
+
             # Init path
             file_path = last_base_path + file
-
+            print(file_path)
             # converting and removing non-required data
             data_frame = csv_to_dataframe(file_path)
+
 
             # Calc average
             data_frame = calc_average(data_frame)
@@ -111,3 +118,4 @@ for dict1 in os.listdir(base_path):
 # Convert to csv again
 total_water.to_csv('../Datastorage/Output/water.csv', index=False)
 total_temp.to_csv('../Datastorage/Output/temp.csv', index=False)
+
