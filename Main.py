@@ -79,7 +79,7 @@ if __name__ == '__main__':
                 # print("Actual distance ", distance_cv.water_heights)
 
                 # print(stg.get_water("Driel boven", date_cv.get_date()))
-                distance_cv.add_to_queue(b'O3,255,0,0\nP3,255,0,0\nQ3,255,0,0\nR3,255,0,0\nS3,255,0,0\n')
+                # distance_cv.add_to_queue(b'O3,255,0,0\nP3,255,0,0\nQ3,255,0,0\nR3,255,0,0\nS3,255,0,0\n')
 
         # print(distance_cv.queue_is_empty())
 

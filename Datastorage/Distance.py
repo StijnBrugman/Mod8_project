@@ -213,7 +213,10 @@ class Distance():
 
             temperature = self.C_to_F(self.temp.get(key))
             index = round(62 * self.temp_to_hue(temperature))
-            message += LED_HEADERS[key] + bytes(str(LEDS), 'utf-8')+ b"," + colors[index]
+            try:
+                message += LED_HEADERS[key] + bytes(str(LEDS), 'utf-8')+ b"," + colors[index]
+            except:
+                print("OVERFLOW")
             message += b"\n"
 
         return message

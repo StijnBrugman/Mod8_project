@@ -18,7 +18,30 @@
 
   The following pins are used:
     Pins A0 to A4 are for the Water Level Sensors
-    Pins 2 to 13 and 44 to 46 are for LED strips
+    Pins 5 to 9 are for LED strips
+    Pins 14 and 19 are for the Screen
+    Pins 22 to 31 are for…
+  [20:43, 24-06-2021] Bas: /*
+  The Arduino file for the Hybrid Worlds Project of Creative Technolgy.
+
+  The Arduino collects data from flow sensors, water level sensors, distance sensors, and from rotary encoders.
+  It sends this data to a Raspberry Pi.
+  The Raspberry Pi sends commands to the Arduino.
+  The Arduino controls water valves that work together with pumps to fill several tubes with water.
+
+  For a complete overview of the project and all code, you can check our repository on GitHub.
+  https://github.com/StijnBrugman/Mod8_project
+
+  Bas van der Steenhoven
+  Stijn Brugman
+  David Lammers
+
+  2021
+
+
+  The following pins are used:
+    Pins A0 to A4 are for the Water Level Sensors
+    Pins 5 to 9 are for LED strips
     Pins 14 and 19 are for the Screen
     Pins 22 to 31 are for the Valves
     Pins 32 to 41 are for the Distance Sensors
@@ -47,19 +70,14 @@ char rotaryHeaders[] = {'A', 'B', 'C', 'D'};                                   /
 char distanceHeaders[5] = {'E', 'F', 'G', 'H', 'I'};                           // Headers for the distance sensors
 char flowHeaders[] = {'J', 'K'};                                               // Headers for the flow sensors
 char cityHeader = 'L';                                                         // Header for the city selector
-char failedHeader = 'Z';
-
-
-char valveHeaders[] = {'A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J'};    // Headers for the valves
 char LEDHeaders[5] = {'O', 'P', 'Q', 'R', 'S'};                                // Headers for the LED strips
+char failedHeader = 'Z';
 
 char receivedCityHeader = 'M';
 char receivedDateHeader = 'N';
 
 String receivedCity = "";
 String receivedDate = "";
-
-int data = 0;
 
 
 //--------------------------------Water_Valves---------------------------------//
@@ -74,6 +92,8 @@ int data = 0;
 #define valvePin_4_In 29
 #define valvePin_5_Out 30
 #define valvePin_5_In 31
+//#define valvePin_6_Out 32
+//#define valvePin_6_In 33
 
 
 //--------------------------------Distance_Sensor------------------------------//
@@ -136,22 +156,30 @@ boolean pressed = false;
 #define sensorPin_E A4
 
 // Water Level Sensor Power Pins
-//#define sensorPowerPin_A 8
-//#define sensorPowerPin_B 9
-//#define sensorPowerPin_C 10
-//#define sensorPowerPin_D 11
-//#define sensorPowerPin_E 12
+#define sensorPowerPin_A 4
+#define sensorPowerPin_B 10
+#define sensorPowerPin_C 11
+#define sensorPowerPin_D 12
+#define sensorPowerPin_E 13
 
+// Value for storing water level
+int val1 = 0;
+int val2 = 0;
+int val3 = 0;
+int val4 = 0;
+int val5 = 0;
+
+unsigned long waterTimer = 0;
 
 //--------------------------------Flow_Sensors---------------------------------//
 //#define flowSensorPin_A 6
 //#define flowSensorPin_B 7
 //
-//volatile float flow_frequency_A;                                               // Measures flow sensor pulses
-//volatile float flow_frequency_B;                                               // Measures flow sensor pulses
+//volatile float flow_frequency_A;                                               // Measures flow sensor pulsesunsigned
+//volatile float flow_frequency_B;                                               // Measures flow sensor pulsesunsigned
 //
-//unsigned float l_second_A;                                                     // Calculated litres/hour
-//unsigned float l_second_B;                                                     // Calculated litres/hour
+//float l_second_A;                                                              // Calculated litres/hour
+//float l_second_B;                                                              // Calculated litres/hour
 //unsigned long currentTime;
 //unsigned long cloopTime;
 //
@@ -171,25 +199,37 @@ LiquidCrystal lcd(rs, en, d4, d5, d6, d7);
 
 
 //--------------------------------LEDs-----------------------------------------//
-#define greenLED_1 2
-#define redLED_1 3
-#define blueLED_1 4
+#include <Adafruit_NeoPixel.h>
 
-#define greenLED_2 5
-#define redLED_2 6
-#define blueLED_2 7
+#define Strip_1_Pin 5
+#define Strip_2_Pin 6
+#define Strip_3_Pin 7
+#define Strip_4_Pin 8
+#define Strip_5_Pin 9
+#define N_LEDS 8
 
-#define greenLED_3 8
-#define redLED_3 9
-#define blueLED_3 10
+Adafruit_NeoPixel strip_1 = Adafruit_NeoPixel(N_LEDS, Strip_1_Pin, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip_2 = Adafruit_NeoPixel(N_LEDS, Strip_2_Pin, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip_3 = Adafruit_NeoPixel(N_LEDS, Strip_3_Pin, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip_4 = Adafruit_NeoPixel(N_LEDS, Strip_4_Pin, NEO_GRB + NEO_KHZ800);
+Adafruit_NeoPixel strip_5 = Adafruit_NeoPixel(N_LEDS, Strip_5_Pin, NEO_GRB + NEO_KHZ800);
 
-#define greenLED_4 11
-#define redLED_4 12
-#define blueLED_4 13
+String receivedColourArray;
 
-#define greenLED_5 44
-#define redLED_5 45
-#define blueLED_5 46
+String redLEDColourString;
+String greenLEDColourString;
+String blueLEDColourString;
+int redLEDColour;
+int greenLEDColour;
+int blueLEDColour;
+
+String amountOfLEDsString;
+int amountOfLEDs;
+int city;
+
+int ind1, ind2, ind3;
+
+int data = 0;
 
 
 
@@ -256,29 +296,30 @@ void setup() {
   //  currentTime = millis();
   //  cloopTime = currentTime;
 
+  // Set D7 as an OUTPUT
+  pinMode(sensorPowerPin_A, OUTPUT);
+  pinMode(sensorPowerPin_B, OUTPUT);
+  pinMode(sensorPowerPin_C, OUTPUT);
+  pinMode(sensorPowerPin_D, OUTPUT);
+  pinMode(sensorPowerPin_E, OUTPUT);
+
+
+  // Set to LOW so no power flows through the sensor
+  digitalWrite(sensorPowerPin_A, LOW);
+  digitalWrite(sensorPowerPin_B, LOW);
+  digitalWrite(sensorPowerPin_C, LOW);
+  digitalWrite(sensorPowerPin_D, LOW);
+  digitalWrite(sensorPowerPin_E, LOW);
+
+
   // Set up the LCD's number of columns and rows:
   lcd.begin(16, 2);
 
-  // Set the pinModes for the LED strips
-  //  pinMode(greenLED_1, OUTPUT);
-  //  pinMode(redLED_1, OUTPUT);
-  //  pinMode(blueLED_1, OUTPUT);
-  //
-  //  pinMode(greenLED_2, OUTPUT);
-  //  pinMode(redLED_2, OUTPUT);
-  //  pinMode(blueLED_2, OUTPUT);
-  //
-  //  pinMode(greenLED_3, OUTPUT);
-  //  pinMode(redLED_3, OUTPUT);
-  //  pinMode(blueLED_3, OUTPUT);
-  //
-  //  pinMode(greenLED_4, OUTPUT);
-  //  pinMode(redLED_4, OUTPUT);
-  //  pinMode(blueLED_4, OUTPUT);
-  //
-  //  pinMode(greenLED_5, OUTPUT);
-  //  pinMode(redLED_5, OUTPUT);
-  //  pinMode(blueLED_5, OUTPUT);
+  strip_1.begin();
+  strip_2.begin();
+  strip_3.begin();
+  strip_4.begin();
+  strip_5.begin();
 
   // Setup Serial Monitor
   Serial.begin(9600);
@@ -290,11 +331,18 @@ void loop() {
   encoderReaderDay();                                             // Run the rotary encoder for the day selector
   encoderReaderMonth();                                           // Run the rotary encoder for the month selector
   encoderReaderYear();                                            // Run the rotary encoder for the year selector
-  buttonDetection();                                              // Check if the button is pressed
-  //flowSendData();                                                 // Send data from the flow sensors
+  buttonDetection();
+  // waterSensor();
+  // Check if the button is pressed
+
+  if (millis() > waterTimer + 300) {
+    waterTimer = millis();// 1/3th of a second after the timer
+    //waterSensor();
+  }
+                                                   // Send data from the flow sensors
 
   if (millis() > distanceTimer + 20) {                            // 1/3th of a second after the timer
-    distanceRead();                                               // Read the distance
+    //distanceRead();                                               // Read the distance
     distanceTimer = millis();                                     // Reset the timer
     //Serial.print('Z');
     //Serial.println("Sukkel");
@@ -311,131 +359,239 @@ void readData() {                                                 // Read the da
   String receivedData = Serial.readStringUntil('\n');             // Save the string until the break
   char receiveHeader = receivedData.charAt(0);                    // Check the header
   receivedData.remove(0, 1);                                      // Remove the header
+  data = 0;
+  if (receiveHeader == 'M') {
+    receivedCity = receivedData;
+    lcd.setCursor(0, 0);
+    lcd.print("                ");
+    lcd.setCursor(0, 0);
+    lcd.print(receivedCity);
+  } else if (receiveHeader == 'N') {
+    receivedDate = receivedData;
+    lcd.setCursor(0, 1);
+    lcd.print(receivedDate);
+  } else {
+    switch (receiveHeader) {                                        // Go into the switch with the header
+      case 'A':                                                     // If the header matches the case
+        data = receivedData.toInt();
+        if (data == 1) {                                            // And the int is 1
+          digitalWrite(valvePin_1_Out, HIGH);                       // Write HIGH to the valve
+        } else {                                                    // If other data was send
+          digitalWrite(valvePin_1_Out, LOW);                        // Else write LOW
+        }
+        break;                                                      // Break out of the switch
+      case 'B':
+        data = receivedData.toInt();
+        if (data == 1) {
+          digitalWrite(valvePin_1_In, HIGH);
+        } else {
+          digitalWrite(valvePin_1_In, LOW);
+        }      break;
+      case 'C':
+        data = receivedData.toInt();
+        if (data == 1) {
+          digitalWrite(valvePin_2_Out, HIGH);
+        } else {
+          digitalWrite(valvePin_2_Out, LOW);
+        }      break;
+      case 'D':
+        data = receivedData.toInt();
+        if (data == 1) {
+          digitalWrite(valvePin_2_In, HIGH);
+        } else {
+          digitalWrite(valvePin_2_In, LOW);
+        }
+        break;
+      case 'E':
+        data = receivedData.toInt();
+        if (data == 1) {
+          digitalWrite(valvePin_3_Out, HIGH);
+        } else {
+          digitalWrite(valvePin_3_Out, LOW);
+        }      break;
+      case 'F':
+        data = receivedData.toInt();
+        if (data == 1) {
+          digitalWrite(valvePin_3_In, HIGH);
+        } else {
+          digitalWrite(valvePin_3_In, LOW);
+        }      break;
+      case 'G':
+        data = receivedData.toInt();
+        if (data == 1) {
+          digitalWrite(valvePin_4_Out, HIGH);
+        } else {
+          digitalWrite(valvePin_4_Out, LOW);
+        }
+        break;
+      case 'H':
+        data = receivedData.toInt();
+        if (data == 1) {
+          digitalWrite(valvePin_4_In, HIGH);
+        } else {
+          digitalWrite(valvePin_4_In, LOW);
+        }      break;
+      case 'I':
+        data = receivedData.toInt();
+        if (data == 1) {
+          digitalWrite(valvePin_5_Out, HIGH);
+        } else {
+          digitalWrite(valvePin_5_Out, LOW);
+        }      break;
+      case 'J':
+        data = receivedData.toInt();
+        if (data == 1) {
+          digitalWrite(valvePin_5_In, HIGH);
+        } else {
+          digitalWrite(valvePin_5_In, LOW);
+        }
+        break;
+      //      case 'K':
+      //        data = receivedData.toInt();
+      //        if (data == 1) {
+      //          digitalWrite(valvePin_6_Out, HIGH);
+      //        } else {
+      //          digitalWrite(valvePin_6_Out, LOW);
+      //        }      break;
+      //      case 'L':
+      //        data = receivedData.toInt();
+      //        if (data == 1) {
+      //          digitalWrite(valvePin_6_In, HIGH);
+      //        } else {
+      //          digitalWrite(valvePin_6_In, LOW);
+      //        }
+      //        break;
+      case 'O':
 
-  switch (receiveHeader) {                                        // Go into the switch with the header
+        city = 1;
 
-    //case valveHeaders[0]:                                         // If the header matches the case
-    case 'A':
-      data = receivedData.toInt();                            // Transate the remaining string to an int
-      if (data == 1) {                                            // And the int is 1
-        digitalWrite(valvePin_1_Out, HIGH);                       // Write HIGH to the valve
-      } else {                                                    // If other data was send
-        digitalWrite(valvePin_1_Out, LOW);                        // Else write LOW
-      }
-      break;                                                      // Break out of the switch
-    //case valveHeaders[1]:
-    case 'B':
-      data = receivedData.toInt();                            // Transate the remaining string to an int
-      if (data == 1) {
-        digitalWrite(valvePin_1_In, HIGH);
-      } else {
-        digitalWrite(valvePin_1_In, LOW);
-      }      break;
-    //case valveHeaders[2]:
-    case 'C':
-      if (data == 1) {
-        digitalWrite(valvePin_2_Out, HIGH);
-      } else {
-        digitalWrite(valvePin_2_Out, LOW);
-      }      break;
-    //case valveHeaders[3]:
-    case 'D':
-      data = receivedData.toInt();                                // Transate the remaining string to an int
-      if (data == 1) {
-        digitalWrite(valvePin_2_In, HIGH);
-      } else {
-        digitalWrite(valvePin_2_In, LOW);
-      }
-      break;
-    //case valveHeaders[4]:
-    case 'E':
-      data = receivedData.toInt();                                // Transate the remaining string to an int
-      if (data == 1) {
-        digitalWrite(valvePin_3_Out, HIGH);
-      } else {
-        digitalWrite(valvePin_3_Out, LOW);
-      }      break;
-    //case valveHeaders[5]:
-    case 'F':
-      data = receivedData.toInt();                                // Transate the remaining string to an int
-      if (data == 1) {
-        digitalWrite(valvePin_3_In, HIGH);
-      } else {
-        digitalWrite(valvePin_3_In, LOW);
-      }      break;
-    //case valveHeaders[6]:
-    case 'G':
-      data = receivedData.toInt();                                // Transate the remaining string to an int
-      if (data == 1) {
-        digitalWrite(valvePin_4_Out, HIGH);
-      } else {
-        digitalWrite(valvePin_4_Out, LOW);
-      }
-      break;
-    //case valveHeaders[7]:
-    case 'H':
-      data = receivedData.toInt();                                // Transate the remaining string to an int
-      if (data == 1) {
-        digitalWrite(valvePin_4_In, HIGH);
-      } else {
-        digitalWrite(valvePin_4_In, LOW);
-      }      break;
-    //case valveHeaders[8]:
-    case 'I':
-      data = receivedData.toInt();                                // Transate the remaining string to an int
-      if (data == 1) {
-        digitalWrite(valvePin_5_Out, HIGH);
-      } else {
-        digitalWrite(valvePin_5_Out, LOW);
-      }      break;
-    //case valveHeaders[9]:
-    case 'J':
-      data = receivedData.toInt();                                // Transate the remaining string to an int
-      if (data == 1) {
-        digitalWrite(valvePin_5_In, HIGH);
-      } else {
-        digitalWrite(valvePin_5_In, LOW);
-      }
-      break;
-    //    case 'K':
-    //      data = receivedData.toInt();                                // Transate the remaining string to an int
-    //      if (data == 1) {
-    //        digitalWrite(valvePin_6_Out, HIGH);
-    //      } else {
-    //        digitalWrite(valvePin_6_Out, LOW);
-    //      }      break;
-    //    case 'L':
-    //      data = receivedData.toInt();                                // Transate the remaining string to an int
-    //      if (data == 1) {
-    //        digitalWrite(valvePin_6_In, HIGH);
-    //      } else {
-    //        digitalWrite(valvePin_6_In, LOW);
-    //      }      break;
-    //case receivedCityHeader:
-    case 'M':
-      receivedCity = receivedData;
-      lcd.setCursor(0, 0);
-      lcd.print("                ");
-      lcd.setCursor(0, 0);
-      lcd.print(receivedCity);
-      break;
-    //case receivedDateHeader:
-    case 'N':
-      receivedDate = receivedData;
-      lcd.setCursor(0, 1);
-      lcd.print(receivedDate);
-      break;
-    default:
-      Serial.print(failedHeader);
-      Serial.print("  Letter was not recognised");
-      Serial.print("  I received: ");
-      Serial.print(receiveHeader);
-      Serial.print("  ");
-      Serial.println(receivedData);
+        receivedColourArray = receivedData;
+
+        ind1 = receivedColourArray.indexOf(',');  //finds location of first ,
+        ind2 = receivedColourArray.indexOf(',', ind1 + 1 ); //finds location of second ,
+        ind3 = receivedColourArray.indexOf(',', ind2 + 1 );
+
+        amountOfLEDsString = receivedColourArray.substring(0, ind1);
+        redLEDColourString = receivedColourArray.substring(ind1 + 1, ind2 + 1);   //captures first data String
+        greenLEDColourString = receivedColourArray.substring(ind2 + 1, ind3 + 1); //captures second data String
+        blueLEDColourString = receivedColourArray.substring(ind3 + 1); //captures remain part of data after last ,
+
+        amountOfLEDs = amountOfLEDsString.toInt();
+        redLEDColour = redLEDColourString.toInt();
+        greenLEDColour = greenLEDColourString.toInt();
+        blueLEDColour = blueLEDColourString.toInt();
+
+
+
+        lightLEDs(strip_1.Color(redLEDColour, blueLEDColour, greenLEDColour), amountOfLEDs, city);
+        break;
+      case 'P':
+
+        city = 2;
+
+        receivedColourArray = receivedData;
+
+        ind1 = receivedColourArray.indexOf(',');  //finds location of first ,
+        ind2 = receivedColourArray.indexOf(',', ind1 + 1 ); //finds location of second ,
+        ind3 = receivedColourArray.indexOf(',', ind2 + 1 );
+
+        amountOfLEDsString = receivedColourArray.substring(0, ind1);
+        redLEDColourString = receivedColourArray.substring(ind1 + 1, ind2 + 1);   //captures first data String
+        greenLEDColourString = receivedColourArray.substring(ind2 + 1, ind3 + 1); //captures second data String
+        blueLEDColourString = receivedColourArray.substring(ind3 + 1); //captures remain part of data after last ,
+
+        amountOfLEDs = amountOfLEDsString.toInt();
+        redLEDColour = redLEDColourString.toInt();
+        greenLEDColour = greenLEDColourString.toInt();
+        blueLEDColour = blueLEDColourString.toInt();
+
+        lightLEDs(strip_2.Color(redLEDColour, blueLEDColour, greenLEDColour), amountOfLEDs, city);
+        break;
+      case 'Q':
+
+        city = 3;
+
+        receivedColourArray = receivedData;
+
+        ind1 = receivedColourArray.indexOf(',');  //finds location of first ,
+        ind2 = receivedColourArray.indexOf(',', ind1 + 1 ); //finds location of second ,
+        ind3 = receivedColourArray.indexOf(',', ind2 + 1 );
+
+        amountOfLEDsString = receivedColourArray.substring(0, ind1);
+        redLEDColourString = receivedColourArray.substring(ind1 + 1, ind2 + 1);   //captures first data String
+        greenLEDColourString = receivedColourArray.substring(ind2 + 1, ind3 + 1); //captures second data String
+        blueLEDColourString = receivedColourArray.substring(ind3 + 1); //captures remain part of data after last ,
+
+        amountOfLEDs = amountOfLEDsString.toInt();
+        redLEDColour = redLEDColourString.toInt();
+        greenLEDColour = greenLEDColourString.toInt();
+        blueLEDColour = blueLEDColourString.toInt();
+
+        lightLEDs(strip_3.Color(redLEDColour, blueLEDColour, greenLEDColour), amountOfLEDs, city);
+        break;
+      case 'R':
+
+        city = 4;
+
+        receivedColourArray = receivedData;
+
+        ind1 = receivedColourArray.indexOf(',');  //finds location of first ,
+        ind2 = receivedColourArray.indexOf(',', ind1 + 1 ); //finds location of second ,
+        ind3 = receivedColourArray.indexOf(',', ind2 + 1 );
+
+        amountOfLEDsString = receivedColourArray.substring(0, ind1);
+        redLEDColourString = receivedColourArray.substring(ind1 + 1, ind2 + 1);   //captures first data String
+        greenLEDColourString = receivedColourArray.substring(ind2 + 1, ind3 + 1); //captures second data String
+        blueLEDColourString = receivedColourArray.substring(ind3 + 1); //captures remain part of data after last ,
+
+        amountOfLEDs = amountOfLEDsString.toInt();
+        redLEDColour = redLEDColourString.toInt();
+        greenLEDColour = greenLEDColourString.toInt();
+        blueLEDColour = blueLEDColourString.toInt();
+
+        Serial.print(failedHeader);
+        Serial.print(amountOfLEDs);
+        Serial.print(" . ");
+        Serial.print(redLEDColour);
+        Serial.print(" . ");
+        Serial.print(greenLEDColour);
+        Serial.print(" . ");
+        Serial.println(blueLEDColour);
+
+        lightLEDs(strip_4.Color(redLEDColour, blueLEDColour, greenLEDColour), amountOfLEDs, city);
+        break;
+      case 'S':
+
+        city = 5;
+
+        receivedColourArray = receivedData;
+
+        ind1 = receivedColourArray.indexOf(',');  //finds location of first ,
+        ind2 = receivedColourArray.indexOf(',', ind1 + 1 ); //finds location of second ,
+        ind3 = receivedColourArray.indexOf(',', ind2 + 1 );
+
+        amountOfLEDsString = receivedColourArray.substring(0, ind1);
+        redLEDColourString = receivedColourArray.substring(ind1 + 1, ind2 + 1);   //captures first data String
+        greenLEDColourString = receivedColourArray.substring(ind2 + 1, ind3 + 1); //captures second data String
+        blueLEDColourString = receivedColourArray.substring(ind3 + 1); //captures remain part of data after last ,
+
+        amountOfLEDs = amountOfLEDsString.toInt();
+        redLEDColour = redLEDColourString.toInt();
+        greenLEDColour = greenLEDColourString.toInt();
+        blueLEDColour = blueLEDColourString.toInt();
+
+        lightLEDs(strip_5.Color(redLEDColour, blueLEDColour, greenLEDColour), amountOfLEDs, city);
+        break;
+        //  default:
+        //      Serial.print(failedHeader);
+        //      Serial.print("  Letter was not recognised");
+        //      Serial.print("  I received: ");
+        //      Serial.print(receiveHeader);
+        //      Serial.print("  ");
+        //      Serial.println(receivedData);
+    }
   }
-
 }
-
 
 // Detects the button of the rotary encoder
 void buttonDetection() {
@@ -556,6 +712,99 @@ int distance(int trigPin, int echoPin) {                       // Take the echo 
   return distance;                                             // Return the distance
 }
 
+void lightLEDs(uint32_t c, int height, int caseCity) {
+
+  switch (caseCity) {
+    case 1:
+      for (int i = 0; i < height; i++) {
+        strip_1.setPixelColor(i , c);
+      }
+      for (int i = height; i < N_LEDS - 1; i++) {
+        strip_1.setPixelColor(i, 0);
+      }
+      strip_1.show();
+      break;
+    case 2:
+      for (int i = 0; i < height; i++) {
+        strip_2.setPixelColor(i , c);
+      }
+      for (int i = height; i < N_LEDS - 1; i++) {
+        strip_2.setPixelColor(i, 0);
+      }
+      strip_2.show();
+      break;
+    case 3:
+      for (int i = 0; i < height; i++) {
+        strip_3.setPixelColor(i , c);
+      }
+      for (int i = height; i < N_LEDS - 1; i++) {
+        strip_3.setPixelColor(i, 0);
+      }
+      strip_3.show();
+      break;
+    case 4:
+      for (int i = 0; i < height; i++) {
+        strip_4.setPixelColor(i , c);
+      }
+      for (int i = height; i < N_LEDS - 1; i++) {
+        strip_4.setPixelColor(i, 0);
+      }
+      strip_4.show();
+      break;
+    case 5:
+      for (int i = 0; i < height; i++) {
+        strip_5.setPixelColor(i , c);
+      }
+      for (int i = height; i < N_LEDS - 1; i++) {
+        strip_5.setPixelColor(i, 0);
+      }
+      strip_5.show();
+      break;
+  }
+
+}
+
+void waterSensor() {
+  //get the reading from the function below and print it
+  int level1 = readSensor(sensorPowerPin_A, sensorPin_A, val1);
+  int level2 = readSensor(sensorPowerPin_B, sensorPin_B, val2);
+  int level3 = readSensor(sensorPowerPin_C, sensorPin_C, val3);
+  int level4 = readSensor(sensorPowerPin_D, sensorPin_D, val4);
+  int level5 = readSensor(sensorPowerPin_E, sensorPin_E, val5);
+  if (level1 > 280) {
+    Serial.print(cityHeader);
+    Serial.println("1");
+  }
+
+  if (level2 > 280) {
+    Serial.print(cityHeader);
+    Serial.println("2");
+  }
+
+  if (level3 > 280) {
+    Serial.print(cityHeader);
+    Serial.println("3");
+  }
+
+  if (level4 > 280) {
+    Serial.print(cityHeader);
+    Serial.println("4");
+  }
+
+  if (level5 > 280) {
+    Serial.print(cityHeader);
+    Serial.println("5");
+  }
+
+}
+
+//This is a function used to get the reading
+int readSensor(int power, int pin, int val) {
+  digitalWrite(power, HIGH);  // Turn the sensor ON
+  val = analogRead(pin);    // Read the analog value form sensor
+  digitalWrite(power, LOW);   // Turn the sensor OFF
+  return val;             // send current reading
+}
 
 //void flow_A () {                                               // Interrupt function
 //

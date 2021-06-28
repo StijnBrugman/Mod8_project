@@ -35,6 +35,7 @@ DATA_DC = {
 }
 
 LIST_CITIES = ["Rotterdam", "Arnhem", "Amsterdam", "Maastricht", "Utrecht"]
+LIST_CITIES_SENSOR = ["Rotterdam",  "Utrecht", "Arnhem", "Maastricht", "Amsterdam"]
 # LIST_CITIES = ["Rotterdam", "Driel boven", "IJmuiden Noordersluis", "Maastricht", "Utrecht"]
 
 CONVERT_TO_CITY_DC = {
@@ -87,18 +88,18 @@ LED_AMOUNT = 8
 DISTANCE_INTERVAL = 2
 
 MAX_HEIGHT = {
-    LIST_CITIES[0]: 4000,
-    LIST_CITIES[1]: 4000,
-    LIST_CITIES[2]: 4000,
-    LIST_CITIES[3]: 4700,
-    LIST_CITIES[4]: 4000
+    LIST_CITIES[0]: 240,
+    LIST_CITIES[1]: 1300,
+    LIST_CITIES[2]: 140,
+    LIST_CITIES[3]: 4900,
+    LIST_CITIES[4]: 700
 }
 
 MIN_HEIGHT = {
-    LIST_CITIES[0]: -100,
-    LIST_CITIES[1]: -100,
-    LIST_CITIES[2]: -100,
-    LIST_CITIES[3]: 3700,
+    LIST_CITIES[0]: -160,
+    LIST_CITIES[1]: 50,
+    LIST_CITIES[2]: -90,
+    LIST_CITIES[3]: 3600,
     LIST_CITIES[4]: -100
 }
 
@@ -114,12 +115,13 @@ FLOW_MESSAGE = {
 }
 
 LED_HEADERS = {
-    LIST_CITIES[0]: b"O",
-    LIST_CITIES[1]: b"P",
-    LIST_CITIES[2]: b"Q",
+    LIST_CITIES[0]: b"Q",
+    LIST_CITIES[1]: b"O",
+    LIST_CITIES[2]: b"P",
     LIST_CITIES[3]: b"R",
     LIST_CITIES[4]: b"S"
 }
+
 
 colors = [
     b'255,0,16',

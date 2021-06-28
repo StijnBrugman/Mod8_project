@@ -1,6 +1,6 @@
 import pandas as pd
 import numpy as np
-from Settings import ENCODER_DC, DATA_DC, LIST_CITIES
+from Settings import ENCODER_DC, DATA_DC, LIST_CITIES, LIST_CITIES_SENSOR
 import time
 
 
@@ -9,7 +9,7 @@ class Storage:
     def __init__(self):
         # self.data_frame = self.init_data_frame()
         self.data_frame = pd.read_csv('Datastorage/Output/total.csv')
-        print(self.data_frame['Average Waterhoogte'])
+        print(self.data_frame)
         self.encoder_dc = ENCODER_DC
         self.data_dc = DATA_DC
 
@@ -36,14 +36,13 @@ class Storage:
         merged_data_frame = merged_data_frame.sort_values(['MEETPUNT_IDENTIFICATIE', 'WAARNEMINGDATUM'],
                                                           ascending=(True, True))
         print(merged_data_frame)
-        merged_data_frame.to_csv('Datastorage/Output/total.csv', index=False)
+        # merged_data_frame.to_csv('Datastorage/Output/total.csv', index=False)
 
         return merged_data_frame
 
     def get_water(self, place, date):
         conditions = self.get_conditions(place, date)
         water_level = self.data_frame[conditions]['Average Waterhoogte']
-
         if water_level.size < 1:
             return None
 
@@ -108,7 +107,7 @@ class Storage:
 
     def get_city(self):
         index = self.data_dc['Water_Sensor']
-        return LIST_CITIES[index]
+        return LIST_CITIES_SENSOR[index-1]
 
     def distance_checker(self, code_equivalent):
         if code_equivalent in ['distance_A', 'distance_B', 'distance_C', 'distance_D', 'distance_E']:
