@@ -1,33 +1,12 @@
 /*
+
   The Arduino file for the Hybrid Worlds Project of Creative Technolgy.
 
   The Arduino collects data from flow sensors, water level sensors, distance sensors, and from rotary encoders.
   It sends this data to a Raspberry Pi.
   The Raspberry Pi sends commands to the Arduino.
-  The Arduino controls water valves that work together with pumps to fill several tubes with water.
-
-  For a complete overview of the project and all code, you can check our repository on GitHub.
-  https://github.com/StijnBrugman/Mod8_project
-
-  Bas van der Steenhoven
-  Stijn Brugman
-  David Lammers
-
-  2021
-
-
-  The following pins are used:
-    Pins A0 to A4 are for the Water Level Sensors
-    Pins 5 to 9 are for LED strips
-    Pins 14 and 19 are for the Screen
-    Pins 22 to 31 are for…
-  [20:43, 24-06-2021] Bas: /*
-  The Arduino file for the Hybrid Worlds Project of Creative Technolgy.
-
-  The Arduino collects data from flow sensors, water level sensors, distance sensors, and from rotary encoders.
-  It sends this data to a Raspberry Pi.
-  The Raspberry Pi sends commands to the Arduino.
-  The Arduino controls water valves that work together with pumps to fill several tubes with water.
+  The Arduino controls water valves that work together with pumps to fill several tubes with water. 
+  It also lights LED strips to show the water height and the temperature of the water.
 
   For a complete overview of the project and all code, you can check our repository on GitHub.
   https://github.com/StijnBrugman/Mod8_project
@@ -92,8 +71,8 @@ String receivedDate = "";
 #define valvePin_4_In 29
 #define valvePin_5_Out 30
 #define valvePin_5_In 31
-//#define valvePin_6_Out 32
-//#define valvePin_6_In 33
+#define valvePin_6_Out 32
+#define valvePin_6_In 33
 
 
 //--------------------------------Distance_Sensor------------------------------//
@@ -172,21 +151,21 @@ int val5 = 0;
 unsigned long waterTimer = 0;
 
 //--------------------------------Flow_Sensors---------------------------------//
-//#define flowSensorPin_A 6
-//#define flowSensorPin_B 7
-//
-//volatile float flow_frequency_A;                                               // Measures flow sensor pulsesunsigned
-//volatile float flow_frequency_B;                                               // Measures flow sensor pulsesunsigned
-//
-//float l_second_A;                                                              // Calculated litres/hour
-//float l_second_B;                                                              // Calculated litres/hour
-//unsigned long currentTime;
-//unsigned long cloopTime;
-//
-//unsigned long volume_Old_A = 0;
-//unsigned long volume_New_A = 0;
-//unsigned long volume_Old_B = 0;
-//unsigned long volume_New_B = 0;
+#define flowSensorPin_A 6
+#define flowSensorPin_B 7
+
+volatile float flow_frequency_A;                                               // Measures flow sensor pulsesunsigned
+volatile float flow_frequency_B;                                               // Measures flow sensor pulsesunsigned
+
+float l_second_A;                                                              // Calculated litres/hour
+float l_second_B;                                                              // Calculated litres/hour
+unsigned long currentTime;
+unsigned long cloopTime;
+
+unsigned long volume_Old_A = 0;
+unsigned long volume_New_A = 0;
+unsigned long volume_Old_B = 0;
+unsigned long volume_New_B = 0;
 
 
 //--------------------------------Screen---------------------------------------//
@@ -280,21 +259,21 @@ void setup() {
   pinMode(valvePin_4_In, OUTPUT);
   pinMode(valvePin_5_Out, OUTPUT);
   pinMode(valvePin_5_In, OUTPUT);
-  //  pinMode(valvePin_6_Out, OUTPUT);
-  //  pinMode(valvePin_6_In, OUTPUT);
+  pinMode(valvePin_6_Out, OUTPUT);
+  pinMode(valvePin_6_In, OUTPUT);
 
-  //  // Set the flow sensor pins to input and calibrate the timer
-  //  pinMode(flowSensorPin_A, INPUT);
-  //  pinMode(flowSensorPin_B, INPUT);
-  //  sei(); // Enable interrupts
-  //
-  //  digitalWrite(flowSensorPin_A, HIGH); // Optional Internal Pull-Up
-  //  attachInterrupt(0, flow_A, RISING); // Setup Interrupt
-  //  digitalWrite(flowSensorPin_B, HIGH); // Optional Internal Pull-Up
-  //  attachInterrupt(0, flow_B, RISING); // Setup Interrupt
-  //
-  //  currentTime = millis();
-  //  cloopTime = currentTime;
+  // Set the flow sensor pins to input and calibrate the timer
+  pinMode(flowSensorPin_A, INPUT);
+  pinMode(flowSensorPin_B, INPUT);
+  sei(); // Enable interrupts
+
+  digitalWrite(flowSensorPin_A, HIGH); // Optional Internal Pull-Up
+  attachInterrupt(0, flow_A, RISING); // Setup Interrupt
+  digitalWrite(flowSensorPin_B, HIGH); // Optional Internal Pull-Up
+  attachInterrupt(0, flow_B, RISING); // Setup Interrupt
+
+  currentTime = millis();
+  cloopTime = currentTime;
 
   // Set D7 as an OUTPUT
   pinMode(sensorPowerPin_A, OUTPUT);
@@ -331,21 +310,18 @@ void loop() {
   encoderReaderDay();                                             // Run the rotary encoder for the day selector
   encoderReaderMonth();                                           // Run the rotary encoder for the month selector
   encoderReaderYear();                                            // Run the rotary encoder for the year selector
-  buttonDetection();
-  // waterSensor();
-  // Check if the button is pressed
+  buttonDetection();                                              // Check if the button is pressed
+  flowSendData();
 
   if (millis() > waterTimer + 300) {
     waterTimer = millis();// 1/3th of a second after the timer
-    //waterSensor();
+    waterSensor();
   }
-                                                   // Send data from the flow sensors
+  // Send data from the flow sensors
 
   if (millis() > distanceTimer + 20) {                            // 1/3th of a second after the timer
-    //distanceRead();                                               // Read the distance
+    distanceRead();                                               // Read the distance
     distanceTimer = millis();                                     // Reset the timer
-    //Serial.print('Z');
-    //Serial.println("Sukkel");
   }
 
   if (Serial.available() > 0) {                                   // If serial data is available for reading
@@ -446,44 +422,44 @@ void readData() {                                                 // Read the da
           digitalWrite(valvePin_5_In, LOW);
         }
         break;
-      //      case 'K':
-      //        data = receivedData.toInt();
-      //        if (data == 1) {
-      //          digitalWrite(valvePin_6_Out, HIGH);
-      //        } else {
-      //          digitalWrite(valvePin_6_Out, LOW);
-      //        }      break;
-      //      case 'L':
-      //        data = receivedData.toInt();
-      //        if (data == 1) {
-      //          digitalWrite(valvePin_6_In, HIGH);
-      //        } else {
-      //          digitalWrite(valvePin_6_In, LOW);
-      //        }
-      //        break;
-      case 'O':
+      case 'K':
+        data = receivedData.toInt();
+        if (data == 1) {
+          digitalWrite(valvePin_6_Out, HIGH);
+        } else {
+          digitalWrite(valvePin_6_Out, LOW);
+        }      break;
+      case 'L':
+        data = receivedData.toInt();
+        if (data == 1) {
+          digitalWrite(valvePin_6_In, HIGH);
+        } else {
+          digitalWrite(valvePin_6_In, LOW);
+        }
+        break;
+      case 'O':                                                   // If an 'O' is recieved
 
-        city = 1;
+        city = 1;                                                 // Select the corresponding city
 
-        receivedColourArray = receivedData;
+        receivedColourArray = receivedData;                       // Put the data in a String
 
-        ind1 = receivedColourArray.indexOf(',');  //finds location of first ,
-        ind2 = receivedColourArray.indexOf(',', ind1 + 1 ); //finds location of second ,
-        ind3 = receivedColourArray.indexOf(',', ind2 + 1 );
+        ind1 = receivedColourArray.indexOf(',');                  // Finds thelocation of first ,
+        ind2 = receivedColourArray.indexOf(',', ind1 + 1 );       // Finds the location of second ,
+        ind3 = receivedColourArray.indexOf(',', ind2 + 1 );       // Finds the location of the third ,
 
-        amountOfLEDsString = receivedColourArray.substring(0, ind1);
-        redLEDColourString = receivedColourArray.substring(ind1 + 1, ind2 + 1);   //captures first data String
-        greenLEDColourString = receivedColourArray.substring(ind2 + 1, ind3 + 1); //captures second data String
-        blueLEDColourString = receivedColourArray.substring(ind3 + 1); //captures remain part of data after last ,
+        amountOfLEDsString = receivedColourArray.substring(0, ind1);              // Captures the
+        redLEDColourString = receivedColourArray.substring(ind1 + 1, ind2 + 1);   // captures second data String, which is the redness of the total colour
+        greenLEDColourString = receivedColourArray.substring(ind2 + 1, ind3 + 1); // captures third data String, which is the greenness of the total colour
+        blueLEDColourString = receivedColourArray.substring(ind3 + 1);            // captures remain part of the full String, which is the blueness
 
-        amountOfLEDs = amountOfLEDsString.toInt();
-        redLEDColour = redLEDColourString.toInt();
-        greenLEDColour = greenLEDColourString.toInt();
-        blueLEDColour = blueLEDColourString.toInt();
+        amountOfLEDs = amountOfLEDsString.toInt();                                // Translates the String to the integer of the String
+        redLEDColour = redLEDColourString.toInt();                                // Translates the String to the integer of the String
+        greenLEDColour = greenLEDColourString.toInt();                            // Translates the String to the integer of the String
+        blueLEDColour = blueLEDColourString.toInt();                              // Translates the String to the integer of the String
 
 
 
-        lightLEDs(strip_1.Color(redLEDColour, blueLEDColour, greenLEDColour), amountOfLEDs, city);
+        lightLEDs(strip_1.Color(redLEDColour, blueLEDColour, greenLEDColour), amountOfLEDs, city); // Lights the LEDstrip
         break;
       case 'P':
 
@@ -491,14 +467,14 @@ void readData() {                                                 // Read the da
 
         receivedColourArray = receivedData;
 
-        ind1 = receivedColourArray.indexOf(',');  //finds location of first ,
-        ind2 = receivedColourArray.indexOf(',', ind1 + 1 ); //finds location of second ,
+        ind1 = receivedColourArray.indexOf(',');
+        ind2 = receivedColourArray.indexOf(',', ind1 + 1 );
         ind3 = receivedColourArray.indexOf(',', ind2 + 1 );
 
         amountOfLEDsString = receivedColourArray.substring(0, ind1);
-        redLEDColourString = receivedColourArray.substring(ind1 + 1, ind2 + 1);   //captures first data String
-        greenLEDColourString = receivedColourArray.substring(ind2 + 1, ind3 + 1); //captures second data String
-        blueLEDColourString = receivedColourArray.substring(ind3 + 1); //captures remain part of data after last ,
+        redLEDColourString = receivedColourArray.substring(ind1 + 1, ind2 + 1);
+        greenLEDColourString = receivedColourArray.substring(ind2 + 1, ind3 + 1);
+        blueLEDColourString = receivedColourArray.substring(ind3 + 1);
 
         amountOfLEDs = amountOfLEDsString.toInt();
         redLEDColour = redLEDColourString.toInt();
@@ -513,14 +489,14 @@ void readData() {                                                 // Read the da
 
         receivedColourArray = receivedData;
 
-        ind1 = receivedColourArray.indexOf(',');  //finds location of first ,
-        ind2 = receivedColourArray.indexOf(',', ind1 + 1 ); //finds location of second ,
+        ind1 = receivedColourArray.indexOf(',');
+        ind2 = receivedColourArray.indexOf(',', ind1 + 1 );
         ind3 = receivedColourArray.indexOf(',', ind2 + 1 );
 
         amountOfLEDsString = receivedColourArray.substring(0, ind1);
-        redLEDColourString = receivedColourArray.substring(ind1 + 1, ind2 + 1);   //captures first data String
-        greenLEDColourString = receivedColourArray.substring(ind2 + 1, ind3 + 1); //captures second data String
-        blueLEDColourString = receivedColourArray.substring(ind3 + 1); //captures remain part of data after last ,
+        redLEDColourString = receivedColourArray.substring(ind1 + 1, ind2 + 1);
+        greenLEDColourString = receivedColourArray.substring(ind2 + 1, ind3 + 1);
+        blueLEDColourString = receivedColourArray.substring(ind3 + 1);
 
         amountOfLEDs = amountOfLEDsString.toInt();
         redLEDColour = redLEDColourString.toInt();
@@ -535,28 +511,19 @@ void readData() {                                                 // Read the da
 
         receivedColourArray = receivedData;
 
-        ind1 = receivedColourArray.indexOf(',');  //finds location of first ,
-        ind2 = receivedColourArray.indexOf(',', ind1 + 1 ); //finds location of second ,
+        ind1 = receivedColourArray.indexOf(',');
+        ind2 = receivedColourArray.indexOf(',', ind1 + 1 );
         ind3 = receivedColourArray.indexOf(',', ind2 + 1 );
 
         amountOfLEDsString = receivedColourArray.substring(0, ind1);
-        redLEDColourString = receivedColourArray.substring(ind1 + 1, ind2 + 1);   //captures first data String
-        greenLEDColourString = receivedColourArray.substring(ind2 + 1, ind3 + 1); //captures second data String
-        blueLEDColourString = receivedColourArray.substring(ind3 + 1); //captures remain part of data after last ,
+        redLEDColourString = receivedColourArray.substring(ind1 + 1, ind2 + 1);
+        greenLEDColourString = receivedColourArray.substring(ind2 + 1, ind3 + 1);
+        blueLEDColourString = receivedColourArray.substring(ind3 + 1);
 
         amountOfLEDs = amountOfLEDsString.toInt();
         redLEDColour = redLEDColourString.toInt();
         greenLEDColour = greenLEDColourString.toInt();
         blueLEDColour = blueLEDColourString.toInt();
-
-        Serial.print(failedHeader);
-        Serial.print(amountOfLEDs);
-        Serial.print(" . ");
-        Serial.print(redLEDColour);
-        Serial.print(" . ");
-        Serial.print(greenLEDColour);
-        Serial.print(" . ");
-        Serial.println(blueLEDColour);
 
         lightLEDs(strip_4.Color(redLEDColour, blueLEDColour, greenLEDColour), amountOfLEDs, city);
         break;
@@ -566,14 +533,14 @@ void readData() {                                                 // Read the da
 
         receivedColourArray = receivedData;
 
-        ind1 = receivedColourArray.indexOf(',');  //finds location of first ,
-        ind2 = receivedColourArray.indexOf(',', ind1 + 1 ); //finds location of second ,
+        ind1 = receivedColourArray.indexOf(',');
+        ind2 = receivedColourArray.indexOf(',', ind1 + 1 );
         ind3 = receivedColourArray.indexOf(',', ind2 + 1 );
 
         amountOfLEDsString = receivedColourArray.substring(0, ind1);
-        redLEDColourString = receivedColourArray.substring(ind1 + 1, ind2 + 1);   //captures first data String
-        greenLEDColourString = receivedColourArray.substring(ind2 + 1, ind3 + 1); //captures second data String
-        blueLEDColourString = receivedColourArray.substring(ind3 + 1); //captures remain part of data after last ,
+        redLEDColourString = receivedColourArray.substring(ind1 + 1, ind2 + 1);
+        greenLEDColourString = receivedColourArray.substring(ind2 + 1, ind3 + 1);
+        blueLEDColourString = receivedColourArray.substring(ind3 + 1);
 
         amountOfLEDs = amountOfLEDsString.toInt();
         redLEDColour = redLEDColourString.toInt();
@@ -582,13 +549,14 @@ void readData() {                                                 // Read the da
 
         lightLEDs(strip_5.Color(redLEDColour, blueLEDColour, greenLEDColour), amountOfLEDs, city);
         break;
-        //  default:
-        //      Serial.print(failedHeader);
-        //      Serial.print("  Letter was not recognised");
-        //      Serial.print("  I received: ");
-        //      Serial.print(receiveHeader);
-        //      Serial.print("  ");
-        //      Serial.println(receivedData);
+      default:
+        Serial.print(failedHeader);
+        Serial.print("  Letter was not recognised");
+        Serial.print("  I received: ");
+        Serial.print(receiveHeader);
+        Serial.print("  ");
+        Serial.println(receivedData);
+        break;
     }
   }
 }
@@ -687,7 +655,7 @@ void encoderReaderYear() {
 void distanceRead() {
 
   // For loop for use with 5 sensors
-  int j;                                                     // Declare int 'j'
+  int j = 0;                                                     // Declare int 'j'
   for (int i = 0; i < 10; i += 2) {                          // For all 5 sensors
     // It goes from 0 to 10 and increases by 2. This makes sure that i + pinnumber is correct.
     newDistance[j] = distance(i + trigPin_A, i + echoPin_A);   // newDistance is the measured distance from the sensor
@@ -771,6 +739,7 @@ void waterSensor() {
   int level3 = readSensor(sensorPowerPin_C, sensorPin_C, val3);
   int level4 = readSensor(sensorPowerPin_D, sensorPin_D, val4);
   int level5 = readSensor(sensorPowerPin_E, sensorPin_E, val5);
+
   if (level1 > 280) {
     Serial.print(cityHeader);
     Serial.println("1");
@@ -806,42 +775,44 @@ int readSensor(int power, int pin, int val) {
   return val;             // send current reading
 }
 
-//void flow_A () {                                               // Interrupt function
-//
-//  flow_frequency_A++;
-//}
-//void flow_B () {                                               // Interrupt function
-//
-//  flow_frequency_B++;
-//}
-//
-//void flowSendData () {
-//
-//  currentTime = millis();
-//  // Every second, calculate and print millilitres/hour
-//  if (currentTime >= (cloopTime + 10))
-//  {
-//    unsigned long dt = currentTime - cloopTime;
-//    cloopTime = currentTime; // Updates cloopTime
-//
-//    // Pulse frequency (Hz) = 7.5Q, Q is flow rate in L/min.
-//    l_second_A = 1000.0 * (flow_frequency_A / 4380.0); // (Pulse frequency x 60 min) / 7.5Q = flowrate in mL/second
-//    volume_New_A += 1.34 * dt * l_second_A / 1000.0; //ml
-//    flow_frequency_A = 0; // Reset Counter
-//
-//    l_second_B = 1000.0 * (flow_frequency_B / 4380.0); // (Pulse frequency x 60 min) / 7.5Q = flowrate in mL/second
-//    volume_New_B += 1.34 * dt * l_second_B / 1000.0; //ml
-//    flow_frequency_B = 0; // Reset Counter
-//
-//    if (volume_New_A != volume_Old_A) {
-//      Serial.print(flowHeaders[0]);
-//      Serial.println(volume_New_A);
-//      volume_Old_A = volume_New_A;
-//    }
-//    if (volume_New_B != volume_Old_B) {
-//      Serial.print(flowHeaders[1]);
-//      Serial.println(volume_New_B);
-//      volume_Old_B = volume_New_B;
-//    }
-//  }
-//}
+
+void flow_A () {                                               // Interrupt function for 1 flow sensor
+
+  flow_frequency_A++;
+}
+void flow_B () {                                               // Interrupt function for the other flow sensor
+
+  flow_frequency_B++;
+}
+
+// This function calculates the volume of water that has passed the flow sensor and sends it to the Pi
+void flowSendData () {
+
+  currentTime = millis();
+  // Every second, calculate and print millilitres/hour
+  if (currentTime >= (cloopTime + 10))
+  {
+    unsigned long dt = currentTime - cloopTime;
+    cloopTime = currentTime; // Updates cloopTime
+
+    // Pulse frequency (Hz) = 7.5Q, Q is flow rate in L/min.
+    l_second_A = 1000.0 * (flow_frequency_A / 4380.0); // (Pulse frequency x 60 min) / 7.5Q = flowrate in mL/second
+    volume_New_A += 1.34 * dt * l_second_A / 1000.0; //ml
+    flow_frequency_A = 0; // Reset Counter
+
+    l_second_B = 1000.0 * (flow_frequency_B / 4380.0); // (Pulse frequency x 60 min) / 7.5Q = flowrate in mL/second
+    volume_New_B += 1.34 * dt * l_second_B / 1000.0; //ml
+    flow_frequency_B = 0; // Reset Counter
+
+    if (volume_New_A != volume_Old_A) {
+      Serial.print(flowHeaders[0]);
+      Serial.println(volume_New_A);
+      volume_Old_A = volume_New_A;
+    }
+    if (volume_New_B != volume_Old_B) {
+      Serial.print(flowHeaders[1]);
+      Serial.println(volume_New_B);
+      volume_Old_B = volume_New_B;
+    }
+  }
+}
